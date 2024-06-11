@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Interfaces
 {
-    internal interface IProduct
+    public interface IProduct
     {
     }
 }

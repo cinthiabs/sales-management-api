@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Core.Interfaces
 {
-    internal class ISale
+    public interface ISale
     {
+        Task<string> ReadExcelExcelToJson(Stream stream);
+        //internal const string QueryInsertSale = @"";
+        //internal const string QueryAlterSale = @"";
+        //internal const string QuerySelectSale = @"";
+        //internal const string QueryDeleteSale = @"";
+        //internal const string QueryGetByIdSale = @"";
     }
 }
