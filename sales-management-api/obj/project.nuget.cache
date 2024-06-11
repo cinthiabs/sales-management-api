@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "MqJC7drh9D4UiRGelCFeiL67z110KWY6rC07RsNgBy0hO48hKes+EF0udbb39gaW9BWNWCfAZl448gdfQV0a/w==",
+  "success": true,
+  "projectFilePath": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\sales-management-api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\LENOVO-EQP364\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\LENOVO-EQP364\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\LENOVO-EQP364\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "C:\\Users\\LENOVO-EQP364\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+    "C:\\Users\\LENOVO-EQP364\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+    "C:\\Users\\LENOVO-EQP364\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.4.0\\swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512"
+  ],
+  "logs": []
+}
