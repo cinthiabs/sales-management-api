@@ -1,4 +1,4 @@
-﻿using Core.Interfaces;
+﻿using Core.Services.Interfaces;
 using Entities.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +24,7 @@ namespace sales_management_api.Controllers
             using (var stream = new MemoryStream())
             {
                 await file.CopyToAsync(stream);
-                var resultado = await _sale.ReadExcelExcelToJson(stream);
+                var resultado = await _sale.ReadExcel(stream);
                 Console.WriteLine(resultado);
             }
             return Ok(file);

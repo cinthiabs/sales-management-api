@@ -3,36 +3,48 @@
   "WorkspaceRootPath": "C:\\GITHUB\\new-project-bread\\sales-management-api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|c:\\github\\new-project-bread\\sales-management-api\\sales-management-api\\controllers\\salecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|solutionrelative:sales-management-api\\controllers\\salecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C844CAEA-DBD9-401E-9130-A81087BF7CC9}|Data.Infrastructure\\Data.Infrastructure.csproj|c:\\github\\new-project-bread\\sales-management-api\\data.infrastructure\\script\\base.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}",
+      "RelativeMoniker": "D:0:0:{C844CAEA-DBD9-401E-9130-A81087BF7CC9}|Data.Infrastructure\\Data.Infrastructure.csproj|solutionrelative:data.infrastructure\\script\\base.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|c:\\github\\new-project-bread\\sales-management-api\\sales-management-api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|solutionrelative:sales-management-api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|c:\\github\\new-project-bread\\sales-management-api\\core\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|solutionrelative:core\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C0C6CFCB-4A95-40B6-8322-A7BFB61E2FA1}|Entities\\Entities.csproj|c:\\github\\new-project-bread\\sales-management-api\\entities\\entities\\products.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C0C6CFCB-4A95-40B6-8322-A7BFB61E2FA1}|Entities\\Entities.csproj|solutionrelative:entities\\entities\\products.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|c:\\github\\new-project-bread\\sales-management-api\\core\\interfaces\\iproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|solutionrelative:core\\interfaces\\iproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|c:\\github\\new-project-bread\\sales-management-api\\core\\interfaces\\isale.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|solutionrelative:core\\interfaces\\isale.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C844CAEA-DBD9-401E-9130-A81087BF7CC9}|Data.Infrastructure\\Data.Infrastructure.csproj|c:\\github\\new-project-bread\\sales-management-api\\data.infrastructure\\repository\\salerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C844CAEA-DBD9-401E-9130-A81087BF7CC9}|Data.Infrastructure\\Data.Infrastructure.csproj|solutionrelative:data.infrastructure\\repository\\salerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|c:\\github\\new-project-bread\\sales-management-api\\core\\services\\saleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|solutionrelative:core\\services\\saleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|c:\\github\\new-project-bread\\sales-management-api\\sales-management-api\\controllers\\salecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|solutionrelative:sales-management-api\\controllers\\salecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C844CAEA-DBD9-401E-9130-A81087BF7CC9}|Data.Infrastructure\\Data.Infrastructure.csproj|c:\\github\\new-project-bread\\sales-management-api\\data.infrastructure\\queries\\salesqlquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C844CAEA-DBD9-401E-9130-A81087BF7CC9}|Data.Infrastructure\\Data.Infrastructure.csproj|solutionrelative:data.infrastructure\\queries\\salesqlquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|c:\\github\\new-project-bread\\sales-management-api\\sales-management-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|solutionrelative:sales-management-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|c:\\github\\new-project-bread\\sales-management-api\\core\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|solutionrelative:core\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|c:\\github\\new-project-bread\\sales-management-api\\core\\core.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|solutionrelative:core\\core.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|c:\\github\\new-project-bread\\sales-management-api\\sales-management-api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|solutionrelative:sales-management-api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|c:\\github\\new-project-bread\\sales-management-api\\core\\services\\interfaces\\iproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|solutionrelative:core\\services\\interfaces\\iproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C844CAEA-DBD9-401E-9130-A81087BF7CC9}|Data.Infrastructure\\Data.Infrastructure.csproj|c:\\github\\new-project-bread\\sales-management-api\\data.infrastructure\\script\\base.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame",
+      "RelativeMoniker": "D:0:0:{C844CAEA-DBD9-401E-9130-A81087BF7CC9}|Data.Infrastructure\\Data.Infrastructure.csproj|solutionrelative:data.infrastructure\\script\\base.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +54,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,12 +62,63 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "base.sql ",
+              "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Data.Infrastructure\\Script\\base.sql",
+              "RelativeDocumentMoniker": "Data.Infrastructure\\Script\\base.sql",
+              "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Data.Infrastructure\\Script\\base.sql",
+              "RelativeToolTip": "Data.Infrastructure\\Script\\base.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-06-12T19:19:04.425Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "SaleSqlQuery.cs",
+              "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Data.Infrastructure\\Queries\\SaleSqlQuery.cs",
+              "RelativeDocumentMoniker": "Data.Infrastructure\\Queries\\SaleSqlQuery.cs",
+              "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Data.Infrastructure\\Queries\\SaleSqlQuery.cs",
+              "RelativeToolTip": "Data.Infrastructure\\Queries\\SaleSqlQuery.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-12T18:55:19.518Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SaleRepository.cs",
+              "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Data.Infrastructure\\Repository\\SaleRepository.cs",
+              "RelativeDocumentMoniker": "Data.Infrastructure\\Repository\\SaleRepository.cs",
+              "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Data.Infrastructure\\Repository\\SaleRepository.cs",
+              "RelativeToolTip": "Data.Infrastructure\\Repository\\SaleRepository.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAA5wCkAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-12T18:48:34.153Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Core",
+              "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Core.csproj",
+              "RelativeDocumentMoniker": "Core\\Core.csproj",
+              "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Core.csproj",
+              "RelativeToolTip": "Core\\Core.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-06-12T18:46:33.392Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "IProduct.cs",
-              "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Interfaces\\IProduct.cs",
-              "RelativeDocumentMoniker": "Core\\Interfaces\\IProduct.cs",
-              "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Interfaces\\IProduct.cs",
-              "RelativeToolTip": "Core\\Interfaces\\IProduct.cs",
+              "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Services\\Interfaces\\IProduct.cs",
+              "RelativeDocumentMoniker": "Core\\Services\\Interfaces\\IProduct.cs",
+              "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Services\\Interfaces\\IProduct.cs",
+              "RelativeToolTip": "Core\\Services\\Interfaces\\IProduct.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-12T10:39:41.136Z",
@@ -63,33 +126,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Products.cs",
-              "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Entities\\Entities\\Products.cs",
-              "RelativeDocumentMoniker": "Entities\\Entities\\Products.cs",
-              "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Entities\\Entities\\Products.cs",
-              "RelativeToolTip": "Entities\\Entities\\Products.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-12T10:30:06.009Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ISale.cs",
-              "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Interfaces\\ISale.cs",
-              "RelativeDocumentMoniker": "Core\\Interfaces\\ISale.cs",
-              "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Interfaces\\ISale.cs",
-              "RelativeToolTip": "Core\\Interfaces\\ISale.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAqwBEAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T21:21:42.754Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 8,
               "Title": "ProductController.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\Controllers\\ProductController.cs",
               "RelativeDocumentMoniker": "sales-management-api\\Controllers\\ProductController.cs",
@@ -102,54 +139,55 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "SaleController.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\Controllers\\SaleController.cs",
               "RelativeDocumentMoniker": "sales-management-api\\Controllers\\SaleController.cs",
               "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\Controllers\\SaleController.cs",
               "RelativeToolTip": "sales-management-api\\Controllers\\SaleController.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAAwB8AAAAgAAAA",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAAwBMAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-11T20:56:49.312Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
               "Title": "SaleService.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Services\\SaleService.cs",
               "RelativeDocumentMoniker": "Core\\Services\\SaleService.cs",
               "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Services\\SaleService.cs",
               "RelativeToolTip": "Core\\Services\\SaleService.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAqwBgAAAApAAAA",
+              "ViewState": "AQIAAC4AAAAAAAAAAAAYwD4AAAALAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-11T20:51:28.276Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "ProductService.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Services\\ProductService.cs",
               "RelativeDocumentMoniker": "Core\\Services\\ProductService.cs",
               "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Services\\ProductService.cs",
               "RelativeToolTip": "Core\\Services\\ProductService.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAABYAAAAzAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAsAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-11T20:51:18.651Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\Program.cs",
               "RelativeDocumentMoniker": "sales-management-api\\Program.cs",
               "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\Program.cs",
               "RelativeToolTip": "sales-management-api\\Program.cs",
-              "ViewState": "AQIAABYAAAAAAAAAAAAAACMAAAAAAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAABoAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T20:46:45.015Z"
+              "WhenOpened": "2024-06-11T20:46:45.015Z",
+              "EditorCaption": ""
             }
           ]
         }

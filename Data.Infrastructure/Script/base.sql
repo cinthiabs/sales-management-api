@@ -1,7 +1,7 @@
 use DB_Sales
 
 CREATE TABLE Sale (
-    Id INT PRIMARY KEY,
+    Id INT PRIMARY KEY IDENTITY,
 	IdProduto INT,
     DateSale DATETIME NOT NULL,
     Name NVARCHAR(255) NOT NULL,
@@ -9,11 +9,12 @@ CREATE TABLE Sale (
     Quantity INT NOT NULL,
     Price DECIMAL(18,2) NOT NULL,
 	DataCreate DATETIME NOT NULL,
+	PAY BIT,
 	DataEdit DATETIME 
 );
 
 CREATE TABLE Product (
-    Id INT PRIMARY KEY,
+    Id INT PRIMARY KEY IDENTITY,
     Name NVARCHAR(255) NOT NULL,
     Details NVARCHAR(MAX),
 	Active BIT NOT NULL,

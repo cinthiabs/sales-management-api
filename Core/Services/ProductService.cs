@@ -1,4 +1,4 @@
-﻿using Core.Interfaces;
+﻿using Core.Services.Interfaces;
 using Entities.Entities;
 using System;
 using System.Collections.Generic;

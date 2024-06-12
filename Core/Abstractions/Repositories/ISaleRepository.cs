@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Interfaces
+namespace Core.Abstractions.Repositories
 {
-    public interface ISale
+    public interface ISaleRepository
     {
-        Task<string> ReadExcelExcelToJson(Stream stream);
         Task<Sales> CreateSale(Sales sale);
+        Task<bool> CreateSaleList(List<Sales> sale);
         Task<Sales> UpdateSale(Sales sale);
         Task<Sales> DeleteSale(int id);
         Task<Sales> GetSales();

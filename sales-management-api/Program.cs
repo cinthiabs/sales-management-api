@@ -1,5 +1,7 @@
-using Core.Interfaces;
+using Core.Abstractions.Repositories;
 using Core.Services;
+using Core.Services.Interfaces;
+using Data.Infrastructure.Repository;
 using Entities.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +24,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<ISale, SaleService>();
 builder.Services.AddScoped<IProduct, ProductService>();
-
+builder.Services.AddScoped<ISaleRepository, SaleRepository>();
 
 var app = builder.Build();
 

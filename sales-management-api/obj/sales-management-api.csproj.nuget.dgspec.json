@@ -57,6 +57,10 @@
               "target": "Package",
               "version": "[7.1.3, )"
             },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[5.2.1, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
@@ -109,7 +113,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Core.csproj": {
+                "projectPath": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -126,6 +134,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.1.35, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
