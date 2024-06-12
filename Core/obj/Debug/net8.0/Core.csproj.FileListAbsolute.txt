@@ -11,3 +11,6 @@ C:\GITHUB\new-project-bread\sales-management-api\Core\obj\Debug\net8.0\refint\Co
 C:\GITHUB\new-project-bread\sales-management-api\Core\obj\Debug\net8.0\Core.pdb
 C:\GITHUB\new-project-bread\sales-management-api\Core\obj\Debug\net8.0\ref\Core.dll
 C:\GITHUB\new-project-bread\sales-management-api\Core\obj\Debug\net8.0\Core.csproj.AssemblyReference.cache
+C:\GITHUB\new-project-bread\sales-management-api\Core\bin\Debug\net8.0\Entities.dll
+C:\GITHUB\new-project-bread\sales-management-api\Core\bin\Debug\net8.0\Entities.pdb
+C:\GITHUB\new-project-bread\sales-management-api\Core\obj\Debug\net8.0\Core.csproj.Up2Date

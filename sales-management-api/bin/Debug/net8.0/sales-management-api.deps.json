@@ -211,6 +211,7 @@
       "Core/1.0.0": {
         "dependencies": {
           "EPPlus": "7.1.3",
+          "Entities": "1.0.0",
           "Newtonsoft.Json": "13.0.3"
         },
         "runtime": {

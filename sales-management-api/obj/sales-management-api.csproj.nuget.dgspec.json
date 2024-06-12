@@ -31,7 +31,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\GITHUB\\new-project-bread\\sales-management-api\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Entities\\Entities.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

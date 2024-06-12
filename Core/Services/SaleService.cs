@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces;
+using Entities.Entities;
 using Newtonsoft.Json;
 using OfficeOpenXml;
 using System;
@@ -11,6 +12,29 @@ namespace Core.Services
 {
     public class SaleService : ISale
     {
+        public Task<Sales> CreateSale(Sales sale)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Sales> DeleteSale(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Sales> GetByIdSale(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Sales> GetSales()
+        {
+            throw new NotImplementedException();
+        }
+        public Task<Sales> UpdateSale(Sales sale)
+        {
+            throw new NotImplementedException();
+        }
         public async Task<string> ReadExcelExcelToJson(Stream stream)
         {
              ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
@@ -44,5 +68,7 @@ namespace Core.Services
              }
           
         }
+
+        
     }
 }
