@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Core.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace sales_management_api.Controllers
@@ -7,6 +8,11 @@ namespace sales_management_api.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-       
+        private readonly IProduct _product;
+        public ProductController(IProduct product)
+        {
+            _product = product;
+        }
+
     }
 }

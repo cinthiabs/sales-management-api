@@ -4,12 +4,6 @@ using Data.Infrastructure.Queries;
 using Entities.Entities;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace Data.Infrastructure.Repository
 {
@@ -41,7 +35,7 @@ namespace Data.Infrastructure.Repository
                 parameters.Add("@Price", sale.Price);
                 parameters.Add("@DataCreate", DateTime.Now);
 
-                int result = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSaleList, parameters);
+                int result = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
 
                 if (result > 0)
                 {

@@ -2,14 +2,32 @@
 {
     internal static class SaleSqlQuery
     {
-        internal const string QueryCreateSaleList = @"
+        internal const string QueryCreateSale = @"
         INSERT INTO Sale (DateSale, Name, Details, Quantity, Price, DataCreate)
         VALUES (@DateSale, @Name, @Details, @Quantity, @Price, @DataCreate);";
+
+        internal const string QueryUpdateSale = @"
+        UPDATE Sale
+        SET
+            DateSale = @DateSale,
+            Name = @Name,
+            Details = @Details,
+            Quantity = @Quantity,
+            Price = @Price,
+            PAY = @Pay,
+            DataEdit = @DataEdit
+        WHERE
+            Id = @Id;";
         
-        internal const string QueryCreateSale = @"";
-        internal const string QueryUpdateSale = @"";
-        internal const string QuerySelectSale = @"";
-        internal const string QueryDeleteSale = @"";
-        internal const string QueryGetByIdSale = @"";
+        internal const string QuerySelectSale = @"
+        SELECT * FROM Sale";
+        
+        internal const string QueryDeleteSale = @"
+        DELETE FROM Sale
+        WHERE Id = @Id";
+        
+        internal const string QueryGetByIdSale = @"
+        SELECT * FROM Sale
+        WHERE Id = @Id";
     }
 }
