@@ -1,8 +1,10 @@
-﻿using Core.Services.Interfaces;
+﻿using Azure;
+using Core.Services.Interfaces;
 using Entities.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
+using Swashbuckle.AspNetCore.Annotations;
+
 
 namespace sales_management_api.Controllers
 {
@@ -16,6 +18,12 @@ namespace sales_management_api.Controllers
             _sale = sale;   
         }
         [HttpPost("UploadExcel")]
+        [SwaggerOperation(OperationId = "UploadExcel", Description = "Import datas to Sale")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
         public async Task<IActionResult> UploadExcel(IFormFile file)
         {
             if (file is null && file?.Length == 0)

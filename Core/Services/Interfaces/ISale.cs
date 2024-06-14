@@ -14,7 +14,7 @@ namespace Core.Services.Interfaces
         Task<string> CreateSaleList(List<Sales> sale);
         Task<Sales> UpdateSale(Sales sale);
         Task<Sales> DeleteSale(int id);
-        Task<Sales> GetSales();
+        Task<IEnumerable<Sales>> GetSales();
         Task<Sales> GetByIdSale(int id);
     }
 }

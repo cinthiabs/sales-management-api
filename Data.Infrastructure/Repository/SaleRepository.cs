@@ -1,4 +1,4 @@
-﻿using Core.Abstractions.Repositories;
+﻿using Core.Repositories;
 using Dapper;
 using Data.Infrastructure.Queries;
 using Entities.Entities;
@@ -16,9 +16,19 @@ namespace Data.Infrastructure.Repository
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             _conn = new SqlConnection(connectionString);
         }
-        public Task<Sales> CreateSale(Sales sale)
+        public async Task<Sales> CreateSale(Sales sale)
         {
-            throw new NotImplementedException();
+            var parameters = new DynamicParameters();
+            parameters.Add("@DateSale", sale.DateSale);
+            parameters.Add("@Name", sale.Name);
+            parameters.Add("@Details", sale.Details);
+            parameters.Add("@Quantity", sale.Quantity);
+            parameters.Add("@Price", sale.Price);
+            parameters.Add("@DataCreate", DateTime.Now);
+
+            int id = await _conn.QuerySingleAsync<int>(SaleSqlQuery.QueryCreateSale, parameters);
+            sale.Id = id;
+            return sale;
         }
 
         public async Task<bool> CreateSaleList(List<Sales> sales)
@@ -27,43 +37,62 @@ namespace Data.Infrastructure.Repository
 
             foreach (var sale in sales)
             {
-                var parameters = new DynamicParameters();
-                parameters.Add("@DateSale", sale.DateSale);
-                parameters.Add("@Name", sale.Name);
-                parameters.Add("@Details", sale.Details);
-                parameters.Add("@Quantity", sale.Quantity);
-                parameters.Add("@Price", sale.Price);
-                parameters.Add("@DataCreate", DateTime.Now);
-
-                int result = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
-
-                if (result > 0)
+                if (!string.IsNullOrEmpty(sale.Name))
                 {
-                    success = true;
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@DateSale", sale.DateSale);
+                    parameters.Add("@Name", sale.Name);
+                    parameters.Add("@Details", sale.Details);
+                    parameters.Add("@Quantity", sale.Quantity);
+                    parameters.Add("@Price", sale.Price);
+                    parameters.Add("@DataCreate", DateTime.Now);
+
+                    int result = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
+
+                    if (result > 0)
+                    {
+                        success = true;
+                    }
                 }
+                
             }
 
             return success;
         }
 
-        public Task<Sales> DeleteSale(int id)
+        public async Task<int> DeleteSale(int id)
         {
-            throw new NotImplementedException();
+            var parameters = new { id };
+            return  await _conn.ExecuteAsync(SaleSqlQuery.QueryGetByIdSale, parameters);
+            
         }
 
-        public Task<Sales> GetByIdSale(int id)
+        public async Task<Sales> GetByIdSale(int id)
         {
-            throw new NotImplementedException();
+            var parameters = new { id };
+            var sale = await _conn.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryGetByIdSale, parameters);
+            return sale!;
         }
 
-        public Task<Sales> GetSales()
+        public async Task<IEnumerable<Sales>> GetSales()
         {
-            throw new NotImplementedException();
+            return await _conn.QueryAsync<Sales>(SaleSqlQuery.QuerySelectSale);
         }
 
-        public Task<Sales> UpdateSale(Sales sale)
+        public async Task<int> UpdateSale(Sales sale)
         {
-            throw new NotImplementedException();
+            var parameters = new 
+            {
+                sale.Id,
+                sale.Name,
+                sale.Price,
+                sale.Details,
+                sale.Quantity,
+                sale.Pay,
+                @DataEdit = DateTime.Now
+            };
+
+            return await _conn.ExecuteAsync(SaleSqlQuery.QueryUpdateSale, parameters);
         }
     }
 }

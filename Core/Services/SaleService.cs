@@ -1,4 +1,4 @@
-﻿using Core.Abstractions.Repositories;
+﻿using Core.Repositories;
 using Core.Services.Interfaces;
 using Entities.Entities;
 using Microsoft.Data.SqlClient;
@@ -37,9 +37,10 @@ namespace Core.Services
             throw new NotImplementedException();
         }
 
-        public Task<Sales> GetSales()
+        public async Task<IEnumerable<Sales>> GetSales()
         {
-            throw new NotImplementedException();
+            var sales = await _saleRepository.GetSales();
+            return sales;
         }
         public Task<Sales> UpdateSale(Sales sale)
         {
@@ -72,7 +73,7 @@ namespace Core.Services
         }
         private async Task<dynamic> ReadExcelExcelToJson(Stream stream)
         {
-             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
              var rows = new List<Dictionary<string, Object>>();
              dynamic result = new ExpandoObject();
 
@@ -99,7 +100,6 @@ namespace Core.Services
                      }
                      rows.Add(rowData);
                  }
-                 var json = JsonConvert.SerializeObject(rows);
                  return result = rows;
              }
           

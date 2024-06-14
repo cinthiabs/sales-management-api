@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Abstractions.Repositories
+namespace Core.Repositories
 {
     public interface ISaleRepository
     {
         Task<Sales> CreateSale(Sales sale);
         Task<bool> CreateSaleList(List<Sales> sale);
-        Task<Sales> UpdateSale(Sales sale);
-        Task<Sales> DeleteSale(int id);
-        Task<Sales> GetSales();
+        Task<int> UpdateSale(Sales sale);
+        Task<int> DeleteSale(int id);
+        Task <IEnumerable<Sales>> GetSales();
         Task<Sales> GetByIdSale(int id);
     }
 }

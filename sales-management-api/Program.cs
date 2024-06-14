@@ -1,4 +1,4 @@
-using Core.Abstractions.Repositories;
+using Core.Repositories;
 using Core.Services;
 using Core.Services.Interfaces;
 using Data.Infrastructure.Repository;
