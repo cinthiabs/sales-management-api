@@ -33,7 +33,7 @@ namespace sales_management_api.Controllers
             {
                 await file.CopyToAsync(stream);
                 var resultado = await _sale.ReadExcel(stream);
-                Console.WriteLine(resultado);
+                
             }
             return Ok(file);
         }

@@ -41,7 +41,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Configure to use HTTP
-app.Urls.Add("https://localhost:7289");
 
 app.Run();

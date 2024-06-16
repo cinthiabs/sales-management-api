@@ -31,30 +31,26 @@ namespace Data.Infrastructure.Repository
             return sale;
         }
 
-        public async Task<bool> CreateSaleList(List<Sales> sales)
+        public async Task<bool> CreateSaleList(Sales sale)
         {
             bool success = false;
 
-            foreach (var sale in sales)
+            if (!string.IsNullOrEmpty(sale.Name))
             {
-                if (!string.IsNullOrEmpty(sale.Name))
+                var parameters = new DynamicParameters();
+                parameters.Add("@DateSale", sale.DateSale);
+                parameters.Add("@Name", sale.Name);
+                parameters.Add("@Details", sale.Details);
+                parameters.Add("@Quantity", sale.Quantity);
+                parameters.Add("@Price", sale.Price);
+                parameters.Add("@DataCreate", DateTime.Now);
+
+                int result = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
+
+                if (result > 0)
                 {
-                    var parameters = new DynamicParameters();
-                    parameters.Add("@DateSale", sale.DateSale);
-                    parameters.Add("@Name", sale.Name);
-                    parameters.Add("@Details", sale.Details);
-                    parameters.Add("@Quantity", sale.Quantity);
-                    parameters.Add("@Price", sale.Price);
-                    parameters.Add("@DataCreate", DateTime.Now);
-
-                    int result = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
-
-                    if (result > 0)
-                    {
-                        success = true;
-                    }
+                    success = true;
                 }
-                
             }
 
             return success;
@@ -67,11 +63,21 @@ namespace Data.Infrastructure.Repository
             
         }
 
+        public Task<List<Sales>> GetByFilters(DateTime dataStart, DateTime dataEnd)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Sales> GetByIdSale(int id)
         {
             var parameters = new { id };
             var sale = await _conn.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryGetByIdSale, parameters);
             return sale!;
+        }
+
+        public Task<bool> GetBySaleParameters(Sales sale)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<Sales>> GetSales()

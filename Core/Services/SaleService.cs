@@ -1,16 +1,8 @@
 ﻿using Core.Repositories;
 using Core.Services.Interfaces;
 using Entities.Entities;
-using Microsoft.Data.SqlClient;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using OfficeOpenXml;
-using System;
-using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Services
 {
@@ -32,77 +24,110 @@ namespace Core.Services
             throw new NotImplementedException();
         }
 
-        public Task<Sales> GetByIdSale(int id)
+        public async Task<Response<Sales>> GetByIdSale(int id)
         {
-            throw new NotImplementedException();
+            var sale = await _saleRepository.GetByIdSale(id);
+            return new Response<Sales>
+            {
+                Status = 200,
+                Message = "Success",
+                Dados = sale
+            };
         }
 
         public async Task<IEnumerable<Sales>> GetSales()
         {
             var sales = await _saleRepository.GetSales();
+
             return sales;
         }
         public Task<Sales> UpdateSale(Sales sale)
         {
             throw new NotImplementedException();
         }
-        public async Task<List<Sales>> ReadExcel(Stream stream)
+        public async Task<Response<List<Sales>>> ReadExcel(Stream stream)
         {
             var sales = new List<Sales>();
+
             var readExcelExcelToJson = await ReadExcelExcelToJson(stream);
-            if(readExcelExcelToJson is null)
-                return null;
+            if (readExcelExcelToJson == null)
+            {
+                return new Response<List<Sales>>
+                {
+                    Status = 400,
+                    Message = "Sale invalid!",
+                    Dados = null 
+                };
+            }
+
+            sales = await TransformJsontoObj(readExcelExcelToJson);
+            var created = await CreateSaleList(sales);
+
+            if (created)
+            {
+                return new Response<List<Sales>>
+                {
+                    Status = 200,
+                    Message = "Success",
+                    Dados = sales
+                };
+            }
             else
             {
-                sales = await TransformJsontoObj(readExcelExcelToJson);
-                var created = await CreateSaleList(sales);
+                return new Response<List<Sales>>
+                {
+                    Status = 400,
+                    Message = "Failed to register sales",
+                    Dados = null 
+                };
             }
-            return sales;
         }
-        public async Task<string> CreateSaleList(List<Sales> sale)
+
+        public async Task<bool> CreateSaleList(List<Sales> sale)
         {
-           bool result = await _saleRepository.CreateSaleList(sale);
-            if(result)
+            bool result = false;
+
+            foreach (var item in sale)
             {
-                return "Sucesso"; 
+                var validateInData = _saleRepository.GetBySaleParameters(item);
+
+                if (validateInData == null)
+                {
+                    result = await _saleRepository.CreateSaleList(item);
+                }
             }
-            else
-            {
-                return "Nenhum registro foi inserido.";
-            }
+            return result;
         }
-        private async Task<dynamic> ReadExcelExcelToJson(Stream stream)
+        private Task<dynamic> ReadExcelExcelToJson(Stream stream)
         {
              ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
              var rows = new List<Dictionary<string, Object>>();
              dynamic result = new ExpandoObject();
 
-            using (var package = new ExcelPackage(stream))
+            using var package = new ExcelPackage(stream);
+            var worksheet = package.Workbook.Worksheets[0];
+            int totalColumns = worksheet.Dimension.Columns;
+            int totalRows = worksheet.Dimension.Rows;
+
+            var columnNames = new List<string>();
+            for (int col = 1; col <= totalColumns; col++)
             {
-                 var worksheet = package.Workbook.Worksheets[0];
-                 int totalColumns = worksheet.Dimension.Columns;
-                 int totalRows = worksheet.Dimension.Rows;
+                columnNames.Add(worksheet.Cells[1, col].Text);
+            }
 
-                 var columnNames = new List<string>();
-                 for (int col = 1; col <= totalColumns; col++)
-                 {
-                     columnNames.Add(worksheet.Cells[1, col].Text);
-                 }
+            for (int row = 2; row <= totalRows; row++)
+            {
+                var rowData = new Dictionary<string, object>();
+                for (int col = 1; col <= totalColumns; col++)
+                {
+                    string columnName = columnNames[col - 1];
+                    object cellValue = worksheet.Cells[row, col].Text;
+                    rowData[columnName] = cellValue;
+                }
+                rows.Add(rowData);
+            }
+            return result = rows;
 
-                 for (int row = 2; row <= totalRows; row++)
-                 {
-                     var rowData = new Dictionary<string, object>();
-                     for (int col = 1; col <= totalColumns; col++)
-                     {
-                         string columnName = columnNames[col - 1];
-                         object cellValue = worksheet.Cells[row, col].Text;
-                         rowData[columnName] = cellValue;
-                     }
-                     rows.Add(rowData);
-                 }
-                 return result = rows;
-             }
-          
         }
         private async Task<List<Sales>> TransformJsontoObj(dynamic obj)
         {
@@ -147,7 +172,7 @@ namespace Core.Services
                 sales.Add(sale);
             }
 
-            return sales;
+            return await Task.FromResult(sales);
         }
 
     }
