@@ -2,6 +2,7 @@
 using Core.Services.Interfaces;
 using Entities.Entities;
 using OfficeOpenXml;
+using System.ComponentModel.DataAnnotations;
 using System.Dynamic;
 
 namespace Core.Services
@@ -13,74 +14,60 @@ namespace Core.Services
         {
             _saleRepository = saleRepository;
         }
-        public Task<Sales> CreateSale(Sales sale)
+        public async Task<Sales> CreateSale(Sales sale)
         {
-            throw new NotImplementedException();
+            var result =  await _saleRepository.CreateSale(sale);
+            return result;
         }
         
-
-        public Task<Sales> DeleteSale(int id)
+        public async Task<bool> DeleteSale(int id)
         {
-            throw new NotImplementedException();
+            var record = await _saleRepository.GetByIdSale(id);
+            if(record is not null) 
+            {
+                var rowsAffected = await _saleRepository.DeleteSale(id);
+                return rowsAffected;
+            }
+            return false;
         }
 
-        public async Task<Response<Sales>> GetByIdSale(int id)
+        public async Task<Sales> GetByIdSale(int id)
         {
             var sale = await _saleRepository.GetByIdSale(id);
-            return new Response<Sales>
-            {
-                Status = 200,
-                Message = "Success",
-                Dados = sale
-            };
+            return sale;
         }
 
         public async Task<IEnumerable<Sales>> GetSales()
         {
             var sales = await _saleRepository.GetSales();
-
             return sales;
         }
-        public Task<Sales> UpdateSale(Sales sale)
+        public async Task<bool> UpdateSale(Sales sale)
         {
-            throw new NotImplementedException();
+            var record = await _saleRepository.GetByIdSale(sale.Id);
+            if (record is not null)
+            {
+                var updated = await _saleRepository.UpdateSale(sale);
+                return updated;
+            }
+            return false;     
         }
-        public async Task<Response<List<Sales>>> ReadExcel(Stream stream)
+        public async Task<IEnumerable<Sales>> ReadExcel(Stream stream)
         {
             var sales = new List<Sales>();
 
             var readExcelExcelToJson = await ReadExcelExcelToJson(stream);
-            if (readExcelExcelToJson == null)
+            if (readExcelExcelToJson is not null)
             {
-                return new Response<List<Sales>>
-                {
-                    Status = 400,
-                    Message = "Sale invalid!",
-                    Dados = null 
-                };
-            }
+                sales = await TransformJsontoObj(readExcelExcelToJson);
+                var created = await CreateSaleList(sales);
 
-            sales = await TransformJsontoObj(readExcelExcelToJson);
-            var created = await CreateSaleList(sales);
-
-            if (created)
-            {
-                return new Response<List<Sales>>
+                if (created)
                 {
-                    Status = 200,
-                    Message = "Success",
-                    Dados = sales
-                };
+                    return sales;
+                }
             }
-            else
-            {
-                return new Response<List<Sales>>
-                {
-                    Status = 400,
-                    Message = "Failed to register sales",
-                    Dados = null 
-                };
-            }
+            return sales;   
         }
 
         public async Task<bool> CreateSaleList(List<Sales> sale)

@@ -56,14 +56,15 @@ namespace Data.Infrastructure.Repository
             return success;
         }
 
-        public async Task<int> DeleteSale(int id)
+        public async Task<bool> DeleteSale(int id)
         {
             var parameters = new { id };
-            return  await _conn.ExecuteAsync(SaleSqlQuery.QueryGetByIdSale, parameters);
+            var  delete = await _conn.ExecuteAsync(SaleSqlQuery.QueryDeleteSale, parameters);
+            return delete > 0;
             
         }
 
-        public Task<List<Sales>> GetByFilters(DateTime dataStart, DateTime dataEnd)
+        public Task<IEnumerable<Sales>> GetByFilters(DateTime dataStart, DateTime dataEnd)
         {
             throw new NotImplementedException();
         }
@@ -75,17 +76,18 @@ namespace Data.Infrastructure.Repository
             return sale!;
         }
 
-        public Task<bool> GetBySaleParameters(Sales sale)
+        public Task<IEnumerable<Sales>> GetBySaleParameters(Sales sale)
         {
             throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<Sales>> GetSales()
         {
-            return await _conn.QueryAsync<Sales>(SaleSqlQuery.QuerySelectSale);
+            var sale = await _conn.QueryAsync<Sales>(SaleSqlQuery.QuerySelectSale);
+            return sale;
         }
 
-        public async Task<int> UpdateSale(Sales sale)
+        public async Task<bool> UpdateSale(Sales sale)
         {
             var parameters = new 
             {
@@ -95,10 +97,14 @@ namespace Data.Infrastructure.Repository
                 sale.Details,
                 sale.Quantity,
                 sale.Pay,
+                sale.DateSale,
                 @DataEdit = DateTime.Now
+                
             };
 
-            return await _conn.ExecuteAsync(SaleSqlQuery.QueryUpdateSale, parameters);
+            var update = await _conn.ExecuteAsync(SaleSqlQuery.QueryUpdateSale, parameters);
+            return update > 0;
         }
+
     }
 }

@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\GITHUB\\new-project-bread\\sales-management-api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|c:\\github\\new-project-bread\\sales-management-api\\core\\services\\saleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|solutionrelative:core\\services\\saleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|c:\\github\\new-project-bread\\sales-management-api\\sales-management-api\\controllers\\salecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|solutionrelative:sales-management-api\\controllers\\salecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C844CAEA-DBD9-401E-9130-A81087BF7CC9}|Data.Infrastructure\\Data.Infrastructure.csproj|c:\\github\\new-project-bread\\sales-management-api\\data.infrastructure\\repository\\salerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C844CAEA-DBD9-401E-9130-A81087BF7CC9}|Data.Infrastructure\\Data.Infrastructure.csproj|solutionrelative:data.infrastructure\\repository\\salerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|c:\\github\\new-project-bread\\sales-management-api\\core\\services\\saleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|solutionrelative:core\\services\\saleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|c:\\github\\new-project-bread\\sales-management-api\\core\\repositories\\isalerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -46,11 +46,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SaleRepository.cs",
+              "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Data.Infrastructure\\Repository\\SaleRepository.cs",
+              "RelativeDocumentMoniker": "Data.Infrastructure\\Repository\\SaleRepository.cs",
+              "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Data.Infrastructure\\Repository\\SaleRepository.cs",
+              "RelativeToolTip": "Data.Infrastructure\\Repository\\SaleRepository.cs",
+              "ViewState": "AQIAAFMAAAAAAAAAAAApwFMAAAA4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-17T12:26:29.92Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SaleController.cs",
+              "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\Controllers\\SaleController.cs",
+              "RelativeDocumentMoniker": "sales-management-api\\Controllers\\SaleController.cs",
+              "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\Controllers\\SaleController.cs",
+              "RelativeToolTip": "sales-management-api\\Controllers\\SaleController.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAWwCAAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-17T12:06:30.164Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -60,22 +86,9 @@
               "RelativeDocumentMoniker": "Core\\Repositories\\ISaleRepository.cs",
               "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Repositories\\ISaleRepository.cs",
               "RelativeToolTip": "Core\\Repositories\\ISaleRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwA0AAABUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-16T17:28:53.721Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SaleRepository.cs",
-              "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Data.Infrastructure\\Repository\\SaleRepository.cs",
-              "RelativeDocumentMoniker": "Data.Infrastructure\\Repository\\SaleRepository.cs",
-              "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Data.Infrastructure\\Repository\\SaleRepository.cs",
-              "RelativeToolTip": "Data.Infrastructure\\Repository\\SaleRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACcAAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-12T18:48:34.153Z",
+              "WhenOpened": "2024-06-17T11:55:42.983Z",
               "EditorCaption": ""
             },
             {
@@ -92,13 +105,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "SaleService.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Services\\SaleService.cs",
               "RelativeDocumentMoniker": "Core\\Services\\SaleService.cs",
               "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Services\\SaleService.cs",
               "RelativeToolTip": "Core\\Services\\SaleService.cs",
-              "ViewState": "AQIAAC4AAAAAAAAAAAArwD0AAAAAAAAA",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAWwBsAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-11T20:51:28.276Z",
               "EditorCaption": ""
@@ -125,8 +138,7 @@
               "RelativeToolTip": "Data.Infrastructure\\Queries\\SaleSqlQuery.cs",
               "ViewState": "AQIAAAwAAAAAAAAAAAAAABUAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T13:24:04.444Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-13T13:24:04.444Z"
             },
             {
               "$type": "Document",
@@ -139,19 +151,6 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-11T20:57:07.206Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SaleController.cs",
-              "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\Controllers\\SaleController.cs",
-              "RelativeDocumentMoniker": "sales-management-api\\Controllers\\SaleController.cs",
-              "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\Controllers\\SaleController.cs",
-              "RelativeToolTip": "sales-management-api\\Controllers\\SaleController.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAIA2wCIAAAA1AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T20:56:49.312Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",
