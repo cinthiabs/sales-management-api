@@ -52,44 +52,53 @@ namespace Core.Services
             }
             return false;     
         }
-        public async Task<IEnumerable<Sales>> ReadExcel(Stream stream)
+        public async Task<bool> ReadExcel(Stream stream)
         {
-            var sales = new List<Sales>();
+            bool saleBool = false;
 
             var readExcelExcelToJson = await ReadExcelExcelToJson(stream);
             if (readExcelExcelToJson is not null)
             {
-                sales = await TransformJsontoObj(readExcelExcelToJson);
+                var sales = await TransformJsontoObj(readExcelExcelToJson);
                 var created = await CreateSaleList(sales);
 
                 if (created)
                 {
-                    return sales;
+                     saleBool = true;
                 }
             }
-            return sales;   
+            return saleBool;   
         }
 
         public async Task<bool> CreateSaleList(List<Sales> sale)
         {
             bool result = false;
+            
 
             foreach (var item in sale)
             {
-                var validateInData = _saleRepository.GetBySaleParameters(item);
-
-                if (validateInData == null)
+                if( item.Name is not null)
                 {
-                    result = await _saleRepository.CreateSaleList(item);
+                    var saleExist = await _saleRepository.GetBySaleParameters(item);
+
+                    if (saleExist.Id == 0)
+                    {
+                        result = await _saleRepository.CreateSaleList(item);
+                    }
+                    else
+                    {
+                        result = false;
+                    }
                 }
+                
             }
             return result;
         }
-        private Task<dynamic> ReadExcelExcelToJson(Stream stream)
+        private async Task<dynamic> ReadExcelExcelToJson(Stream stream)
         {
              ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
              var rows = new List<Dictionary<string, Object>>();
-             dynamic result = new ExpandoObject();
+             _ = new ExpandoObject();
 
             using var package = new ExcelPackage(stream);
             var worksheet = package.Workbook.Worksheets[0];
@@ -113,7 +122,7 @@ namespace Core.Services
                 }
                 rows.Add(rowData);
             }
-            return result = rows;
+            return await Task.FromResult((dynamic)rows);
 
         }
         private async Task<List<Sales>> TransformJsontoObj(dynamic obj)

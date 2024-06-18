@@ -31,9 +31,8 @@ namespace sales_management_api.Controllers
             {
                 await file.CopyToAsync(stream);
                 var resultado = await _sale.ReadExcel(stream);
-                
+                return resultado ? Ok("Upload completed successfully!") : Conflict("Sale already exists!");
             }
-            return Ok(file);
         }
         [HttpGet("GetAllSales")]
         [ProducesResponseType(typeof(IEnumerable<Sales>), StatusCodes.Status200OK)]

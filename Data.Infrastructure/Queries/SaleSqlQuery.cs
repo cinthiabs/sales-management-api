@@ -29,5 +29,13 @@
         internal const string QueryGetByIdSale = @"
         SELECT * FROM Sale
         WHERE Id = @Id";
+
+        internal const string QueryBySaleParameters = @"
+        SELECT * FROM Sale
+        WHERE 
+        DateSale = @DateSale 
+        and Price = @Price  
+        and Quantity = @Quantity
+        and Name = @Name";  
     }
 }

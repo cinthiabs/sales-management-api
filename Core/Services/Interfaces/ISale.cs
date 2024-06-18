@@ -9,7 +9,7 @@ namespace Core.Services.Interfaces
 {
     public interface ISale
     {
-        Task<IEnumerable<Sales>> ReadExcel(Stream stream);
+        Task<bool> ReadExcel(Stream stream);
         Task<Sales> CreateSale(Sales sale);
         Task<bool> CreateSaleList(List<Sales> sale);
         Task<bool> UpdateSale(Sales sale);

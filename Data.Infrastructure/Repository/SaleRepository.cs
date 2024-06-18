@@ -76,11 +76,6 @@ namespace Data.Infrastructure.Repository
             return sale!;
         }
 
-        public Task<IEnumerable<Sales>> GetBySaleParameters(Sales sale)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<Sales>> GetSales()
         {
             var sale = await _conn.QueryAsync<Sales>(SaleSqlQuery.QuerySelectSale);
@@ -106,5 +101,19 @@ namespace Data.Infrastructure.Repository
             return update > 0;
         }
 
+        public async Task<Sales> GetBySaleParameters(Sales sale)
+        {
+            var parameters = new
+            {
+                sale.Name,
+                sale.Price,
+                sale.Details,
+                sale.Quantity,
+                sale.DateSale
+
+            };
+            var result = await _conn.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryBySaleParameters, parameters);
+            return result ?? new Sales { Name = "" };
+        }
     }
 }

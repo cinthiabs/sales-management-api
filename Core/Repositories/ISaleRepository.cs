@@ -10,7 +10,7 @@ namespace Core.Repositories
         Task<bool> DeleteSale(int id);
         Task <IEnumerable<Sales>> GetSales();
         Task<Sales> GetByIdSale(int id);
-        Task<IEnumerable<Sales>> GetBySaleParameters(Sales sale);
+        Task<Sales> GetBySaleParameters(Sales sale);
         Task<IEnumerable<Sales>> GetByFilters(DateTime dataStart, DateTime dataEnd);
     }
 }
