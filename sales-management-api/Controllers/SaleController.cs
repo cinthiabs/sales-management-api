@@ -82,7 +82,7 @@ namespace sales_management_api.Controllers
             return saleUpdate ? Ok("Sale successfully updated!") : BadRequest("Unable to update data!");
 
         }
-        [HttpDelete("DeleteSale")]
+        [HttpDelete("DeleteSale/{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
