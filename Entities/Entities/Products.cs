@@ -13,7 +13,7 @@ namespace Entities.Entities
         public string Details { get; set; } = default!;
         public bool Active { get; set; } = true;
         public decimal Price { get; set; }
-        public DateTime DataCreate { get; set; } = DateTime.Now;
-        public DateTime? DataEdit { get; set; }
+        public DateTime DateCreate { get; set; } = DateTime.Now;
+        public DateTime? DateEdit { get; set; }
     }
 }

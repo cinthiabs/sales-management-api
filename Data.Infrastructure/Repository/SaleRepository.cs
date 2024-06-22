@@ -24,9 +24,9 @@ namespace Data.Infrastructure.Repository
             parameters.Add("@Details", sale.Details);
             parameters.Add("@Quantity", sale.Quantity);
             parameters.Add("@Price", sale.Price);
-            parameters.Add("@DataCreate", DateTime.Now);
+            parameters.Add("@DateCreate", DateTime.Now);
 
-            int id = await _conn.QuerySingleAsync<int>(SaleSqlQuery.QueryCreateSale, parameters);
+            int id = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
             sale.Id = id;
             return sale;
         }
@@ -43,7 +43,7 @@ namespace Data.Infrastructure.Repository
                 parameters.Add("@Details", sale.Details);
                 parameters.Add("@Quantity", sale.Quantity);
                 parameters.Add("@Price", sale.Price);
-                parameters.Add("@DataCreate", DateTime.Now);
+                parameters.Add("@DateCreate", DateTime.Now);
 
                 int result = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
 
@@ -93,7 +93,7 @@ namespace Data.Infrastructure.Repository
                 sale.Quantity,
                 sale.Pay,
                 sale.DateSale,
-                @DataEdit = DateTime.Now
+                @DateEdit = DateTime.Now
                 
             };
 

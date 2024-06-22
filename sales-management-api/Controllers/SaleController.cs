@@ -74,12 +74,12 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateSale([FromBody] Sales sale)
-        {
+            {
             if (sale is null)
                 return BadRequest("Sale invalid!");
             
             bool saleUpdate = await _sale.UpdateSale(sale);
-            return saleUpdate ? Ok("Sale successfully updated!") : BadRequest("Unable to update data!");
+            return saleUpdate ? Ok(saleUpdate) : BadRequest("Unable to update data!");
 
         }
         [HttpDelete("DeleteSale/{id}")]
@@ -91,7 +91,7 @@ namespace sales_management_api.Controllers
             if (id == 0)
                 return BadRequest("Sale invalid!");
             bool saleDelete = await _sale.DeleteSale(id);
-            return saleDelete ? Ok("Sale successfully deleted!") : BadRequest("Unable to delete data!");
+            return saleDelete ? Ok(saleDelete) : BadRequest("Unable to delete data!");
         }
     }
 }

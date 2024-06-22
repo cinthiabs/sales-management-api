@@ -16,7 +16,7 @@ namespace Entities.Entities
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public bool Pay { get; set; }
-        public DateTime DataCreate { get; set; } = DateTime.Now;
-        public DateTime? DataEdit { get; set; }
+        public DateTime DateCreate { get; set; } = DateTime.Now;
+        public DateTime? DateEdit { get; set; }
     }
 }

@@ -8,9 +8,9 @@ CREATE TABLE Sale (
     Details NVARCHAR(MAX),
     Quantity INT NOT NULL,
     Price DECIMAL(18,2) NOT NULL,
-	DataCreate DATETIME NOT NULL,
+	DateCreate DATETIME NOT NULL,
 	PAY BIT,
-	DataEdit DATETIME 
+	DateEdit DATETIME 
 );
 
 CREATE TABLE Product (
@@ -19,8 +19,8 @@ CREATE TABLE Product (
     Details NVARCHAR(MAX),
 	Active BIT NOT NULL,
     Price DECIMAL(18,2) NOT NULL,
-	DataCreate DATETIME NOT NULL,
-	DataEdit DATETIME 
+	DateCreate DATETIME NOT NULL,
+	DateEdit DATETIME 
 );
 
 CREATE TABLE Costs (
