@@ -11,6 +11,7 @@ namespace Core.Repositories
         Task <IEnumerable<Sales>> GetSales();
         Task<Sales> GetByIdSale(int id);
         Task<Sales> GetBySaleParameters(Sales sale);
-        Task<IEnumerable<Sales>> GetByFilters(DateTime dataStart, DateTime dataEnd);
+        Task<IEnumerable<Sales>> GetByFilters(DateTime dateStart, DateTime dateEnd);
+        Task<IEnumerable<RelQuantity>> GetRelQuantity(DateTime dateIni, DateTime dateEnd);
     }
 }

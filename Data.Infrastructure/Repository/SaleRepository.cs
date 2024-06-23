@@ -64,7 +64,7 @@ namespace Data.Infrastructure.Repository
             
         }
 
-        public Task<IEnumerable<Sales>> GetByFilters(DateTime dataStart, DateTime dataEnd)
+        public Task<IEnumerable<Sales>> GetByFilters(DateTime dateStart, DateTime dateEnd)
         {
             throw new NotImplementedException();
         }
@@ -114,6 +114,17 @@ namespace Data.Infrastructure.Repository
             };
             var result = await _conn.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryBySaleParameters, parameters);
             return result ?? new Sales { Name = "" };
+        }
+
+        public async Task<IEnumerable<RelQuantity>> GetRelQuantity(DateTime dateIni, DateTime dateEnd)
+        {
+            var parameters = new
+            {
+                dateIni,
+                dateEnd
+            };
+            var rel = await _conn.QueryAsync<RelQuantity>(SaleSqlQuery.GetRelQuantity, parameters);
+            return rel!;
         }
     }
 }

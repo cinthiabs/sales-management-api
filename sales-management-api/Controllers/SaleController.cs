@@ -31,7 +31,7 @@ namespace sales_management_api.Controllers
             {
                 await file.CopyToAsync(stream);
                 var resultado = await _sale.ReadExcel(stream);
-                return resultado ? Ok("Upload completed successfully!") : Conflict("Sale already exists!");
+                return resultado ? Ok(resultado) : Conflict(resultado);
             }
         }
         [HttpGet("GetAllSales")]
@@ -92,6 +92,13 @@ namespace sales_management_api.Controllers
                 return BadRequest("Sale invalid!");
             bool saleDelete = await _sale.DeleteSale(id);
             return saleDelete ? Ok(saleDelete) : BadRequest("Unable to delete data!");
+        }
+        [HttpGet("GetRelQuantity")]
+        [ProducesResponseType(typeof(IEnumerable<RelQuantity>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetRelQuantity(DateTime dateIni, DateTime dateEnd)
+        {
+            var saleCreated = await _sale.GetRelQuantity(dateIni, dateEnd);
+            return Ok(saleCreated);
         }
     }
 }

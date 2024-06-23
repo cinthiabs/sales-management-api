@@ -36,6 +36,16 @@
         DateSale = @DateSale 
         and Price = @Price  
         and Quantity = @Quantity
-        and Name = @Name";  
+        and Name = @Name";
+
+        internal const string GetRelQuantity = @"
+        SELECT [Name], 
+        sum(Quantity) AS Quantity,
+        sum(price) as Price
+        FROM Sale with(nolock)
+        where DateSale  between @dateIni and @dateEnd
+        GROUP BY [Name], DateSale
+        ORDER BY Quantity DESC;";
+
     }
 }

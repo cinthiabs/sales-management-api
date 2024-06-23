@@ -16,5 +16,6 @@ namespace Core.Services.Interfaces
         Task<bool> DeleteSale(int id);
         Task<IEnumerable<Sales>> GetSales();
         Task<Sales> GetByIdSale(int id);
+        Task<IEnumerable<RelQuantity>> GetRelQuantity(DateTime dateIni, DateTime dateEnd);
     }
 }

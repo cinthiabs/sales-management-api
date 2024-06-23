@@ -2,7 +2,6 @@
 using Core.Services.Interfaces;
 using Entities.Entities;
 using OfficeOpenXml;
-using System.ComponentModel.DataAnnotations;
 using System.Dynamic;
 
 namespace Core.Services
@@ -171,5 +170,10 @@ namespace Core.Services
             return await Task.FromResult(sales);
         }
 
+        public async Task<IEnumerable<RelQuantity>> GetRelQuantity(DateTime dateIni, DateTime dateEnd)
+        {
+            var relQuantity = await _saleRepository.GetRelQuantity(dateIni, dateEnd);
+            return relQuantity;
+        }
     }
 }
