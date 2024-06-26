@@ -44,7 +44,7 @@
         sum(price) as Price
         FROM Sale with(nolock)
         where DateSale  between @dateIni and @dateEnd
-        GROUP BY [Name], DateSale
+        GROUP BY [Name]
         ORDER BY Quantity DESC;";
 
     }

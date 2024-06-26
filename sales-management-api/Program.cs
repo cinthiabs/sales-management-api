@@ -24,6 +24,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<ISale, SaleService>();
 builder.Services.AddScoped<IProduct, ProductService>();
+builder.Services.AddScoped<ICost, CostService>();
 builder.Services.AddScoped<ISaleRepository, SaleRepository>();
 
 var app = builder.Build();

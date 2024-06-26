@@ -58,12 +58,17 @@ namespace Core.Services
             var readExcelExcelToJson = await ReadExcelExcelToJson(stream);
             if (readExcelExcelToJson is not null)
             {
-                var sales = await TransformJsontoObj(readExcelExcelToJson);
+                var sales = await TransformJsontoObjSale(readExcelExcelToJson);
                 var created = await CreateSaleList(sales);
 
                 if (created)
                 {
                      saleBool = true;
+                   // var cost = TransformJsontoObjCost();
+                }
+                else
+                {
+                    return false;
                 }
             }
             return saleBool;   
@@ -124,7 +129,7 @@ namespace Core.Services
             return await Task.FromResult((dynamic)rows);
 
         }
-        private async Task<List<Sales>> TransformJsontoObj(dynamic obj)
+        private async Task<List<Sales>> TransformJsontoObjSale(dynamic obj)
         {
             var sales = new List<Sales>();
 

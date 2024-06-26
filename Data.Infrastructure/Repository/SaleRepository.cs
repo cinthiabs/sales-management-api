@@ -18,13 +18,15 @@ namespace Data.Infrastructure.Repository
         }
         public async Task<Sales> CreateSale(Sales sale)
         {
-            var parameters = new DynamicParameters();
-            parameters.Add("@DateSale", sale.DateSale);
-            parameters.Add("@Name", sale.Name);
-            parameters.Add("@Details", sale.Details);
-            parameters.Add("@Quantity", sale.Quantity);
-            parameters.Add("@Price", sale.Price);
-            parameters.Add("@DateCreate", DateTime.Now);
+            var parameters = new
+            {
+                sale.Name,
+                sale.Price,
+                sale.Details,
+                sale.Quantity,
+                sale.DateSale,
+                @DateCreate = DateTime.Now
+            };
 
             int id = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
             sale.Id = id;
@@ -37,14 +39,15 @@ namespace Data.Infrastructure.Repository
 
             if (!string.IsNullOrEmpty(sale.Name))
             {
-                var parameters = new DynamicParameters();
-                parameters.Add("@DateSale", sale.DateSale);
-                parameters.Add("@Name", sale.Name);
-                parameters.Add("@Details", sale.Details);
-                parameters.Add("@Quantity", sale.Quantity);
-                parameters.Add("@Price", sale.Price);
-                parameters.Add("@DateCreate", DateTime.Now);
-
+                var parameters = new
+                {
+                    sale.Name,
+                    sale.Price,
+                    sale.Details,
+                    sale.Quantity,
+                    sale.DateSale,
+                    @DateCreate = DateTime.Now
+                };
                 int result = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
 
                 if (result > 0)
@@ -61,7 +64,6 @@ namespace Data.Infrastructure.Repository
             var parameters = new { id };
             var  delete = await _conn.ExecuteAsync(SaleSqlQuery.QueryDeleteSale, parameters);
             return delete > 0;
-            
         }
 
         public Task<IEnumerable<Sales>> GetByFilters(DateTime dateStart, DateTime dateEnd)
