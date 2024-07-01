@@ -4,7 +4,7 @@ namespace Core.Services.Interfaces
 {
     public interface ICost
     {
-        Task<Costs> CreateCost(Sales cost);
+        Task<Costs> CreateCost(Costs cost);
         Task<bool> CreateCostList(List<Costs> cost);
         Task<bool> UpdateCost(Costs cost);
         Task<bool> DeleteCost(int id);

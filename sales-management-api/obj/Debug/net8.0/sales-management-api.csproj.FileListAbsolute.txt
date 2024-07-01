@@ -84,3 +84,11 @@ C:\GITHUB\new-project-bread\sales-management-api\sales-management-api\obj\Debug\
 C:\GITHUB\new-project-bread\sales-management-api\sales-management-api\obj\Debug\net8.0\sales-management-api.pdb
 C:\GITHUB\new-project-bread\sales-management-api\sales-management-api\obj\Debug\net8.0\sales-management-api.genruntimeconfig.cache
 C:\GITHUB\new-project-bread\sales-management-api\sales-management-api\obj\Debug\net8.0\ref\sales-management-api.dll
+C:\GITHUB\new-project-bread\sales-management-api\sales-management-api\bin\Debug\net8.0\AutoMapper.dll
+C:\GITHUB\new-project-bread\sales-management-api\sales-management-api\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\GITHUB\new-project-bread\sales-management-api\sales-management-api\bin\Debug\net8.0\System.Net.Http.Formatting.dll
+C:\GITHUB\new-project-bread\sales-management-api\sales-management-api\bin\Debug\net8.0\System.Web.Http.dll
+C:\GITHUB\new-project-bread\sales-management-api\sales-management-api\bin\Debug\net8.0\System.Web.Http.WebHost.dll
+C:\GITHUB\new-project-bread\sales-management-api\sales-management-api\bin\Debug\net8.0\Microsoft.Web.Infrastructure.dll
+C:\GITHUB\new-project-bread\sales-management-api\sales-management-api\bin\Debug\net8.0\Swashbuckle.Core.dll
+C:\GITHUB\new-project-bread\sales-management-api\sales-management-api\bin\Debug\net8.0\WebActivatorEx.dll

@@ -1,9 +1,7 @@
 ﻿using Azure;
 using Core.Services.Interfaces;
 using Entities.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 
 
 namespace sales_management_api.Controllers
@@ -17,23 +15,6 @@ namespace sales_management_api.Controllers
         {
             _sale = sale;   
         }
-        [HttpPost("UploadExcel")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UploadExcel(IFormFile file)
-        {
-            if (file is null && file?.Length == 0)
-                return BadRequest("File invalid!");
-
-            using (var stream = new MemoryStream())
-            {
-                await file.CopyToAsync(stream);
-                var resultado = await _sale.ReadExcel(stream);
-                return resultado ? Ok(resultado) : Conflict(resultado);
-            }
-        }
         [HttpGet("GetAllSales")]
         [ProducesResponseType(typeof(IEnumerable<Sales>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllSales()
@@ -43,8 +24,8 @@ namespace sales_management_api.Controllers
         }
         
         [HttpGet("GetByIdSale")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Sales), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdSale(int id)
         {
@@ -57,8 +38,8 @@ namespace sales_management_api.Controllers
         }
 
         [HttpPost("CreateSale")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateSale([FromBody] Sales sale)
         {
@@ -70,8 +51,8 @@ namespace sales_management_api.Controllers
         }
 
         [HttpPut("UpdateSale")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateSale([FromBody] Sales sale)
             {
@@ -83,8 +64,8 @@ namespace sales_management_api.Controllers
 
         }
         [HttpDelete("DeleteSale/{id}")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteSale(int id)
         {

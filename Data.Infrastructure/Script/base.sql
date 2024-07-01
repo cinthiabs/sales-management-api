@@ -25,6 +25,7 @@ CREATE TABLE Product (
 
 CREATE TABLE Costs (
     Id INT PRIMARY KEY,
+    Quantity NVARCHAR(255),
     Name NVARCHAR(255) NOT NULL,
     DateCost DATE NOT NULL,
     UnitPrice DECIMAL(18,2) NOT NULL,
