@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "C:\\GITHUB\\new-project-bread\\sales-management-api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|c:\\github\\new-project-bread\\sales-management-api\\sales-management-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|solutionrelative:sales-management-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|c:\\github\\new-project-bread\\sales-management-api\\sales-management-api\\controllers\\costcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|solutionrelative:sales-management-api\\controllers\\costcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|c:\\github\\new-project-bread\\sales-management-api\\sales-management-api\\controllers\\salecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|solutionrelative:sales-management-api\\controllers\\salecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|c:\\github\\new-project-bread\\sales-management-api\\sales-management-api\\controllers\\uploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|solutionrelative:sales-management-api\\controllers\\uploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|c:\\github\\new-project-bread\\sales-management-api\\sales-management-api\\automapper\\automapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|solutionrelative:sales-management-api\\automapper\\automapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|c:\\github\\new-project-bread\\sales-management-api\\sales-management-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|solutionrelative:sales-management-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C844CAEA-DBD9-401E-9130-A81087BF7CC9}|Data.Infrastructure\\Data.Infrastructure.csproj|c:\\github\\new-project-bread\\sales-management-api\\data.infrastructure\\repository\\salerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -17,14 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|c:\\github\\new-project-bread\\sales-management-api\\core\\services\\uploadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|solutionrelative:core\\services\\uploadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|c:\\github\\new-project-bread\\sales-management-api\\core\\services\\costservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|solutionrelative:core\\services\\costservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|c:\\github\\new-project-bread\\sales-management-api\\sales-management-api\\controllers\\uploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|solutionrelative:sales-management-api\\controllers\\uploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C844CAEA-DBD9-401E-9130-A81087BF7CC9}|Data.Infrastructure\\Data.Infrastructure.csproj|c:\\github\\new-project-bread\\sales-management-api\\data.infrastructure\\repository\\costrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -53,14 +57,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|c:\\github\\new-project-bread\\sales-management-api\\core\\services\\interfaces\\iupload.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A176B2AD-B37F-4DB7-A2AC-324EC8CAC403}|Core\\Core.csproj|solutionrelative:core\\services\\interfaces\\iupload.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|c:\\github\\new-project-bread\\sales-management-api\\sales-management-api\\automapper\\automapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A62E3B9-6D00-4087-BC54-CAF44B36EB5E}|sales-management-api\\sales-management-api.csproj|solutionrelative:sales-management-api\\automapper\\automapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C844CAEA-DBD9-401E-9130-A81087BF7CC9}|Data.Infrastructure\\Data.Infrastructure.csproj|c:\\github\\new-project-bread\\sales-management-api\\data.infrastructure\\script\\base.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame",
-      "RelativeMoniker": "D:0:0:{C844CAEA-DBD9-401E-9130-A81087BF7CC9}|Data.Infrastructure\\Data.Infrastructure.csproj|solutionrelative:data.infrastructure\\script\\base.sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|CodeFrame"
     }
   ],
   "DocumentGroupContainers": [
@@ -70,11 +66,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "UploadController.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\Controllers\\UploadController.cs",
               "RelativeDocumentMoniker": "sales-management-api\\Controllers\\UploadController.cs",
@@ -88,13 +84,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "UploadService.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Services\\UploadService.cs",
               "RelativeDocumentMoniker": "Core\\Services\\UploadService.cs",
               "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Services\\UploadService.cs",
               "RelativeToolTip": "Core\\Services\\UploadService.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAAAB8AAAAAAAAA",
+              "ViewState": "AQIAAA4AAAAAAAAAAIBJwB8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-01T19:51:28.655Z",
               "IsPinned": true,
@@ -102,20 +98,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CostService.cs",
-              "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Services\\CostService.cs",
-              "RelativeDocumentMoniker": "Core\\Services\\CostService.cs",
-              "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Services\\CostService.cs",
-              "RelativeToolTip": "Core\\Services\\CostService.cs",
-              "ViewState": "AQIAADsAAAAAAAAAAAAswBsAAAAMAAAA",
+              "DocumentIndex": 0,
+              "Title": "CostController.cs",
+              "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\Controllers\\CostController.cs",
+              "RelativeDocumentMoniker": "sales-management-api\\Controllers\\CostController.cs",
+              "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\Controllers\\CostController.cs",
+              "RelativeToolTip": "sales-management-api\\Controllers\\CostController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T22:28:12.915Z",
+              "WhenOpened": "2024-07-02T22:36:03.185Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "SaleRepository.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Data.Infrastructure\\Repository\\SaleRepository.cs",
               "RelativeDocumentMoniker": "Data.Infrastructure\\Repository\\SaleRepository.cs",
@@ -128,7 +124,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "ICost.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Services\\Interfaces\\ICost.cs",
               "RelativeDocumentMoniker": "Core\\Services\\Interfaces\\ICost.cs",
@@ -136,8 +132,7 @@
               "RelativeToolTip": "Core\\Services\\Interfaces\\ICost.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T22:20:11.663Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T22:20:11.663Z"
             },
             {
               "$type": "Document",
@@ -147,39 +142,37 @@
               "RelativeDocumentMoniker": "sales-management-api\\Controllers\\SaleController.cs",
               "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\Controllers\\SaleController.cs",
               "RelativeToolTip": "sales-management-api\\Controllers\\SaleController.cs",
-              "ViewState": "AQIAADcAAAAAAAAAAAAowEEAAAAnAAAA",
+              "ViewState": "AQIAAD0AAAAAAAAAAAAcwFIAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-01T21:37:56.678Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\Program.cs",
               "RelativeDocumentMoniker": "sales-management-api\\Program.cs",
               "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\Program.cs",
               "RelativeToolTip": "sales-management-api\\Program.cs",
-              "ViewState": "AQIAABwAAAAAAAAAAAAAADEAAAAaAAAA",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAAACgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T21:36:55.578Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T21:36:55.578Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "base.sql ",
+              "DocumentIndex": 11,
+              "Title": "base.sql",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Data.Infrastructure\\Script\\base.sql",
               "RelativeDocumentMoniker": "Data.Infrastructure\\Script\\base.sql",
               "ToolTip": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Data.Infrastructure\\Script\\base.sql",
               "RelativeToolTip": "Data.Infrastructure\\Script\\base.sql",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2024-07-01T20:11:32.08Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T20:11:32.08Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Costs.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Entities\\Entities\\Costs.cs",
               "RelativeDocumentMoniker": "Entities\\Entities\\Costs.cs",
@@ -187,12 +180,11 @@
               "RelativeToolTip": "Entities\\Entities\\Costs.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T20:08:00.031Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T20:08:00.031Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "IUpload.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Services\\Interfaces\\IUpload.cs",
               "RelativeDocumentMoniker": "Core\\Services\\Interfaces\\IUpload.cs",
@@ -200,12 +192,11 @@
               "RelativeToolTip": "Core\\Services\\Interfaces\\IUpload.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T19:48:42.493Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T19:48:42.493Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 3,
               "Title": "AutoMapperProfile.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\AutoMapper\\AutoMapperProfile.cs",
               "RelativeDocumentMoniker": "sales-management-api\\AutoMapper\\AutoMapperProfile.cs",
@@ -213,12 +204,11 @@
               "RelativeToolTip": "sales-management-api\\AutoMapper\\AutoMapperProfile.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T19:36:55.966Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T19:36:55.966Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "SalesDTO.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\sales-management-api\\DTOs\\SalesDTO.cs",
               "RelativeDocumentMoniker": "sales-management-api\\DTOs\\SalesDTO.cs",
@@ -226,12 +216,11 @@
               "RelativeToolTip": "sales-management-api\\DTOs\\SalesDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAA3AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T19:30:13.485Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T19:30:13.485Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "SaleService.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Core\\Services\\SaleService.cs",
               "RelativeDocumentMoniker": "Core\\Services\\SaleService.cs",
@@ -239,12 +228,11 @@
               "RelativeToolTip": "Core\\Services\\SaleService.cs",
               "ViewState": "AQIAAC8AAAAAAAAAAAAvwE0AAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-26T12:29:06.472Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-26T12:29:06.472Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "CostRepository.cs",
               "DocumentMoniker": "C:\\GITHUB\\new-project-bread\\sales-management-api\\Data.Infrastructure\\Repository\\CostRepository.cs",
               "RelativeDocumentMoniker": "Data.Infrastructure\\Repository\\CostRepository.cs",
@@ -252,8 +240,7 @@
               "RelativeToolTip": "Data.Infrastructure\\Repository\\CostRepository.cs",
               "ViewState": "AQIAACMAAAAAAAAAAAAcwC8AAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-26T12:27:19.118Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-26T12:27:19.118Z"
             }
           ]
         }
