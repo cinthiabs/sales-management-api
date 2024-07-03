@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace sales_management_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1")]
     [ApiController]
     public class CostController : ControllerBase
     {
