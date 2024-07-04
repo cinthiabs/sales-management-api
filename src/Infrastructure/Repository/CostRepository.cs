@@ -1,7 +1,7 @@
 ﻿using Core.Repositories;
 using Dapper;
 using Data.Infrastructure.Queries;
-using Entities.Entities;
+using Domain.Entities;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 

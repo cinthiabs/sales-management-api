@@ -1,4 +1,4 @@
-﻿using Entities.Entities;
+﻿using Domain.Entities;
 
 namespace Core.Repositories
 {

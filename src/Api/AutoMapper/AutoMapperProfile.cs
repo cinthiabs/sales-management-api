@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Entities.Entities;
-using sales_management_api.DTOs;
 
 
 namespace sales_management_api.AutoMapper

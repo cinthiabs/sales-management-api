@@ -1,5 +1,5 @@
 ﻿using Application.Interfaces;
-using Entities.Entities;
+using Domain.Entities;
 
 namespace Core.Services
 {

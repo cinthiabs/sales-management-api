@@ -1,5 +1,5 @@
 ﻿using Application.Interfaces;
-using Entities.Entities;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace sales_management_api.Controllers

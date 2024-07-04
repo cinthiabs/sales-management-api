@@ -1,8 +1,6 @@
 ﻿using Application.Interfaces;
 using Core.Repositories;
-using Entities.Entities;
-using OfficeOpenXml;
-using System.Dynamic;
+using Domain.Entities;
 
 namespace Core.Services
 {

@@ -1,6 +1,6 @@
 ﻿using Application.Interfaces;
 using Core.Repositories;
-using Entities.Entities;
+using Domain.Entities;
 
 namespace Core.Services
 {
@@ -17,6 +17,7 @@ namespace Core.Services
             var result = await _costRepository.CreateCost(cost);
             return result;
         }
+
 
         public async Task<bool> CreateCostList(List<Costs> costs)
         {
@@ -74,5 +75,6 @@ namespace Core.Services
             }
             return false;
         }
+
     }
 }
