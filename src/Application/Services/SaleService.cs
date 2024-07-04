@@ -1,8 +1,8 @@
 ﻿using Application.Interfaces;
-using Core.Repositories;
 using Domain.Entities;
+using Infrastructure.Interfaces;
 
-namespace Core.Services
+namespace Application.Services
 {
     public class SaleService : ISale
     {

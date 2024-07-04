@@ -1,4 +1,4 @@
-﻿namespace Data.Infrastructure.Repository
+﻿namespace Infrastructure.Repositories
 {
     public class ProductRepository
     {

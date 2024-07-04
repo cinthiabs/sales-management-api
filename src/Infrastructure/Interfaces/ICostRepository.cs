@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 
-namespace Core.Repositories
+namespace Infrastructure.Interfaces
 {
     public interface ICostRepository
     {

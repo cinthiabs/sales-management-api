@@ -3,7 +3,7 @@ using Domain.Entities;
 using OfficeOpenXml;
 using System.Dynamic;
 
-namespace Core.Services
+namespace Application.Services
 {
     public class UploadService : IUpload
     {

@@ -1,11 +1,12 @@
-﻿using Core.Repositories;
+﻿using Infrastructure.Repositories;
 using Dapper;
-using Data.Infrastructure.Queries;
 using Domain.Entities;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Infrastructure.Interfaces;
+using Infrastructure.Queries;
 
-namespace Data.Infrastructure.Repository
+namespace Infrastructure.Repositories
 {
     public class CostRepository : ICostRepository
     {

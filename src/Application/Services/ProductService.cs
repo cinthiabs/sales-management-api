@@ -1,7 +1,7 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
 
-namespace Core.Services
+namespace Application.Services
 {
     public class ProductService : IProduct
     {

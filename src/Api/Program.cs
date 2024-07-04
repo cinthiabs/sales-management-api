@@ -1,7 +1,7 @@
 using Application.Interfaces;
-using Core.Repositories;
-using Core.Services;
-using Data.Infrastructure.Repository;
+using Application.Services;
+using Infrastructure.Interfaces;
+using Infrastructure.Repositories;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);

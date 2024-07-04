@@ -1,11 +1,11 @@
-﻿using Core.Repositories;
-using Dapper;
-using Data.Infrastructure.Queries;
+﻿using Dapper;
 using Domain.Entities;
+using Infrastructure.Interfaces;
+using Infrastructure.Queries;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
-namespace Data.Infrastructure.Repository
+namespace Infrastructure.Repositories
 {
     public class SaleRepository : ISaleRepository
     {

@@ -1,4 +1,4 @@
-﻿namespace Data.Infrastructure.Queries
+﻿namespace Infrastructure.Queries
 {
     internal static class ProductSqlQuery
     {
