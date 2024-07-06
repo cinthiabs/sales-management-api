@@ -1,19 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace sales_management_api.DTOs
+namespace Api.DTOs
 {
-    public class SalesDTO
+    public class ProductsDTO
     {
-        public int IdProduto { get; set; }
-        [Required]
-        public DateTime DateSale { get; set; }
         [Required]
         public string Name { get; set; } = default!;
         public string Details { get; set; } = default!;
         [Required]
-        public int Quantity { get; set; }
+        public bool Active { get; set; } = true;
         [Required]
         public decimal Price { get; set; }
-        public bool Pay { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using Api.Middleware;
 using Application.Interfaces;
 using Application.Services;
 using Infrastructure.Interfaces;
@@ -47,7 +48,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors("CorsPolicy");
-
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseAuthorization();
 
