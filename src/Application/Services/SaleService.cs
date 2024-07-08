@@ -11,46 +11,46 @@ namespace Application.Services
         {
             _saleRepository = saleRepository;
         }
-        public async Task<Sales> CreateSale(Sales sale)
+        public async Task<Sales> CreateSaleAsync(Sales sale)
         {
-            var result =  await _saleRepository.CreateSale(sale);
+            var result =  await _saleRepository.CreateSaleAsync(sale);
             return result;
         }
         
-        public async Task<bool> DeleteSale(int id)
+        public async Task<bool> DeleteSaleAsync(int id)
         {
-            var record = await _saleRepository.GetByIdSale(id);
+            var record = await _saleRepository.GetByIdSaleAsync(id);
             if(record is not null) 
             {
-                var rowsAffected = await _saleRepository.DeleteSale(id);
+                var rowsAffected = await _saleRepository.DeleteSaleAsync(id);
                 return rowsAffected;
             }
             return false;
         }
 
-        public async Task<Sales> GetByIdSale(int id)
+        public async Task<Sales> GetByIdSaleAsync(int id)
         {
-            var sale = await _saleRepository.GetByIdSale(id);
+            var sale = await _saleRepository.GetByIdSaleAsync(id);
             return sale;
         }
 
-        public async Task<IEnumerable<Sales>> GetSales()
+        public async Task<IEnumerable<Sales>> GetSalesAsync()
         {
-            var sales = await _saleRepository.GetSales();
+            var sales = await _saleRepository.GetSalesAsync();
             return sales;
         }
-        public async Task<bool> UpdateSale(Sales sale)
+        public async Task<bool> UpdateSaleAsync(Sales sale)
         {
-            var record = await _saleRepository.GetByIdSale(sale.Id);
+            var record = await _saleRepository.GetByIdSaleAsync(sale.Id);
             if (record is not null)
             {
-                var updated = await _saleRepository.UpdateSale(sale);
+                var updated = await _saleRepository.UpdateSaleAsync(sale);
                 return updated;
             }
             return false;     
         }
 
-        public async Task<bool> CreateSaleList(List<Sales> sale)
+        public async Task<bool> CreateSaleListAsync(List<Sales> sale)
         {
             bool result = false;
             
@@ -59,11 +59,11 @@ namespace Application.Services
             {
                 if( item.Name is not null)
                 {
-                    var saleExist = await _saleRepository.GetBySaleParameters(item);
+                    var saleExist = await _saleRepository.GetBySaleParametersAsync(item);
 
                     if (saleExist.Id == 0)
                     {
-                        result = await _saleRepository.CreateSaleList(item);
+                        result = await _saleRepository.CreateSaleListAsync(item);
                     }
                     else
                     {
@@ -75,9 +75,9 @@ namespace Application.Services
             return result;
         }
 
-        public async Task<IEnumerable<RelQuantity>> GetRelQuantity(DateTime dateIni, DateTime dateEnd)
+        public async Task<IEnumerable<RelQuantity>> GetRelQuantityAsync(DateTime dateIni, DateTime dateEnd)
         {
-            var relQuantity = await _saleRepository.GetRelQuantity(dateIni, dateEnd);
+            var relQuantity = await _saleRepository.GetRelQuantityAsync(dateIni, dateEnd);
             return relQuantity;
         }
     }

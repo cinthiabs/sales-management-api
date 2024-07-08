@@ -15,9 +15,9 @@ namespace sales_management_api.Controllers
         }
         [HttpGet("GetAllSales")]
         [ProducesResponseType(typeof(IEnumerable<Sales>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAllSales()
+        public async Task<IActionResult> GetAllSalesAsync()
         {
-            var saleCreated = await _sale.GetSales();
+            var saleCreated = await _sale.GetSalesAsync();
             return Ok(saleCreated);
         }
         
@@ -25,13 +25,13 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(typeof(Sales), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetByIdSale(int id)
+        public async Task<IActionResult> GetByIdSaleAsync(int id)
         {
             if(id == 0)
             {
                 return BadRequest("Invalid Sale");
             }
-            var saleCreated = await _sale.GetByIdSale(id);
+            var saleCreated = await _sale.GetByIdSaleAsync(id);
             return Ok(saleCreated);
         }
 
@@ -39,12 +39,12 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateSale([FromBody] Sales sale)
+        public async Task<IActionResult> CreateSaleAsync([FromBody] Sales sale)
         {
             if (sale is null)
                 return BadRequest("Sale invalid!");
             
-            var saleCreated = await _sale.CreateSale(sale);
+            var saleCreated = await _sale.CreateSaleAsync(sale);
             return Ok(saleCreated);
         }
 
@@ -52,12 +52,12 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateSale([FromBody] Sales sale)
+        public async Task<IActionResult> UpdateSaleAsync([FromBody] Sales sale)
             {
             if (sale is null)
                 return BadRequest("Sale invalid!");
             
-            bool saleUpdate = await _sale.UpdateSale(sale);
+            bool saleUpdate = await _sale.UpdateSaleAsync(sale);
             return saleUpdate ? Ok(saleUpdate) : BadRequest("Unable to update data!");
 
         }
@@ -65,18 +65,18 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> DeleteSale(int id)
+        public async Task<IActionResult> DeleteSaleAsync(int id)
         {
             if (id == 0)
                 return BadRequest("Sale invalid!");
-            bool saleDelete = await _sale.DeleteSale(id);
+            bool saleDelete = await _sale.DeleteSaleAsync(id);
             return saleDelete ? Ok(saleDelete) : BadRequest("Unable to delete data!");
         }
         [HttpGet("GetRelQuantity")]
         [ProducesResponseType(typeof(IEnumerable<RelQuantity>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetRelQuantity(DateTime dateIni, DateTime dateEnd)
+        public async Task<IActionResult> GetRelQuantityAsync(DateTime dateIni, DateTime dateEnd)
         {
-            var saleCreated = await _sale.GetRelQuantity(dateIni, dateEnd);
+            var saleCreated = await _sale.GetRelQuantityAsync(dateIni, dateEnd);
             return Ok(saleCreated);
         }
     }

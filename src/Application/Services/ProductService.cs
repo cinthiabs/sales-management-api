@@ -5,27 +5,27 @@ namespace Application.Services
 {
     public class ProductService : IProduct
     {
-        public Task<Products> CreateProduct(Products product)
+        public Task<Products> CreateProductAsync(Products product)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Products> DeleteProduct(int id)
+        public Task<Products> DeleteProductAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Products> GetByIdProduct(int id)
+        public Task<Products> GetByIdProductAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Products> GetProducts()
+        public Task<Products> GetProductsAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Products> UpdateProduct(Products product)
+        public Task<Products> UpdateProductAsync(Products product)
         {
             throw new NotImplementedException();
         }

@@ -16,7 +16,7 @@ namespace Infrastructure.Repositories
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             _conn = new SqlConnection(connectionString);
         }
-        public async Task<Sales> CreateSale(Sales sale)
+        public async Task<Sales> CreateSaleAsync(Sales sale)
         {
             var parameters = new
             {
@@ -33,7 +33,7 @@ namespace Infrastructure.Repositories
             return sale;
         }
 
-        public async Task<bool> CreateSaleList(Sales sale)
+        public async Task<bool> CreateSaleListAsync(Sales sale)
         {
             bool success = false;
 
@@ -59,32 +59,32 @@ namespace Infrastructure.Repositories
             return success;
         }
 
-        public async Task<bool> DeleteSale(int id)
+        public async Task<bool> DeleteSaleAsync(int id)
         {
             var parameters = new { id };
             var  delete = await _conn.ExecuteAsync(SaleSqlQuery.QueryDeleteSale, parameters);
             return delete > 0;
         }
 
-        public Task<IEnumerable<Sales>> GetByFilters(DateTime dateStart, DateTime dateEnd)
+        public Task<IEnumerable<Sales>> GetByFiltersAsync(DateTime dateStart, DateTime dateEnd)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Sales> GetByIdSale(int id)
+        public async Task<Sales> GetByIdSaleAsync(int id)
         {
             var parameters = new { id };
             var sale = await _conn.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryGetByIdSale, parameters);
             return sale!;
         }
 
-        public async Task<IEnumerable<Sales>> GetSales()
+        public async Task<IEnumerable<Sales>> GetSalesAsync()
         {
             var sale = await _conn.QueryAsync<Sales>(SaleSqlQuery.QuerySelectSale);
             return sale;
         }
 
-        public async Task<bool> UpdateSale(Sales sale)
+        public async Task<bool> UpdateSaleAsync(Sales sale)
         {
             var parameters = new 
             {
@@ -103,7 +103,7 @@ namespace Infrastructure.Repositories
             return update > 0;
         }
 
-        public async Task<Sales> GetBySaleParameters(Sales sale)
+        public async Task<Sales> GetBySaleParametersAsync(Sales sale)
         {
             var parameters = new
             {
@@ -118,7 +118,7 @@ namespace Infrastructure.Repositories
             return result ?? new Sales { Name = "" };
         }
 
-        public async Task<IEnumerable<RelQuantity>> GetRelQuantity(DateTime dateIni, DateTime dateEnd)
+        public async Task<IEnumerable<RelQuantity>> GetRelQuantityAsync(DateTime dateIni, DateTime dateEnd)
         {
             var parameters = new
             {

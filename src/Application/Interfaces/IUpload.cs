@@ -2,6 +2,6 @@
 {
     public interface IUpload
     {
-        Task<bool> ReadExcel(Stream stream);
+        Task<bool> ReadExcelAsync(Stream stream);
     }
 }

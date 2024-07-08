@@ -17,7 +17,7 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UploadExcel(IFormFile file)
+        public async Task<IActionResult> UploadExcelAsync(IFormFile file)
         {
             if (file is null && file?.Length == 0)
                 return BadRequest("File invalid!");
@@ -25,7 +25,7 @@ namespace sales_management_api.Controllers
             using (var stream = new MemoryStream())
             {
                 await file.CopyToAsync(stream);
-                var resultado = await _upload.ReadExcel(stream);
+                var resultado = await _upload.ReadExcelAsync(stream);
                 return resultado ? Ok(resultado) : Conflict(resultado);
             }
         }

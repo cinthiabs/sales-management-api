@@ -4,12 +4,12 @@ namespace Application.Interfaces
 {
     public interface ISale
     {
-        Task<Sales> CreateSale(Sales sale);
-        Task<bool> CreateSaleList(List<Sales> sale);
-        Task<bool> UpdateSale(Sales sale);
-        Task<bool> DeleteSale(int id);
-        Task<IEnumerable<Sales>> GetSales();
-        Task<Sales> GetByIdSale(int id);
-        Task<IEnumerable<RelQuantity>> GetRelQuantity(DateTime dateIni, DateTime dateEnd);
+        Task<Sales> CreateSaleAsync(Sales sale);
+        Task<bool> CreateSaleListAsync(List<Sales> sale);
+        Task<bool> UpdateSaleAsync(Sales sale);
+        Task<bool> DeleteSaleAsync(int id);
+        Task<IEnumerable<Sales>> GetSalesAsync();
+        Task<Sales> GetByIdSaleAsync(int id);
+        Task<IEnumerable<RelQuantity>> GetRelQuantityAsync(DateTime dateIni, DateTime dateEnd);
     }
 }

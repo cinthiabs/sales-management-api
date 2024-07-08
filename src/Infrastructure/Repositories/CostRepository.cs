@@ -1,5 +1,4 @@
-﻿using Infrastructure.Repositories;
-using Dapper;
+﻿using Dapper;
 using Domain.Entities;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
@@ -18,7 +17,7 @@ namespace Infrastructure.Repositories
             _conn = new SqlConnection(connectionString);
         }
 
-        public async Task<Costs> CreateCost(Costs cost)
+        public async Task<Costs> CreateCostAsync(Costs cost)
         {
             var parameters = new
             {
@@ -35,7 +34,7 @@ namespace Infrastructure.Repositories
             return cost;
         }
 
-        public async Task<bool> CreateCostList(Costs cost)
+        public async Task<bool> CreateCostListAsync(Costs cost)
         {
             if (string.IsNullOrEmpty(cost.Name))
             {
@@ -56,27 +55,27 @@ namespace Infrastructure.Repositories
             return result > 0;
         }
 
-        public async Task<bool> DeleteCost(int id)
+        public async Task<bool> DeleteCostAsync(int id)
         {
             var parameters = new { id };
             var delete = await _conn.ExecuteAsync(CostSqlQuery.QueryDeleteCost, parameters);
             return delete > 0;
         }
 
-        public async Task<Costs> GetByIdCost(int id)
+        public async Task<Costs> GetByIdCostAsync(int id)
         {
             var parameters = new { id };
             var cost = await _conn.QueryFirstOrDefaultAsync<Costs>(CostSqlQuery.QueryGetByIdCost, parameters);
             return cost!;
         }
 
-        public async Task<IEnumerable<Costs>> GetCosts()
+        public async Task<IEnumerable<Costs>> GetCostsAsync()
         {
             var costs = await _conn.QueryAsync<Costs>(CostSqlQuery.QuerySelectCost);
             return costs;
         }
 
-        public async Task<bool> UpdateCost(Costs cost)
+        public async Task<bool> UpdateCostAsync(Costs cost)
         {
             var parameters = new
             {
@@ -92,7 +91,7 @@ namespace Infrastructure.Repositories
             var update = await _conn.ExecuteAsync(CostSqlQuery.QueryUpdateCost, parameters);
             return update > 0;
         }
-        public async Task<Costs> GetByCostsParameters(Costs cost)
+        public async Task<Costs> GetByCostsParametersAsync(Costs cost)
         {
             var parameters = new
             {

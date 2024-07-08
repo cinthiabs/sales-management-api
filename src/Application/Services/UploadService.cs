@@ -16,28 +16,28 @@ namespace Application.Services
             _cost = cost;
         }
 
-        public async Task<bool> ReadExcel(Stream stream)
+        public async Task<bool> ReadExcelAsync(Stream stream)
         {
             bool saleBool = false;
 
-            var file = await ReadExcelExcelToJson(stream);
+            var file = await ReadExcelExcelToJsonAsync(stream);
           
 
             if (file is not null)
             {
-                var sales = await TransformJsontoObjSale(file);
-                var created = await _sale.CreateSaleList(sales);
+                var sales = await TransformJsontoObjSaleAsync(file);
+                var created = await _sale.CreateSaleListAsync(sales);
 
 
-                var costs = await TransformJsontoObjCost(file);
-                var cost = await _cost.CreateCostList(costs);
+                var costs = await TransformJsontoObjCostAsync(file);
+                var cost = await _cost.CreateCostListAsync(costs);
                 if (cost)
                     return true;
             }
             return saleBool;
         }
 
-        private async Task<dynamic> ReadExcelExcelToJson(Stream stream)
+        private async Task<dynamic> ReadExcelExcelToJsonAsync(Stream stream)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var rows = new List<Dictionary<string, Object>>();
@@ -68,7 +68,7 @@ namespace Application.Services
             return await Task.FromResult((dynamic)rows);
 
         }
-        private async Task<List<Sales>> TransformJsontoObjSale(dynamic obj)
+        private async Task<List<Sales>> TransformJsontoObjSaleAsync(dynamic obj)
         {
             var sales = new List<Sales>();
 
@@ -114,7 +114,7 @@ namespace Application.Services
             return await Task.FromResult(sales);
         }
 
-        private async Task<List<Costs>> TransformJsontoObjCost(dynamic obj)
+        private async Task<List<Costs>> TransformJsontoObjCostAsync(dynamic obj)
         {
             var costs = new List<Costs>();
 

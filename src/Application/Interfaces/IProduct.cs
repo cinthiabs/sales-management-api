@@ -5,10 +5,10 @@ namespace Application.Interfaces
 {
     public interface IProduct
     {
-        Task<Products> CreateProduct(Products product);
-        Task<Products> UpdateProduct(Products product);
-        Task<Products> DeleteProduct(int id);
-        Task<Products> GetProducts();
-        Task<Products> GetByIdProduct(int id);
+        Task<Products> CreateProductAsync(Products product);
+        Task<Products> UpdateProductAsync(Products product);
+        Task<Products> DeleteProductAsync(int id);
+        Task<Products> GetProductsAsync();
+        Task<Products> GetByIdProductAsync(int id);
     }
 }

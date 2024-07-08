@@ -4,12 +4,12 @@ namespace Infrastructure.Interfaces
 {
     public interface ICostRepository
     {
-        Task<Costs> CreateCost(Costs cost);
-        Task<bool> CreateCostList(Costs cost);
-        Task<bool> UpdateCost(Costs cost);
-        Task<bool> DeleteCost(int id);
-        Task<IEnumerable<Costs>> GetCosts();
-        Task<Costs> GetByIdCost(int id);
-        Task<Costs> GetByCostsParameters(Costs cost);
+        Task<Costs> CreateCostAsync(Costs cost);
+        Task<bool> CreateCostListAsync(Costs cost);
+        Task<bool> UpdateCostAsync(Costs cost);
+        Task<bool> DeleteCostAsync(int id);
+        Task<IEnumerable<Costs>> GetCostsAsync();
+        Task<Costs> GetByIdCostAsync(int id);
+        Task<Costs> GetByCostsParametersAsync(Costs cost);
     }
 }

@@ -4,11 +4,11 @@ namespace Application.Interfaces
 {
     public interface ICost
     {
-        Task<Costs> CreateCost(Costs cost);
-        Task<bool> CreateCostList(List<Costs> cost);
-        Task<bool> UpdateCost(Costs cost);
-        Task<bool> DeleteCost(int id);
-        Task<IEnumerable<Costs>> GetCosts();
-        Task<Costs> GetByIdCost(int id);
+        Task<Costs> CreateCostAsync(Costs cost);
+        Task<bool> CreateCostListAsync(List<Costs> cost);
+        Task<bool> UpdateCostAsync(Costs cost);
+        Task<bool> DeleteCostAsync(int id);
+        Task<IEnumerable<Costs>> GetCostsAsync();
+        Task<Costs> GetByIdCostAsync(int id);
     }
 }
