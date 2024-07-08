@@ -42,7 +42,7 @@ namespace sales_management_api.Controllers
         }
 
         [HttpPost("CreateCost")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Costs), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateCostAsync([FromBody] Costs cost)
@@ -54,11 +54,11 @@ namespace sales_management_api.Controllers
             return Ok(costCreated);
         }
 
-        [HttpPut("UpdateCost")]
+        [HttpPut("UpdateCost/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateCostAsync([FromBody] Costs cost)
+        public async Task<IActionResult> UpdateCostAsync([FromBody] Costs cost, int id)
         {
             if (cost is null)
                 return BadRequest("Cost invalid!");

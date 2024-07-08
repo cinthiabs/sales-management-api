@@ -1,21 +1,14 @@
 ﻿using Dapper;
 using Domain.Entities;
+using Infrastructure.Connection;
 using Infrastructure.Interfaces;
 using Infrastructure.Queries;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Repositories
 {
-    public class SaleRepository : ISaleRepository
+    public class SaleRepository(IConfiguration configuration) : RepositoryBase(configuration), ISaleRepository
     {
-        private readonly SqlConnection _conn;
-        public SaleRepository(IConfiguration configuration)
-        {
-            _conn = new SqlConnection();
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-            _conn = new SqlConnection(connectionString);
-        }
         public async Task<Sales> CreateSaleAsync(Sales sale)
         {
             var parameters = new
@@ -28,9 +21,9 @@ namespace Infrastructure.Repositories
                 @DateCreate = DateTime.Now
             };
 
-            int id = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
-            sale.Id = id;
-            return sale;
+            var Id = await _conn.ExecuteScalarAsync(SaleSqlQuery.QueryCreateSale, parameters);
+            var created = await _conn.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryGetByIdSale, new { Id });
+            return created!;
         }
 
         public async Task<bool> CreateSaleListAsync(Sales sale)

@@ -1,22 +1,14 @@
 ﻿using Dapper;
 using Domain.Entities;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Infrastructure.Interfaces;
 using Infrastructure.Queries;
+using Infrastructure.Connection;
 
 namespace Infrastructure.Repositories
 {
-    public class CostRepository : ICostRepository
+    public class CostRepository(IConfiguration configuration) : RepositoryBase(configuration), ICostRepository
     {
-        private readonly SqlConnection _conn;
-        public CostRepository(IConfiguration configuration) 
-        {
-            _conn = new SqlConnection();
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-            _conn = new SqlConnection(connectionString);
-        }
-
         public async Task<Costs> CreateCostAsync(Costs cost)
         {
             var parameters = new
@@ -29,9 +21,9 @@ namespace Infrastructure.Repositories
                 DateCreate = DateTime.Now
             };
 
-            int id = await _conn.ExecuteAsync(CostSqlQuery.QueryCreateCost, parameters);
-            cost.Id = id;
-            return cost;
+            var Id = await _conn.ExecuteScalarAsync(CostSqlQuery.QueryCreateCost, parameters);
+            var created = await _conn.QueryFirstOrDefaultAsync<Costs>(CostSqlQuery.QueryGetByIdCost, new { Id } );
+            return created!;
         }
 
         public async Task<bool> CreateCostListAsync(Costs cost)

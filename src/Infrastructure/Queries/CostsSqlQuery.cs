@@ -4,6 +4,7 @@
     {
         internal const string QueryCreateCost = @"
         INSERT INTO Costs (Quantity, Name, DateCost, UnitPrice, TotalPrice, DateCreate)
+        OUTPUT inserted.Id
         VALUES (@Quantity, @Name, @DateCost, @UnitPrice, @TotalPrice, @DateCreate);";
 
         internal const string QueryUpdateCost = @"

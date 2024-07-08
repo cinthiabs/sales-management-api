@@ -17,8 +17,6 @@ namespace Application.Services
             var result = await _costRepository.CreateCostAsync(cost);
             return result;
         }
-
-
         public async Task<bool> CreateCostListAsync(List<Costs> costs)
         {
             bool result = false;
@@ -41,7 +39,6 @@ namespace Application.Services
             }
             return result;
         }
-
         public async Task<bool> DeleteCostAsync(int id)
         {
             var record = await _costRepository.GetByIdCostAsync(id);
@@ -52,7 +49,6 @@ namespace Application.Services
             }
             return false;
         }
-
         public async Task<Costs> GetByIdCostAsync(int id)
         {
             var cost = await _costRepository.GetByIdCostAsync(id);
@@ -75,6 +71,5 @@ namespace Application.Services
             }
             return false;
         }
-
     }
 }

@@ -15,5 +15,7 @@ namespace sales_management_api.DTOs
         [Required]
         public decimal Price { get; set; }
         public bool Pay { get; set; }
+        public DateTime DateCreate { get; set; }
+        public DateTime? DateEdit { get; set; }
     }
 }

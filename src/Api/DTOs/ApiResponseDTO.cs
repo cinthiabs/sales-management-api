@@ -1,5 +1,4 @@
-﻿
-namespace Api.DTOs
+﻿namespace Api.DTOs
 {
     public class ApiResponseDTO
     {
