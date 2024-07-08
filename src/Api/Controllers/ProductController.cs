@@ -6,5 +6,6 @@ namespace sales_management_api.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+
     }
 }

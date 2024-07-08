@@ -28,28 +28,22 @@ namespace Infrastructure.Repositories
 
         public async Task<bool> CreateSaleListAsync(Sales sale)
         {
-            bool success = false;
+           if (string.IsNullOrEmpty(sale.Name))
+           {
+               return false;
+           }
 
-            if (!string.IsNullOrEmpty(sale.Name))
-            {
-                var parameters = new
-                {
-                    sale.Name,
-                    sale.Price,
-                    sale.Details,
-                    sale.Quantity,
-                    sale.DateSale,
-                    @DateCreate = DateTime.Now
-                };
-                int result = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
-
-                if (result > 0)
-                {
-                    success = true;
-                }
-            }
-
-            return success;
+           var parameters = new
+           {
+               sale.Name,
+               sale.Price,
+               sale.Details,
+               sale.Quantity,
+               sale.DateSale,
+               DateCreate = DateTime.Now
+           };
+           int result = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
+           return result > 0;
         }
 
         public async Task<bool> DeleteSaleAsync(int id)
@@ -105,7 +99,6 @@ namespace Infrastructure.Repositories
                 sale.Details,
                 sale.Quantity,
                 sale.DateSale
-
             };
             var result = await _conn.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryBySaleParameters, parameters);
             return result ?? new Sales { Name = "" };

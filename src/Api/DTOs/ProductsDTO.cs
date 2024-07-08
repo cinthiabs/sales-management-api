@@ -11,5 +11,7 @@ namespace Api.DTOs
         public bool Active { get; set; } = true;
         [Required]
         public decimal Price { get; set; }
+        public DateTime DateCreate { get; set; }
+        public DateTime? DateEdit { get; set; }
     }
 }
