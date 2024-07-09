@@ -21,7 +21,7 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> GetAllSalesAsync()
         {
             var sales = await _sale.GetSalesAsync();
-            var salesDto = _mapper.Map<IEnumerable<CostsDTO>>(sales);
+            var salesDto = _mapper.Map<IEnumerable<SalesDTO>>(sales);
             return Ok(salesDto);
         }
         

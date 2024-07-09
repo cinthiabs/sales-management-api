@@ -10,7 +10,7 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<Products> DeleteProductAsync(int id)
+        public Task<bool> DeleteProductAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -20,12 +20,12 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<Products> GetProductsAsync()
+        public Task<IEnumerable<Products>> GetProductsAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Products> UpdateProductAsync(Products product)
+        public Task<bool> UpdateProductAsync(Products product)
         {
             throw new NotImplementedException();
         }
