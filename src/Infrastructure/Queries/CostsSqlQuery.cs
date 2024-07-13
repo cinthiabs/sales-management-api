@@ -38,14 +38,11 @@
         AND Quantity = @Quantity
         AND Name = @Name";
 
-        internal const string GetRelQuantity = @"
+        internal const string GetRelCostPrice = @"
         SELECT [Name], 
-        SUM(Quantity) AS Quantity,
-        SUM(UnitPrice) AS UnitPrice,
-        SUM(TotalPrice) AS TotalPrice
-        FROM Costs WITH (NOLOCK)
-        WHERE DateCost BETWEEN @dateIni AND @dateEnd
-        GROUP BY [Name]
-        ORDER BY Quantity DESC;";
+        SUM(totalPrice) as TotalPrice
+        FROM Costs with(nolock)
+        where DateCost between @dateIni and @dateEnd
+        GROUP BY [Name];";
     }
 }

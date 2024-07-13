@@ -11,5 +11,6 @@ namespace Infrastructure.Interfaces
         Task<IEnumerable<Costs>> GetCostsAsync();
         Task<Costs> GetByIdCostAsync(int id);
         Task<Costs> GetByCostsParametersAsync(Costs cost);
+        Task<IEnumerable<RelPriceCost>> GetRelCostPriceAsync(DateTime dateIni, DateTime dateEnd);
     }
 }

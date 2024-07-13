@@ -37,6 +37,7 @@ builder.Services.AddScoped<ICost, CostService>();
 builder.Services.AddScoped<IUpload, UploadService>();
 builder.Services.AddScoped<ICostRepository, CostRepository>();
 builder.Services.AddScoped<ISaleRepository, SaleRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 
 var app = builder.Build();

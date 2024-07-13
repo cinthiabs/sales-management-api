@@ -4,14 +4,10 @@ using Infrastructure.Interfaces;
 
 namespace Application.Services
 {
-    public class CostService : ICost
+    public class CostService(ICostRepository costRepository) : ICost
     {
-        private readonly ICostRepository _costRepository;
-        public CostService(ICostRepository costRepository)
-        {
-            _costRepository = costRepository;
-        }
-            
+        private readonly ICostRepository _costRepository = costRepository;
+
         public async Task<Costs> CreateCostAsync(Costs cost)
         {
             var result = await _costRepository.CreateCostAsync(cost);
@@ -59,6 +55,12 @@ namespace Application.Services
         {
             var costs = await _costRepository.GetCostsAsync();
             return costs;
+        }
+
+        public async Task<IEnumerable<RelPriceCost>> GetRelCostPriceAsync(DateTime dateIni, DateTime dateEnd)
+        {
+            var rel = await _costRepository.GetRelCostPriceAsync(dateIni, dateEnd);
+            return rel;
         }
 
         public async Task<bool> UpdateCostAsync(Costs cost)

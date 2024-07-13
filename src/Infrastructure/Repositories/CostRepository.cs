@@ -96,5 +96,15 @@ namespace Infrastructure.Repositories
             var result = await _conn.QueryFirstOrDefaultAsync<Costs>(CostSqlQuery.QueryByCostParameters, parameters);
             return result ?? new Costs { Name = "" };
         }
+        public async Task<IEnumerable<RelPriceCost>> GetRelCostPriceAsync(DateTime dateIni, DateTime dateEnd)
+        {
+            var parameters = new
+            {
+                dateIni,
+                dateEnd
+            };
+            var rel = await _conn.QueryAsync<RelPriceCost>(CostSqlQuery.GetRelCostPrice, parameters);
+            return rel!;
+        }
     }
 }

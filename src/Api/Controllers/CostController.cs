@@ -82,5 +82,14 @@ namespace sales_management_api.Controllers
             bool costDelete = await _cost.DeleteCostAsync(id);
             return costDelete ? Ok(costDelete) : BadRequest("Unable to delete data!");
         }
+        [HttpGet("GetRelCostPrice")]
+        [ProducesResponseType(typeof(IEnumerable<RelPriceCost>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetRelCostPriceAsync(DateTime dateIni, DateTime dateEnd)
+        {
+            var rel = await _cost.GetRelCostPriceAsync(dateIni, dateEnd);
+            return Ok(rel);
+        }
     }
 }

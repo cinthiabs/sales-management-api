@@ -10,5 +10,6 @@ namespace Application.Interfaces
         Task<bool> DeleteCostAsync(int id);
         Task<IEnumerable<Costs>> GetCostsAsync();
         Task<Costs> GetByIdCostAsync(int id);
+        Task<IEnumerable<RelPriceCost>> GetRelCostPriceAsync(DateTime dateIni, DateTime dateEnd);
     }
 }

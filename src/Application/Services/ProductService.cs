@@ -1,33 +1,51 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Infrastructure.Interfaces;
 
 namespace Application.Services
 {
-    public class ProductService : IProduct
+    public class ProductService(IProductRepository productRepository) : IProduct
     {
-        public Task<Products> CreateProductAsync(Products product)
+        private readonly IProductRepository _productRepository = productRepository;
+        public async Task<Products> CreateProductAsync(Products product)
         {
-            throw new NotImplementedException();
+
+            var result = await _productRepository.CreateProductAsync(product);
+            return result;
         }
 
-        public Task<bool> DeleteProductAsync(int id)
+        public async Task<bool> DeleteProductAsync(int id)
         {
-            throw new NotImplementedException();
+            var record = await _productRepository.GetByIdProductAsync(id);
+            if (record is not null)
+            {
+                var rowsAffected = await _productRepository.DeleteProductAsync(id);
+                return rowsAffected;
+            }
+            return false;
         }
 
-        public Task<Products> GetByIdProductAsync(int id)
+        public async Task<Products> GetByIdProductAsync(int id)
         {
-            throw new NotImplementedException();
+            var product = await _productRepository.GetByIdProductAsync(id);
+            return product;
         }
 
-        public Task<IEnumerable<Products>> GetProductsAsync()
+        public async Task<IEnumerable<Products>> GetProductsAsync()
         {
-            throw new NotImplementedException();
+            var products = await _productRepository.GetProductsAsync();
+            return products;
         }
 
-        public Task<bool> UpdateProductAsync(Products product)
+        public async Task<bool> UpdateProductAsync(Products product)
         {
-            throw new NotImplementedException();
+            var record = await _productRepository.GetByIdProductAsync(product.Id);
+            if (record is not null)
+            {
+                var updated = await _productRepository.UpdateProductAsync(product);
+                return updated;
+            }
+            return false;
         }
     }
 }
