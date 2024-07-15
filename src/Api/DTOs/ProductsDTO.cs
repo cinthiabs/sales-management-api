@@ -4,6 +4,7 @@ namespace Api.DTOs
 {
     public class ProductsDTO
     {
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; } = default!;
         public string Details { get; set; } = default!;

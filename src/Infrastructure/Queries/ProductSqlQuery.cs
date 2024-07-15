@@ -3,8 +3,8 @@
     internal static class ProductSqlQuery
     {
         internal const string QueryCreateProduct = @"
-        INSERT INTO Product (Name, Details, Active, Price, DataCreate)
-        VALUES (@Name, @Details, @Active, @Price, @DataCreate);";
+        INSERT INTO Product (Name, Details, Active, Price, DateCreate)
+        VALUES (@Name, @Details, @Active, @Price, @DateCreate);";
 
         internal const string QueryUpdateProduct = @"
         UPDATE Product
@@ -13,7 +13,7 @@
             Details = @Details,
             Active = @Active,
             Price = @Price,
-            DataEdit = @DataEdit
+            DateEdit = @DateEdit
         WHERE
             Id = @Id;";
         

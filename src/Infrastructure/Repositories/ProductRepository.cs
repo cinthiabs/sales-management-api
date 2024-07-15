@@ -72,11 +72,12 @@ namespace Infrastructure.Repositories
         {
             var parameters = new
             {
+                prod.Id,
                 prod.Name,
                 prod.Details,
                 prod.Active,
                 prod.Price,
-                DateCreate = DateTime.Now
+                DateEdit = DateTime.Now
             };
 
             var update = await _conn.ExecuteAsync(ProductSqlQuery.QueryUpdateProduct, parameters);

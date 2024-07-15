@@ -4,6 +4,7 @@ namespace sales_management_api.DTOs
 {
     public class SalesDTO
     {
+        public int Id { get; set; }
         public int IdProduto { get; set; }
         [Required]
         public DateTime DateSale { get; set; }
