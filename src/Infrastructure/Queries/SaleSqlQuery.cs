@@ -3,8 +3,8 @@
     internal static class SaleSqlQuery
     {
         internal const string QueryCreateSale = @"
-        INSERT INTO Sale (DateSale, Name, Details, Quantity, Price, DateCreate)
-        VALUES (@DateSale, @Name, @Details, @Quantity, @Price, @DateCreate);";
+        INSERT INTO Sale (DateSale, Name, Details, Quantity, Price, PAY, DateCreate)
+        VALUES (@DateSale, @Name, @Details, @Quantity, @Price, @Pay, @DateCreate);";
 
         internal const string QueryUpdateSale = @"
         UPDATE Sale
@@ -41,7 +41,8 @@
         internal const string GetRelQuantity = @"
         SELECT [Name], 
         sum(Quantity) AS Quantity,
-        sum(price) as Price
+        sum(price) as Price,
+        count (pay) as Pay
         FROM Sale with(nolock)
         where DateSale  between @dateIni and @dateEnd
         GROUP BY [Name]

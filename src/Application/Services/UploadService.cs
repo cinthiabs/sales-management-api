@@ -106,6 +106,10 @@ namespace Application.Services
                     {
                         sale.Price = Convert.ToDecimal(value.Trim('R', '$', ','));
                     }
+                    else if(key == "PAGO")
+                    {
+                       sale.Pay = value.Contains("SIM");
+                    }
                 }
 
                 sales.Add(sale);

@@ -40,6 +40,7 @@ namespace Infrastructure.Repositories
                sale.Details,
                sale.Quantity,
                sale.DateSale,
+               sale.Pay,
                DateCreate = DateTime.Now
            };
            int result = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
