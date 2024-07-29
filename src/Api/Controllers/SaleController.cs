@@ -25,7 +25,7 @@ namespace sales_management_api.Controllers
             return Ok(salesDto);
         }
         
-        [HttpGet("GetByIdSale/${id}")]
+        [HttpGet("GetByIdSale/{id}")]
         [ProducesResponseType(typeof(SalesDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
