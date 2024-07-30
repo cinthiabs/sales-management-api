@@ -10,6 +10,7 @@ namespace Infrastructure.Interfaces
         Task<bool> DeleteProductAsync(int id);
         Task<IEnumerable<Products>> GetProductsAsync();
         Task<Products> GetByIdProductAsync(int id);
+        Task<Products> GetByNameProductAsync(string name);
         Task<Products> GetByProductsParametersAsync(Products prod);
     }
 }

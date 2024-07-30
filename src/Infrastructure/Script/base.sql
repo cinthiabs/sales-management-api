@@ -2,7 +2,7 @@ use DB_Sales
 
 CREATE TABLE Sale (
     Id INT PRIMARY KEY IDENTITY,
-	IdProduto INT,
+	IdProduct INT,
     DateSale DATETIME NOT NULL,
     Name NVARCHAR(255) NOT NULL,
     Details NVARCHAR(MAX),

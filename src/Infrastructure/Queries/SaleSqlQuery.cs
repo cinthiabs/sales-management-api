@@ -3,8 +3,8 @@
     internal static class SaleSqlQuery
     {
         internal const string QueryCreateSale = @"
-        INSERT INTO Sale (DateSale, Name, Details, Quantity, Price, PAY, DateCreate)
-        VALUES (@DateSale, @Name, @Details, @Quantity, @Price, @Pay, @DateCreate);";
+        INSERT INTO Sale (IdProduct, DateSale, Name, Details, Quantity, Price, PAY, DateCreate)
+        VALUES (@IdProduct, @DateSale, @Name, @Details, @Quantity, @Price, @Pay, @DateCreate);";
 
         internal const string QueryUpdateSale = @"
         UPDATE Sale

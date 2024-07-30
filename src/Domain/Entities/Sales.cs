@@ -3,7 +3,7 @@
     public class Sales
     {
         public int Id { get; set; }
-        public int IdProduto { get; set; }
+        public int IdProduct { get; set; }
         public DateTime DateSale { get; set; } 
         public string Name { get; set; } = default!;
         public string Details { get; set; } = default!;

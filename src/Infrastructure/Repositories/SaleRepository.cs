@@ -35,6 +35,7 @@ namespace Infrastructure.Repositories
 
            var parameters = new
            {
+               sale.IdProduct,
                sale.Name,
                sale.Price,
                sale.Details,

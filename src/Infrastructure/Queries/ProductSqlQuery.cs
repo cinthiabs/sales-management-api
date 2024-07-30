@@ -27,5 +27,9 @@
         internal const string QueryGetByIdProduct = @"
         SELECT * FROM Product
         WHERE Id = @Id";
+
+        internal const string QueryGetByNameProduct = @"
+        SELECT * FROM Product
+        WHERE Name = @Name";
     }
 }

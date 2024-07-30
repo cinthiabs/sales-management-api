@@ -56,6 +56,12 @@ namespace Infrastructure.Repositories
             var product = await _conn.QueryFirstOrDefaultAsync<Products>(ProductSqlQuery.QueryGetByIdProduct, parameters);
             return product!;
         }
+        public async Task<Products> GetByNameProductAsync(string name)
+        {
+            var parameters = new { name };
+            var product = await _conn.QueryFirstOrDefaultAsync<Products>(ProductSqlQuery.QueryGetByNameProduct, parameters);
+            return product!;
+        }
 
         public Task<Products> GetByProductsParametersAsync(Products prod)
         {

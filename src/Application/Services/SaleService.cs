@@ -4,13 +4,11 @@ using Infrastructure.Interfaces;
 
 namespace Application.Services
 {
-    public class SaleService : ISale
+    public class SaleService(ISaleRepository saleRepository, IProductRepository productRepository) : ISale
     {
-        private readonly ISaleRepository _saleRepository;
-        public SaleService(ISaleRepository saleRepository )
-        {
-            _saleRepository = saleRepository;
-        }
+        private readonly ISaleRepository _saleRepository = saleRepository;
+        private readonly IProductRepository _productRepository = productRepository;
+
         public async Task<Sales> CreateSaleAsync(Sales sale)
         {
             var result =  await _saleRepository.CreateSaleAsync(sale);
@@ -63,6 +61,11 @@ namespace Application.Services
 
                     if (saleExist.Id == 0)
                     {
+                        var product = await _productRepository.GetByNameProductAsync(item.Name);
+                        if(product is not null)
+                        {
+                           item.IdProduct = product.Id;
+                        }
                         result = await _saleRepository.CreateSaleListAsync(item);
                     }
                     else
