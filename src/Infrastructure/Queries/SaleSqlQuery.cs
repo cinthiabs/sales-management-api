@@ -40,9 +40,10 @@
 
         internal const string GetRelQuantity = @"
         SELECT [Name], 
-        sum(Quantity) AS Quantity,
-        sum(price) as Price,
-        count (pay) as Pay
+        SUM(Quantity) AS Quantity,
+        SUM(price) as Price,
+        SUM(CASE WHEN Pay = 1 THEN Quantity ELSE 0 END) AS Paid,
+        SUM(CASE WHEN Pay = 0 THEN Quantity ELSE 0 END) AS NotPaid
         FROM Sale with(nolock)
         where DateSale  between @dateIni and @dateEnd
         GROUP BY [Name]
