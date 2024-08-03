@@ -36,7 +36,8 @@
         DateSale = @DateSale 
         and Price = @Price  
         and Quantity = @Quantity
-        and Name = @Name";
+        and Name = @Name
+		and (@Details IS NULL OR Details = @Details)";
 
         internal const string GetRelQuantity = @"
         SELECT [Name], 

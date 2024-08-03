@@ -22,12 +22,10 @@ namespace sales_management_api.Controllers
             if (file is null && file?.Length == 0)
                 return BadRequest("File invalid!");
 
-            using (var stream = new MemoryStream())
-            {
-                await file.CopyToAsync(stream);
-                var resultado = await _upload.ReadExcelAsync(stream);
-                return resultado ? Ok(resultado) : Conflict(resultado);
-            }
+            using var stream = new MemoryStream();
+            await file.CopyToAsync(stream);
+            var resultado = await _upload.ReadExcelAsync(stream);
+            return resultado ? Ok(resultado) : Conflict(resultado);
         }
     }
 }

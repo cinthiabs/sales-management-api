@@ -27,7 +27,7 @@ CREATE TABLE Costs (
     Id INT PRIMARY KEY IDENTITY,
     Quantity NVARCHAR(255),
     Name NVARCHAR(255) NOT NULL,
-    DateCost DATE NOT NULL,
+    DateCost DATETIME NOT NULL,
     UnitPrice DECIMAL(18,2) NOT NULL,
     TotalPrice DECIMAL(18,2) NOT NULL,
     DateCreate DATETIME NOT NULL,

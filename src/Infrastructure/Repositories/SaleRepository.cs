@@ -98,7 +98,7 @@ namespace Infrastructure.Repositories
             {
                 sale.Name,
                 sale.Price,
-                sale.Details,
+                Details = string.IsNullOrEmpty(sale.Details) ? (object)DBNull.Value : sale.Details,
                 sale.Quantity,
                 sale.DateSale
             };
