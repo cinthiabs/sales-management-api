@@ -33,3 +33,13 @@ CREATE TABLE Costs (
     DateCreate DATETIME NOT NULL,
 	DateEdit DATETIME 
 );
+
+CREATE TABLE Client (
+    Id INT PRIMARY KEY IDENTITY,
+    [Name] NVARCHAR(255) NOT NULL,
+	Phone VARCHAR(15) NULL,
+	[Location] NVARCHAR(255) NULL,
+	Active BIT NOT NULL,
+    DateCreate DATETIME NOT NULL,
+	DateEdit DATETIME 
+);

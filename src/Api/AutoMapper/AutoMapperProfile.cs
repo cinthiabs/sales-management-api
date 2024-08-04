@@ -17,6 +17,9 @@ namespace sales_management_api.AutoMapper
 
             CreateMap<Sales, SalesDTO>();
             CreateMap<SalesDTO, Sales>();
+
+            CreateMap<Clients, ClientDTO>();
+            CreateMap<ClientDTO, Clients>();
         }
     }
 }

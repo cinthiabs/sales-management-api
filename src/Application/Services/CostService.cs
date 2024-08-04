@@ -47,20 +47,17 @@ namespace Application.Services
         }
         public async Task<Costs> GetByIdCostAsync(int id)
         {
-            var cost = await _costRepository.GetByIdCostAsync(id);
-            return cost;
+            return await _costRepository.GetByIdCostAsync(id);
         }
 
         public async Task<IEnumerable<Costs>> GetCostsAsync()
         {
-            var costs = await _costRepository.GetCostsAsync();
-            return costs;
+            return await _costRepository.GetCostsAsync();
         }
 
         public async Task<IEnumerable<RelPriceCost>> GetRelCostPriceAsync(DateTime dateIni, DateTime dateEnd)
         {
-            var rel = await _costRepository.GetRelCostPriceAsync(dateIni, dateEnd);
-            return rel;
+            return await _costRepository.GetRelCostPriceAsync(dateIni, dateEnd);
         }
 
         public async Task<bool> UpdateCostAsync(Costs cost)

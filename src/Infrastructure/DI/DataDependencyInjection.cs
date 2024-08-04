@@ -11,6 +11,7 @@ namespace Infrastructure.DI
             services.AddScoped<ICostRepository, CostRepository>();
             services.AddScoped<ISaleRepository, SaleRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
         }
     }
 }
