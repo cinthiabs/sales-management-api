@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Interfaces;
 
 namespace Application.Services
@@ -8,10 +9,9 @@ namespace Application.Services
     {
         private readonly ICostRepository _costRepository = costRepository;
 
-        public async Task<Costs> CreateCostAsync(Costs cost)
+        public async Task<Response<Costs>> CreateCostAsync(Costs cost)
         {
-            var result = await _costRepository.CreateCostAsync(cost);
-            return result;
+            return await _costRepository.CreateCostAsync(cost);
         }
         public async Task<bool> CreateCostListAsync(List<Costs> costs)
         {
@@ -25,7 +25,8 @@ namespace Application.Services
 
                     if (costExist.Id == 0)
                     {
-                        result = await _costRepository.CreateCostListAsync(item);
+                        var data = await _costRepository.CreateCostListAsync(item);
+                        return data.IsSuccess;
                     }
                     else
                     {
@@ -35,22 +36,22 @@ namespace Application.Services
             }
             return result;
         }
-        public async Task<bool> DeleteCostAsync(int id)
+        public async Task<Response<bool>> DeleteCostAsync(int id)
         {
-            var record = await _costRepository.GetByIdCostAsync(id);
-            if (record is not null)
+            var existCost = await _costRepository.GetByIdCostAsync(id);
+            if (existCost.IsSuccess)
             {
-                var rowsAffected = await _costRepository.DeleteCostAsync(id);
-                return rowsAffected;
+                var deleteCost = await _costRepository.DeleteCostAsync(id);
+                return deleteCost;
             }
-            return false;
+            return Response<bool>.Failure(Status.noDatafound);
         }
-        public async Task<Costs> GetByIdCostAsync(int id)
+        public async Task<Response<Costs>> GetByIdCostAsync(int id)
         {
             return await _costRepository.GetByIdCostAsync(id);
         }
 
-        public async Task<IEnumerable<Costs>> GetCostsAsync()
+        public async Task<Response<Costs>> GetCostsAsync()
         {
             return await _costRepository.GetCostsAsync();
         }
@@ -60,15 +61,15 @@ namespace Application.Services
             return await _costRepository.GetRelCostPriceAsync(dateIni, dateEnd);
         }
 
-        public async Task<bool> UpdateCostAsync(Costs cost)
+        public async Task<Response<Costs>> UpdateCostAsync(Costs cost)
         {
-            var record = await _costRepository.GetByIdCostAsync(cost.Id);
-            if (record is not null)
+            var existCost = await _costRepository.GetByIdCostAsync(cost.Id);
+            if (existCost.IsSuccess)
             {
                 var updated = await _costRepository.UpdateCostAsync(cost);
                 return updated;
             }
-            return false;
+             return existCost;
         }
     }
 }

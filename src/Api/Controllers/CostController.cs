@@ -30,14 +30,11 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdCostAsync(int id)
         {
-            if (id == 0)
-                return BadRequest("Invalid Cost");
-
             var cost = await _cost.GetByIdCostAsync(id);
-            if (cost is null)
-                return NotFound();
+            if (cost.IsFailure)
+                return NotFound(cost);
 
-            var costDto = _mapper.Map<CostsDTO>(cost);
+            var costDto = _mapper.Map<CostsDTO>(cost.Data.FirstOrDefault());
             return Ok(costDto);
         }
 
@@ -47,12 +44,12 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateCostAsync([FromBody] CostsDTO costDto)
         {
-            if (costDto is null)
-                return BadRequest("Cost invalid!");
-
             var cost = _mapper.Map<Costs>(costDto);
             var costCreated = await _cost.CreateCostAsync(cost);
-            var costCreatedDto = _mapper.Map<CostsDTO>(costCreated);
+            if(costCreated.IsFailure)
+                return BadRequest(costCreated);
+
+            var costCreatedDto = _mapper.Map<CostsDTO>(costCreated.Data);
             return Ok(costCreatedDto);
         }
 
@@ -62,13 +59,13 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateCostAsync([FromBody] CostsDTO costDto, int id)
         {
-            if (costDto is null)
-                return BadRequest("Cost invalid!");
-
             var cost = _mapper.Map<Costs>(costDto);
             cost.Id = id;
-            bool costUpdated = await _cost.UpdateCostAsync(cost);
-            return costUpdated ? Ok(costUpdated) : BadRequest("Unable to update data!");
+            var costUpdated = await _cost.UpdateCostAsync(cost);
+            if(costUpdated.IsFailure)
+                return BadRequest(costUpdated);
+
+            return Ok(costUpdated);
         }
 
         [HttpDelete("DeleteCost/{id}")]
@@ -77,11 +74,13 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteCostAsync(int id)
         {
-            if (id == 0 )
-                return BadRequest("Cost invalid!");
-            bool costDelete = await _cost.DeleteCostAsync(id);
-            return costDelete ? Ok(costDelete) : BadRequest("Unable to delete data!");
+            var costDelete = await _cost.DeleteCostAsync(id);
+            if(costDelete.IsFailure)
+                return BadRequest(costDelete);
+
+            return Ok(costDelete);
         }
+
         [HttpGet("GetRelCostPrice")]
         [ProducesResponseType(typeof(IEnumerable<RelPriceCost>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

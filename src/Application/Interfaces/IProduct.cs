@@ -4,10 +4,10 @@ namespace Application.Interfaces
 {
     public interface IProduct
     {
-        Task<Products> CreateProductAsync(Products product);
-        Task<bool> UpdateProductAsync(Products product);
-        Task<bool> DeleteProductAsync(int id);
-        Task<IEnumerable<Products>> GetProductsAsync();
-        Task<Products> GetByIdProductAsync(int id);
+        Task<Response<Products>> CreateProductAsync(Products product);
+        Task<Response<Products>> UpdateProductAsync(Products product);
+        Task<Response<bool>> DeleteProductAsync(int id);
+        Task<Response<Products>> GetProductsAsync();
+        Task<Response<Products>> GetByIdProductAsync(int id);
     }
 }

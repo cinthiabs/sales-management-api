@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Connection;
 using Infrastructure.Interfaces;
 using Infrastructure.Queries;
@@ -9,7 +10,7 @@ namespace Infrastructure.Repositories
 {
     public class ProductRepository(IConfiguration configuration) : RepositoryBase(configuration), IProductRepository
     {
-        public async Task<Products> CreateProductAsync(Products prod)
+        public async Task<Response<Products>> CreateProductAsync(Products prod)
         {
             var parameters = new
             {
@@ -22,15 +23,17 @@ namespace Infrastructure.Repositories
 
             var Id = await _conn.ExecuteScalarAsync(ProductSqlQuery.QueryCreateProduct, parameters);
             var created = await _conn.QueryFirstOrDefaultAsync<Products>(ProductSqlQuery.QueryGetByIdProduct, new { Id });
-            return created!;
+            if(created is null)
+                return Response<Products>.Failure(Status.noDatafound);
+            
+            return Response<Products>.Success(created);
         }
 
-        public async Task<bool> CreateProductListAsync(Products prod)
+        public async Task<Response<bool>> CreateProductListAsync(Products prod)
         {
             if (string.IsNullOrEmpty(prod.Name))
-            {
-                return false;
-            }
+                 return Response<bool>.Failure(Status.Empty);
+            
             var parameters = new
             {
                 prod.Name,
@@ -40,22 +43,32 @@ namespace Infrastructure.Repositories
                 DateCreate = DateTime.Now
             };
             int result = await _conn.ExecuteAsync(ProductSqlQuery.QueryCreateProduct, parameters);
-            return result > 0;
+            if(result is 0)
+                return Response<bool>.Failure(Status.InsertFailure);
+            
+            return Response<bool>.Success(true);
         }
 
-        public async Task<bool> DeleteProductAsync(int id)
+        public async Task<Response<bool>> DeleteProductAsync(int id)
         {
             var parameters = new { id };
             var delete = await _conn.ExecuteAsync(ProductSqlQuery.QueryDeleteProduct, parameters);
-            return delete > 0;
+            if(delete is 0)
+                return Response<bool>.Failure(Status.DeleteFailure);
+            
+            return Response<bool>.Success(true, Status.DeletedSuccess);
         }
 
-        public async Task<Products> GetByIdProductAsync(int id)
+        public async Task<Response<Products>> GetByIdProductAsync(int id)
         {
             var parameters = new { id };
             var product = await _conn.QueryFirstOrDefaultAsync<Products>(ProductSqlQuery.QueryGetByIdProduct, parameters);
-            return product!;
+            if(product is null)
+                return Response<Products>.Failure(Status.noDatafound);
+
+            return Response<Products>.Success(product);
         }
+
         public async Task<Products> GetByNameProductAsync(string name)
         {
             var parameters = new { name };
@@ -68,13 +81,16 @@ namespace Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Products>> GetProductsAsync()
+        public async Task<Response<Products>> GetProductsAsync()
         {
             var products = await _conn.QueryAsync<Products>(ProductSqlQuery.QuerySelectProduct);
-            return products;
+            if (!products.Any())
+                return Response<Products>.Failure(Status.noDatafound);
+
+            return Response<Products>.Success(products.ToArray());
         }
 
-        public async Task<bool> UpdateProductAsync(Products prod)
+        public async Task<Response<Products>> UpdateProductAsync(Products prod)
         {
             var parameters = new
             {
@@ -87,7 +103,11 @@ namespace Infrastructure.Repositories
             };
 
             var update = await _conn.ExecuteAsync(ProductSqlQuery.QueryUpdateProduct, parameters);
-            return update > 0;
+             if(update is 0)
+                return Response<Products>.Failure(Status.UpdateFailure);
+
+            var updated = await _conn.QueryFirstOrDefaultAsync<Products>(ProductSqlQuery.QueryGetByIdProduct, new { prod.Id });
+            return Response<Products>.Success(updated!, Status.UpdatedSuccess);
         }
     }
 }

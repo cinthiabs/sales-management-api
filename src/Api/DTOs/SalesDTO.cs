@@ -6,6 +6,7 @@ namespace sales_management_api.DTOs
     {
         public int Id { get; set; }
         public int IdProduct { get; set; }
+        public int IdClient { get; set; }
         [Required]
         public DateTime DateSale { get; set; }
         [Required]

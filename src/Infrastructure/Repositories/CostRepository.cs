@@ -4,12 +4,13 @@ using Microsoft.Extensions.Configuration;
 using Infrastructure.Interfaces;
 using Infrastructure.Queries;
 using Infrastructure.Connection;
+using Domain.Enums;
 
 namespace Infrastructure.Repositories
 {
     public class CostRepository(IConfiguration configuration) : RepositoryBase(configuration), ICostRepository
     {
-        public async Task<Costs> CreateCostAsync(Costs cost)
+        public async Task<Response<Costs>> CreateCostAsync(Costs cost)
         {
             var parameters = new
             {
@@ -23,14 +24,17 @@ namespace Infrastructure.Repositories
 
             var Id = await _conn.ExecuteScalarAsync(CostSqlQuery.QueryCreateCost, parameters);
             var created = await _conn.QueryFirstOrDefaultAsync<Costs>(CostSqlQuery.QueryGetByIdCost, new { Id } );
-            return created!;
+            if(created is null)
+                return Response<Costs>.Failure(Status.noDatafound);
+            
+            return Response<Costs>.Success(created);
         }
 
-        public async Task<bool> CreateCostListAsync(Costs cost)
+        public async Task<Response<bool>> CreateCostListAsync(Costs cost)
         {
             if (string.IsNullOrEmpty(cost.Name))
             {
-                return false;
+               return Response<bool>.Failure(Status.Empty);
             }
 
             var parameters = new
@@ -44,30 +48,42 @@ namespace Infrastructure.Repositories
             };
 
             int result = await _conn.ExecuteAsync(CostSqlQuery.QueryCreateCost, parameters);
-            return result > 0;
+            if(result is 0)
+                return Response<bool>.Failure(Status.InsertFailure);
+            
+            return Response<bool>.Success(true);
         }
 
-        public async Task<bool> DeleteCostAsync(int id)
+        public async Task<Response<bool>> DeleteCostAsync(int id)
         {
             var parameters = new { id };
             var delete = await _conn.ExecuteAsync(CostSqlQuery.QueryDeleteCost, parameters);
-            return delete > 0;
+            if(delete is 0)
+                return Response<bool>.Failure(Status.DeleteFailure);
+
+            return Response<bool>.Success(true, Status.DeletedSuccess);
         }
 
-        public async Task<Costs> GetByIdCostAsync(int id)
+        public async Task<Response<Costs>> GetByIdCostAsync(int id)
         {
             var parameters = new { id };
             var cost = await _conn.QueryFirstOrDefaultAsync<Costs>(CostSqlQuery.QueryGetByIdCost, parameters);
-            return cost!;
+            if(cost is null)
+                return Response<Costs>.Failure(Status.noDatafound);
+            
+            return Response<Costs>.Success(cost);
         }
 
-        public async Task<IEnumerable<Costs>> GetCostsAsync()
+        public async Task<Response<Costs>> GetCostsAsync()
         {
             var costs = await _conn.QueryAsync<Costs>(CostSqlQuery.QuerySelectCost);
-            return costs;
+            if(!costs.Any())
+                return Response<Costs>.Failure(Status.noDatafound);
+
+            return Response<Costs>.Success(costs.ToArray());
         }
 
-        public async Task<bool> UpdateCostAsync(Costs cost)
+        public async Task<Response<Costs>> UpdateCostAsync(Costs cost)
         {
             var parameters = new
             {
@@ -81,7 +97,11 @@ namespace Infrastructure.Repositories
             };
 
             var update = await _conn.ExecuteAsync(CostSqlQuery.QueryUpdateCost, parameters);
-            return update > 0;
+            if(update is 0)
+                return Response<Costs>.Failure(Status.UpdateFailure);
+            
+            var updated = await _conn.QueryFirstOrDefaultAsync<Costs>(CostSqlQuery.QueryGetByIdCost, new { cost.Id });
+            return Response<Costs>.Success(updated!, Status.UpdatedSuccess);
         }
         public async Task<Costs> GetByCostsParametersAsync(Costs cost)
         {

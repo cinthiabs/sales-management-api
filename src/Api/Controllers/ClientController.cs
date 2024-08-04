@@ -25,7 +25,6 @@ namespace sales_management_api.Controllers
 
             var clientsDto = _mapper.Map<IEnumerable<ClientDTO>>(clients.Data);
             return Ok(clientsDto);
-
         }
 
         [HttpGet("GetByIdClient/{id}")]

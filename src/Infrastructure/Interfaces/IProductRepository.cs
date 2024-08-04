@@ -4,12 +4,12 @@ namespace Infrastructure.Interfaces
 {
     public interface IProductRepository
     {
-        Task<Products> CreateProductAsync(Products prod);
-        Task<bool> CreateProductListAsync(Products prod);
-        Task<bool> UpdateProductAsync(Products prod);
-        Task<bool> DeleteProductAsync(int id);
-        Task<IEnumerable<Products>> GetProductsAsync();
-        Task<Products> GetByIdProductAsync(int id);
+        Task<Response<Products>> CreateProductAsync(Products prod);
+        Task<Response<bool>> CreateProductListAsync(Products prod);
+        Task<Response<Products>> UpdateProductAsync(Products prod);
+        Task<Response<bool>> DeleteProductAsync(int id);
+        Task<Response<Products>> GetProductsAsync();
+        Task<Response<Products>> GetByIdProductAsync(int id);
         Task<Products> GetByNameProductAsync(string name);
         Task<Products> GetByProductsParametersAsync(Products prod);
     }

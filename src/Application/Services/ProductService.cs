@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Interfaces;
 
 namespace Application.Services
@@ -7,45 +8,41 @@ namespace Application.Services
     public class ProductService(IProductRepository productRepository) : IProduct
     {
         private readonly IProductRepository _productRepository = productRepository;
-        public async Task<Products> CreateProductAsync(Products product)
+        public async Task<Response<Products>> CreateProductAsync(Products product)
         {
-
-            var result = await _productRepository.CreateProductAsync(product);
-            return result;
+            return await _productRepository.CreateProductAsync(product);
         }
 
-        public async Task<bool> DeleteProductAsync(int id)
+        public async Task<Response<bool>> DeleteProductAsync(int id)
         {
-            var record = await _productRepository.GetByIdProductAsync(id);
-            if (record is not null)
+            var existProduct = await _productRepository.GetByIdProductAsync(id);
+            if (existProduct.IsSuccess)
             {
-                var rowsAffected = await _productRepository.DeleteProductAsync(id);
-                return rowsAffected;
+                var deleteProduct = await _productRepository.DeleteProductAsync(id);
+                return deleteProduct;
             }
-            return false;
+            return Response<bool>.Failure(Status.noDatafound);
         }
 
-        public async Task<Products> GetByIdProductAsync(int id)
+        public async Task<Response<Products>> GetByIdProductAsync(int id)
         {
-            var product = await _productRepository.GetByIdProductAsync(id);
-            return product;
+            return await _productRepository.GetByIdProductAsync(id);
         }
 
-        public async Task<IEnumerable<Products>> GetProductsAsync()
+        public async Task<Response<Products>> GetProductsAsync()
         {
-            var products = await _productRepository.GetProductsAsync();
-            return products;
+            return await _productRepository.GetProductsAsync();
         }
 
-        public async Task<bool> UpdateProductAsync(Products product)
+        public async Task<Response<Products>> UpdateProductAsync(Products product)
         {
-            var record = await _productRepository.GetByIdProductAsync(product.Id);
-            if (record is not null)
+            var existProduct = await _productRepository.GetByIdProductAsync(product.Id);
+            if (existProduct.IsSuccess)
             {
                 var updated = await _productRepository.UpdateProductAsync(product);
                 return updated;
             }
-            return false;
+            return existProduct;
         }
     }
 }
