@@ -3,6 +3,7 @@ use DB_Sales
 CREATE TABLE Sale (
     Id INT PRIMARY KEY IDENTITY,
 	IdProduct INT,
+    IdClient INT,
     DateSale DATETIME NOT NULL,
     Name NVARCHAR(255) NOT NULL,
     Details NVARCHAR(MAX),
@@ -10,7 +11,9 @@ CREATE TABLE Sale (
     Price DECIMAL(18,2) NOT NULL,
 	DateCreate DATETIME NOT NULL,
 	PAY BIT,
-	DateEdit DATETIME 
+	DateEdit DATETIME ,
+    CONSTRAINT FK_Sale_Client FOREIGN KEY (IdClient) REFERENCES Client(Id),
+    CONSTRAINT FK_Sale_Product FOREIGN KEY (IdProduct) REFERENCES Product(Id)
 );
 
 CREATE TABLE Product (

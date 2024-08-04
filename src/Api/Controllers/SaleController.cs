@@ -21,6 +21,9 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> GetAllSalesAsync()
         {
             var sales = await _sale.GetSalesAsync();
+            if(sales.IsFailure)
+                return BadRequest(sales);
+            
             var salesDto = _mapper.Map<IEnumerable<SalesDTO>>(sales);
             return Ok(salesDto);
         }
@@ -31,14 +34,11 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdSaleAsync(int id)
         {
-            if(id == 0)
-                return BadRequest("Invalid Sale");
-
             var sale = await _sale.GetByIdSaleAsync(id);
-            if (sale is null)
-                return NotFound();
+            if (sale.IsFailure)
+                return NotFound(sale);
 
-            var saleDto = _mapper.Map<SalesDTO>(sale);
+            var saleDto = _mapper.Map<SalesDTO>(sale.Data.FirstOrDefault());
             return Ok(saleDto);
         }
 
@@ -48,11 +48,11 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateSaleAsync([FromBody] SalesDTO saleDto)
         {
-            if (saleDto is null)
-                return BadRequest("Sale invalid!");
-
             var sales = _mapper.Map<Sales>(saleDto);
             var saleCreated = await _sale.CreateSaleAsync(sales);
+            if(saleCreated.IsFailure)
+                return BadRequest(saleCreated);
+            
             var saleCreatedDto = _mapper.Map<CostsDTO>(saleCreated);
             return Ok(saleCreatedDto);
         }
@@ -63,13 +63,14 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateSaleAsync([FromBody] SalesDTO saleDto, int id)
         {
-            if (saleDto is null)
-                return BadRequest("Sale invalid!");
-
             var sale = _mapper.Map<Sales>(saleDto);
             sale.Id = id;
-            bool saleUpdate = await _sale.UpdateSaleAsync(sale);
-            return saleUpdate ? Ok(saleUpdate) : BadRequest("Unable to update data!");
+
+            var saleUpdate = await _sale.UpdateSaleAsync(sale);
+            if(saleUpdate.IsFailure)
+                return BadRequest(saleUpdate);
+
+            return Ok(saleUpdate);
         }
 
         [HttpDelete("DeleteSale/{id}")]
@@ -78,10 +79,11 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteSaleAsync(int id)
         {
-            if (id == 0)
-                return BadRequest("Sale invalid!");
-            bool saleDelete = await _sale.DeleteSaleAsync(id);
-            return saleDelete ? Ok(saleDelete) : BadRequest("Unable to delete data!");
+            var saleDelete = await _sale.DeleteSaleAsync(id);
+            if(saleDelete.IsFailure)
+                return BadRequest(saleDelete);
+            
+            return Ok(saleDelete);
         }
 
         [HttpGet("GetRelQuantity")]

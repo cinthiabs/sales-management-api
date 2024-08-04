@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public int IdProduct { get; set; }
+        public int? IdClient { get; set; }
         public DateTime DateSale { get; set; } 
         public string Name { get; set; } = default!;
         public string Details { get; set; } = default!;

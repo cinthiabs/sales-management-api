@@ -1,15 +1,17 @@
 ﻿using Dapper;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Connection;
 using Infrastructure.Interfaces;
 using Infrastructure.Queries;
+
 using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Repositories
 {
     public class SaleRepository(IConfiguration configuration) : RepositoryBase(configuration), ISaleRepository
     {
-        public async Task<Sales> CreateSaleAsync(Sales sale)
+        public async Task<Response<Sales>> CreateSaleAsync(Sales sale)
         {
             var parameters = new
             {
@@ -23,15 +25,17 @@ namespace Infrastructure.Repositories
 
             var Id = await _conn.ExecuteScalarAsync(SaleSqlQuery.QueryCreateSale, parameters);
             var created = await _conn.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryGetByIdSale, new { Id });
-            return created!;
+            if (created is null)
+                return Response<Sales>.Failure(Status.noDatafound);
+            
+            return Response<Sales>.Success(created);
         }
 
-        public async Task<bool> CreateSaleListAsync(Sales sale)
+        public async Task<Response<bool>> CreateSaleListAsync(Sales sale)
         {
            if (string.IsNullOrEmpty(sale.Name))
-           {
-               return false;
-           }
+              return Response<bool>.Failure(Status.Empty);
+
 
            var parameters = new
            {
@@ -45,14 +49,20 @@ namespace Infrastructure.Repositories
                DateCreate = DateTime.Now
            };
            int result = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
-           return result > 0;
+           if(result is 0)
+                return Response<bool>.Failure(Status.InsertFailure);
+            
+            return Response<bool>.Success(true);
         }
 
-        public async Task<bool> DeleteSaleAsync(int id)
+        public async Task<Response<bool>> DeleteSaleAsync(int id)
         {
             var parameters = new { id };
             var  delete = await _conn.ExecuteAsync(SaleSqlQuery.QueryDeleteSale, parameters);
-            return delete > 0;
+             if(delete is 0)
+                return Response<bool>.Failure(Status.DeleteFailure);
+            
+            return Response<bool>.Success(true, Status.DeletedSuccess);
         }
 
         public Task<IEnumerable<Sales>> GetByFiltersAsync(DateTime dateStart, DateTime dateEnd)
@@ -60,20 +70,26 @@ namespace Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<Sales> GetByIdSaleAsync(int id)
+        public async Task<Response<Sales>> GetByIdSaleAsync(int id)
         {
             var parameters = new { id };
             var sale = await _conn.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryGetByIdSale, parameters);
-            return sale!;
+            if(sale is null)
+                return Response<Sales>.Failure(Status.noDatafound);
+            
+            return Response<Sales>.Success(sale);
         }
 
-        public async Task<IEnumerable<Sales>> GetSalesAsync()
+        public async Task<Response<Sales>> GetSalesAsync()
         {
             var sale = await _conn.QueryAsync<Sales>(SaleSqlQuery.QuerySelectSale);
-            return sale;
+            if(!sale.Any())
+                return Response<Sales>.Failure(Status.noDatafound);
+
+            return Response<Sales>.Success(sale.ToArray());
         }
 
-        public async Task<bool> UpdateSaleAsync(Sales sale)
+        public async Task<Response<Sales>> UpdateSaleAsync(Sales sale)
         {
             var parameters = new 
             {
@@ -89,7 +105,12 @@ namespace Infrastructure.Repositories
             };
 
             var update = await _conn.ExecuteAsync(SaleSqlQuery.QueryUpdateSale, parameters);
-            return update > 0;
+            if(update is 0)
+                return Response<Sales>.Failure(Status.UpdateFailure);
+            
+            var updated = await _conn.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryGetByIdSale, new { sale.Id });
+            return Response<Sales>.Success(updated!, Status.UpdatedSuccess);
+
         }
 
         public async Task<Sales> GetBySaleParametersAsync(Sales sale)

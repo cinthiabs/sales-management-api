@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Interfaces;
 
 namespace Application.Services
@@ -9,43 +10,41 @@ namespace Application.Services
         private readonly ISaleRepository _saleRepository = saleRepository;
         private readonly IProductRepository _productRepository = productRepository;
 
-        public async Task<Sales> CreateSaleAsync(Sales sale)
+        public async Task<Response<Sales>> CreateSaleAsync(Sales sale)
         {
-            var result =  await _saleRepository.CreateSaleAsync(sale);
-            return result;
+            return await _saleRepository.CreateSaleAsync(sale);
         }
         
-        public async Task<bool> DeleteSaleAsync(int id)
+        public async Task<Response<bool>> DeleteSaleAsync(int id)
         {
-            var record = await _saleRepository.GetByIdSaleAsync(id);
-            if(record is not null) 
+            var existSale = await _saleRepository.GetByIdSaleAsync(id);
+            if(existSale.IsSuccess) 
             {
-                var rowsAffected = await _saleRepository.DeleteSaleAsync(id);
-                return rowsAffected;
+                var deleteSale = await _saleRepository.DeleteSaleAsync(id);
+                return deleteSale;
             }
-            return false;
+            return Response<bool>.Failure(Status.noDatafound);
         }
 
-        public async Task<Sales> GetByIdSaleAsync(int id)
+        public async Task<Response<Sales>> GetByIdSaleAsync(int id)
         {
-            var sale = await _saleRepository.GetByIdSaleAsync(id);
-            return sale;
+            return await _saleRepository.GetByIdSaleAsync(id);
         }
 
-        public async Task<IEnumerable<Sales>> GetSalesAsync()
+        public async Task<Response<Sales>> GetSalesAsync()
         {
             var sales = await _saleRepository.GetSalesAsync();
             return sales;
         }
-        public async Task<bool> UpdateSaleAsync(Sales sale)
+        public async Task<Response<Sales>> UpdateSaleAsync(Sales sale)
         {
-            var record = await _saleRepository.GetByIdSaleAsync(sale.Id);
-            if (record is not null)
+            var existSale = await _saleRepository.GetByIdSaleAsync(sale.Id);
+            if (existSale.IsSuccess)
             {
                 var updated = await _saleRepository.UpdateSaleAsync(sale);
                 return updated;
             }
-            return false;     
+            return existSale;     
         }
 
         public async Task<bool> CreateSaleListAsync(List<Sales> sale)
@@ -66,7 +65,8 @@ namespace Application.Services
                         {
                            item.IdProduct = product.Id;
                         }
-                        result = await _saleRepository.CreateSaleListAsync(item);
+                        var data = await _saleRepository.CreateSaleListAsync(item);
+                        return data.IsSuccess;
                     }
                     else
                     {

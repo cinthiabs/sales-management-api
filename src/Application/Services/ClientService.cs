@@ -41,13 +41,13 @@ namespace Application.Services
 
         public async Task<Response<Clients>> UpdateClientAsync(Clients client)
         {
-             var record = await _clientRepository.GetByIdClientAsync(client.Id);
-             if (record.IsSuccess)
+             var existClient = await _clientRepository.GetByIdClientAsync(client.Id);
+             if (existClient.IsSuccess)
              {
                  var updated = await _clientRepository.UpdateClientAsync(client);
                  return updated;
              }
-            return record;
+            return existClient;
         }
     }
 }

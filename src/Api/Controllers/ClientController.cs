@@ -51,7 +51,7 @@ namespace sales_management_api.Controllers
             var client = _mapper.Map<Clients>(clientDto);
             var clientCreated = await _client.CreateClientAsync(client);
             if(clientCreated.IsFailure)
-                return BadRequest(client);
+                return BadRequest(clientCreated);
 
             var clientCreatedDto = _mapper.Map<ClientDTO>(clientCreated.Data);
             return Ok(clientCreatedDto);
@@ -81,8 +81,9 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> DeleteClientAsync(int id)
         {
             var clientDelete = await _client.DeleteClientsAsync(id);
-            if( clientDelete.IsFailure) 
+            if(clientDelete.IsFailure) 
                 return BadRequest(clientDelete);
+            
             return  Ok(clientDelete);
         }
         

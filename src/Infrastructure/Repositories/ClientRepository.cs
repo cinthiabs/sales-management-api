@@ -24,18 +24,15 @@ namespace Infrastructure.Repositories
             var Id = await _conn.ExecuteScalarAsync(ClientSqlQuery.QueryCreateClient, parameters);
             var created = await _conn.QueryFirstOrDefaultAsync<Clients>(ClientSqlQuery.QueryGetByIdClient, new { Id });
             if (created is null)
-            {
                 return Response<Clients>.Failure(Status.noDatafound);
-            }
+
             return Response<Clients>.Success(created);
         }
 
         public async Task<Response<bool>> CreateClientListAsync(Clients client)
         {
             if (string.IsNullOrEmpty(client.Name))
-            {
                 return Response<bool>.Failure(Status.Empty);
-            }
 
             var parameters = new
             {
@@ -48,9 +45,8 @@ namespace Infrastructure.Repositories
 
             int result = await _conn.ExecuteAsync(ClientSqlQuery.QueryCreateClient, parameters);
             if(result is 0)
-            {
                 return Response<bool>.Failure(Status.InsertFailure);
-            }
+            
             return Response<bool>.Success(true);
         }
 
@@ -59,9 +55,8 @@ namespace Infrastructure.Repositories
             var parameters = new { id };
             var delete = await _conn.ExecuteAsync(ClientSqlQuery.QueryDeleteClient, parameters);
             if(delete is 0)
-            {
                 return Response<bool>.Failure(Status.DeleteFailure);
-            }
+            
             return Response<bool>.Success(true, Status.DeletedSuccess);
         }
 
@@ -70,9 +65,8 @@ namespace Infrastructure.Repositories
             var parameters = new { id };
             var client = await _conn.QueryFirstOrDefaultAsync<Clients>(ClientSqlQuery.QueryGetByIdClient, parameters);
             if(client is null)
-            {
                 return Response<Clients>.Failure(Status.noDatafound);
-            }
+
             return Response<Clients>.Success(client);  
         }
 
@@ -80,9 +74,8 @@ namespace Infrastructure.Repositories
         {
             var clients = await _conn.QueryAsync<Clients>(ClientSqlQuery.QuerySelectClients);
             if (!clients.Any())
-            {
                 return Response<Clients>.Failure(Status.noDatafound);
-            }
+
             return Response<Clients>.Success(clients.ToArray());
         }
 
@@ -100,9 +93,7 @@ namespace Infrastructure.Repositories
 
             var update = await _conn.ExecuteAsync(ClientSqlQuery.QueryUpdateClient, parameters);
             if(update is 0)
-            {
                 return Response<Clients>.Failure(Status.UpdateFailure);
-            }
 
             var updated = await _conn.QueryFirstOrDefaultAsync<Clients>(ClientSqlQuery.QueryGetByIdClient, new { client.Id });
             return Response<Clients>.Success(updated!, Status.UpdatedSuccess);
