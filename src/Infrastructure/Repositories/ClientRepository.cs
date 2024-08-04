@@ -4,12 +4,13 @@ using Infrastructure.Connection;
 using Infrastructure.Interfaces;
 using Dapper;
 using Infrastructure.Queries;
+using Domain.Enums;
 
 namespace Infrastructure.Repositories
 {
     public class ClientRepository (IConfiguration configuration) : RepositoryBase(configuration),  IClientRepository
     {
-        public  async Task<Clients> CreateClientAsync(Clients client)
+        public  async Task<Response<Clients>> CreateClientAsync(Clients client)
         {
             var parameters = new
             {
@@ -22,14 +23,18 @@ namespace Infrastructure.Repositories
 
             var Id = await _conn.ExecuteScalarAsync(ClientSqlQuery.QueryCreateClient, parameters);
             var created = await _conn.QueryFirstOrDefaultAsync<Clients>(ClientSqlQuery.QueryGetByIdClient, new { Id });
-            return created!;
+            if (created is null)
+            {
+                return Response<Clients>.Failure(Status.noDatafound);
+            }
+            return Response<Clients>.Success(created);
         }
 
-        public async Task<bool> CreateClientListAsync(Clients client)
+        public async Task<Response<bool>> CreateClientListAsync(Clients client)
         {
-             if (string.IsNullOrEmpty(client.Name))
+            if (string.IsNullOrEmpty(client.Name))
             {
-                return false;
+                return Response<bool>.Failure(Status.Empty);
             }
 
             var parameters = new
@@ -42,30 +47,46 @@ namespace Infrastructure.Repositories
             };
 
             int result = await _conn.ExecuteAsync(ClientSqlQuery.QueryCreateClient, parameters);
-            return result > 0;
+            if(result is 0)
+            {
+                return Response<bool>.Failure(Status.InsertFailure);
+            }
+            return Response<bool>.Success(true);
         }
 
-        public async Task<bool> DeleteClientAsync(int id)
+        public async Task<Response<bool>> DeleteClientAsync(int id)
         {
-             var parameters = new { id };
+            var parameters = new { id };
             var delete = await _conn.ExecuteAsync(ClientSqlQuery.QueryDeleteClient, parameters);
-            return delete > 0;
+            if(delete is 0)
+            {
+                return Response<bool>.Failure(Status.DeleteFailure);
+            }
+            return Response<bool>.Success(true, Status.DeletedSuccess);
         }
 
-        public async Task<Clients> GetByIdClientAsync(int id)
+        public async Task<Response<Clients>> GetByIdClientAsync(int id)
         {
             var parameters = new { id };
             var client = await _conn.QueryFirstOrDefaultAsync<Clients>(ClientSqlQuery.QueryGetByIdClient, parameters);
-            return client!;
+            if(client is null)
+            {
+                return Response<Clients>.Failure(Status.noDatafound);
+            }
+            return Response<Clients>.Success(client);  
         }
 
-        public async Task<IEnumerable<Clients>> GetClientsAsync()
+        public async Task<Response<Clients>> GetClientsAsync()
         {
             var clients = await _conn.QueryAsync<Clients>(ClientSqlQuery.QuerySelectClients);
-            return clients;
+            if (!clients.Any())
+            {
+                return Response<Clients>.Failure(Status.noDatafound);
+            }
+            return Response<Clients>.Success(clients.ToArray());
         }
 
-        public async Task<bool> UpdateClientAsync(Clients client)
+        public async Task<Response<Clients>> UpdateClientAsync(Clients client)
         {
            var parameters = new
             {
@@ -78,7 +99,13 @@ namespace Infrastructure.Repositories
             };
 
             var update = await _conn.ExecuteAsync(ClientSqlQuery.QueryUpdateClient, parameters);
-            return update > 0;
+            if(update is 0)
+            {
+                return Response<Clients>.Failure(Status.UpdateFailure);
+            }
+
+            var updated = await _conn.QueryFirstOrDefaultAsync<Clients>(ClientSqlQuery.QueryGetByIdClient, new { client.Id });
+            return Response<Clients>.Success(updated!, Status.UpdatedSuccess);
         }
     }
 }

@@ -20,8 +20,12 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> GetAllClientsAsync()
         {
             var clients = await _client.GetClientsAsync();
-            var clientsDto = _mapper.Map<IEnumerable<ClientDTO>>(clients);
+            if (clients.IsFailure)
+                return BadRequest(clients);
+
+            var clientsDto = _mapper.Map<IEnumerable<ClientDTO>>(clients.Data);
             return Ok(clientsDto);
+
         }
 
         [HttpGet("GetByIdClient/{id}")]
@@ -30,14 +34,11 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdClientAsync(int id)
         {
-            if (id == 0)
-                return BadRequest("Invalid Client");
-
             var client = await _client.GetByIdClientAsync(id);
-            if (client is null)
-                return NotFound();
-
-            var clientsDto = _mapper.Map<ClientDTO>(client);
+            if (client.IsFailure)
+                return NotFound(client);
+                
+            var clientsDto = _mapper.Map<ClientDTO>(client.Data.FirstOrDefault());
             return Ok(clientsDto);
         }
         
@@ -47,12 +48,12 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateClientAsync([FromBody] ClientDTO clientDto)
         {
-            if (clientDto is null)
-                return BadRequest("Client invalid!");
-
             var client = _mapper.Map<Clients>(clientDto);
             var clientCreated = await _client.CreateClientAsync(client);
-            var clientCreatedDto = _mapper.Map<ClientDTO>(clientCreated);
+            if(clientCreated.IsFailure)
+                return BadRequest(client);
+
+            var clientCreatedDto = _mapper.Map<ClientDTO>(clientCreated.Data);
             return Ok(clientCreatedDto);
         }
 
@@ -62,13 +63,15 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateClientAsync([FromBody] ClientDTO clientDto, int id)
         {
-            if (clientDto is null)
-                return BadRequest("Client invalid!");
-
             var client = _mapper.Map<Clients>(clientDto);
             client.Id = id;
-            bool clientUpdated = await _client.UpdateClientAsync(client);
-            return clientUpdated ? Ok(clientUpdated) : BadRequest("Unable to update data!");
+
+            var clientUpdated = await _client.UpdateClientAsync(client);
+
+            if(clientUpdated.IsFailure)
+                return BadRequest(clientUpdated);
+
+            return Ok(clientUpdated);
         }
 
         [HttpDelete("DeleteClient/{id}")]
@@ -77,10 +80,10 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteClientAsync(int id)
         {
-            if (id == 0 )
-                return BadRequest("Client invalid!");
-            bool clientDelete = await _client.DeleteClientsAsync(id);
-            return clientDelete ? Ok(clientDelete) : BadRequest("Unable to delete data!");
+            var clientDelete = await _client.DeleteClientsAsync(id);
+            if( clientDelete.IsFailure) 
+                return BadRequest(clientDelete);
+            return  Ok(clientDelete);
         }
         
     }

@@ -1,5 +1,6 @@
 using Application.Interfaces;
 using Domain.Entities;
+using Domain.Enums;
 using Infrastructure.Interfaces;
 
 namespace Application.Services
@@ -7,47 +8,46 @@ namespace Application.Services
     public class ClientService(IClientRepository clientRepository) : IClient
     {
         private readonly IClientRepository _clientRepository = clientRepository;
-        public async Task<Clients> CreateClientAsync(Clients client)
+        public async Task<Response<Clients>> CreateClientAsync(Clients client)
         {
-            var result = await _clientRepository.CreateClientAsync(client);
-            return result;
+            return  await _clientRepository.CreateClientAsync(client);
         }
 
-        public async Task<bool> CreateClientListAsync(List<Clients> client)
+        public async Task<Response<bool>> CreateClientListAsync(List<Clients> client)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<bool> DeleteClientsAsync(int id)
+        public async Task<Response<bool>> DeleteClientsAsync(int id)
         {
             var existClient = await _clientRepository.GetByIdClientAsync(id);
-            if (existClient is not null)
+            if (existClient.IsSuccess)
             {
                 var deleteClient = await _clientRepository.DeleteClientAsync(id);
                 return deleteClient;
             }
-            return false;
+            return Response<bool>.Failure(Status.noDatafound);
         }
 
-        public async Task<Clients> GetByIdClientAsync(int id)
+        public async Task<Response<Clients>> GetByIdClientAsync(int id)
         {
             return await _clientRepository.GetByIdClientAsync(id);
         }
 
-        public async Task<IEnumerable<Clients>> GetClientsAsync()
+        public async Task<Response<Clients>> GetClientsAsync()
         { 
             return await _clientRepository.GetClientsAsync();
         }
 
-        public async Task<bool> UpdateClientAsync(Clients client)
+        public async Task<Response<Clients>> UpdateClientAsync(Clients client)
         {
              var record = await _clientRepository.GetByIdClientAsync(client.Id);
-                if (record is not null)
-                {
-                    var updated = await _clientRepository.UpdateClientAsync(client);
-                    return updated;
-                }
-            return false;
+             if (record.IsSuccess)
+             {
+                 var updated = await _clientRepository.UpdateClientAsync(client);
+                 return updated;
+             }
+            return record;
         }
     }
 }
