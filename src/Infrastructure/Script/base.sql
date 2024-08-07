@@ -9,8 +9,8 @@ CREATE TABLE Sale (
     Details NVARCHAR(MAX),
     Quantity INT NOT NULL,
     Price DECIMAL(18,2) NOT NULL,
-	DateCreate DATETIME NOT NULL,
-	PAY BIT,
+	DateCreate DATETIME NOT NULL DEFAULT GETDATE(),
+	Pay BIT,
 	DateEdit DATETIME ,
     CONSTRAINT FK_Sale_Client FOREIGN KEY (IdClient) REFERENCES Client(Id),
     CONSTRAINT FK_Sale_Product FOREIGN KEY (IdProduct) REFERENCES Product(Id)
@@ -20,29 +20,58 @@ CREATE TABLE Product (
     Id INT PRIMARY KEY IDENTITY,
     Name NVARCHAR(255) NOT NULL,
     Details NVARCHAR(MAX),
-	Active BIT NOT NULL,
+    Active BIT NOT NULL DEFAULT 1,                 
     Price DECIMAL(18,2) NOT NULL,
-	DateCreate DATETIME NOT NULL,
+	DateCreate DATETIME NOT NULL DEFAULT GETDATE(),
 	DateEdit DATETIME 
 );
 
-CREATE TABLE Costs (
+CREATE TABLE Cost (
     Id INT PRIMARY KEY IDENTITY,
     Quantity NVARCHAR(255),
     Name NVARCHAR(255) NOT NULL,
     DateCost DATETIME NOT NULL,
     UnitPrice DECIMAL(18,2) NOT NULL,
     TotalPrice DECIMAL(18,2) NOT NULL,
-    DateCreate DATETIME NOT NULL,
+    DateCreate DATETIME NOT NULL DEFAULT GETDATE(),
 	DateEdit DATETIME 
 );
 
 CREATE TABLE Client (
     Id INT PRIMARY KEY IDENTITY,
-    [Name] NVARCHAR(255) NOT NULL,
+    Name NVARCHAR(255) NOT NULL,
 	Phone VARCHAR(15) NULL,
-	[Location] NVARCHAR(255) NULL,
-	Active BIT NOT NULL,
-    DateCreate DATETIME NOT NULL,
+	Location NVARCHAR(255) NULL,
+    Active BIT NOT NULL DEFAULT 1,                 
+    DateCreate DATETIME NOT NULL DEFAULT GETDATE(),
 	DateEdit DATETIME 
+);
+CREATE TABLE UserCredentials (
+    Id INT PRIMARY KEY IDENTITY,                
+    Username NVARCHAR(255) NOT NULL UNIQUE,        
+    PasswordHash NVARCHAR(255) NOT NULL,           
+    PasswordSalt NVARCHAR(255) NOT NULL,           
+    Email NVARCHAR(255) NOT NULL UNIQUE, 
+	Name VARCHAR(50) NULL,
+    Active BIT NOT NULL DEFAULT 1,                 
+    DateCreate DATETIME NOT NULL DEFAULT GETDATE(), 
+    DateEdit DATETIME NULL,
+	LastLogin DATETIME NULL,
+    Token NVARCHAR(255) NULL,
+    TokenExpiration DATETIME NULL 
+);
+CREATE TABLE UserProfile (
+    Id INT PRIMARY KEY IDENTITY,
+    UserId INT NOT NULL,
+    FirstName NVARCHAR(255) NOT NULL,
+    LastName NVARCHAR(255) NULL,
+    Phone VARCHAR(15) NULL,
+    Address NVARCHAR(255) NULL,
+    City NVARCHAR(255) NULL,
+    State NVARCHAR(255) NULL,
+    ZipCode NVARCHAR(10) NULL,
+    AccessLevel NVARCHAR(50) NOT NULL,
+    DateCreate DATETIME NOT NULL DEFAULT GETDATE(),
+    DateEdit DATETIME NULL,
+    FOREIGN KEY (UserId) REFERENCES UserCredentials(Id)
 );

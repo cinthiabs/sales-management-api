@@ -3,12 +3,12 @@
     internal static class CostSqlQuery
     {
         internal const string QueryCreateCost = @"
-        INSERT INTO Costs (Quantity, Name, DateCost, UnitPrice, TotalPrice, DateCreate)
+        INSERT INTO Cost (Quantity, Name, DateCost, UnitPrice, TotalPrice, DateCreate)
         OUTPUT inserted.Id
         VALUES (@Quantity, @Name, @DateCost, @UnitPrice, @TotalPrice, @DateCreate);";
 
         internal const string QueryUpdateCost = @"
-        UPDATE Costs
+        UPDATE Cost
         SET
             Quantity = @Quantity,
             Name = @Name,
@@ -20,18 +20,18 @@
             Id = @Id;";
 
         internal const string QuerySelectCost = @"
-        SELECT * FROM Costs";
+        SELECT * FROM Cost";
 
         internal const string QueryDeleteCost = @"
-        DELETE FROM Costs
+        DELETE FROM Cost
         WHERE Id = @Id";
 
         internal const string QueryGetByIdCost = @"
-        SELECT * FROM Costs
+        SELECT * FROM Cost
         WHERE Id = @Id";
 
         internal const string QueryByCostParameters = @"
-        SELECT * FROM Costs
+        SELECT * FROM Cost
         WHERE 
         DateCost = @DateCost 
         AND UnitPrice = @UnitPrice  
@@ -41,7 +41,7 @@
         internal const string GetRelCostPrice = @"
         SELECT [Name], 
         SUM(totalPrice) as TotalPrice
-        FROM Costs with(nolock)
+        FROM Cost with(nolock)
         where DateCost between @dateIni and @dateEnd
         GROUP BY [Name];";
     }
