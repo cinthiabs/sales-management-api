@@ -20,6 +20,12 @@ namespace sales_management_api.AutoMapper
 
             CreateMap<Clients, ClientDTO>();
             CreateMap<ClientDTO, Clients>();
+
+            CreateMap<UserCredentials, UserCredentialsDTO>();
+            CreateMap<UserCredentialsDTO, UserCredentials>();
+
+            CreateMap<UserProfile, UserProfileDTO>();
+            CreateMap<UserProfileDTO, UserProfile>();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities
+﻿using Domain.Enums;
+
+namespace Domain.Entities
 {
     public class Sales
     {
@@ -10,7 +12,7 @@
         public string Details { get; set; } = default!;
         public int Quantity { get; set; }
         public decimal Price { get; set; }
-        public bool Pay { get; set; }
+        public Situation Pay { get; set; }
         public DateTime DateCreate { get; set; } = DateTime.Now;
         public DateTime? DateEdit { get; set; }
     }

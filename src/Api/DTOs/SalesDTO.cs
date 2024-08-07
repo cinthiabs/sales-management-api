@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace sales_management_api.DTOs
 {
@@ -16,7 +17,7 @@ namespace sales_management_api.DTOs
         public int Quantity { get; set; }
         [Required]
         public decimal Price { get; set; }
-        public bool Pay { get; set; }
+        public Situation Pay { get; set; }
         public DateTime DateCreate { get; set; }
         public DateTime? DateEdit { get; set; }
     }
