@@ -62,6 +62,7 @@ CREATE TABLE UserCredentials (
 CREATE TABLE UserProfile (
     Id INT PRIMARY KEY IDENTITY,
     UserId INT NOT NULL,
+	AccessLevelId int NULL,
     FirstName NVARCHAR(255) NOT NULL,
     LastName NVARCHAR(255) NULL,
     Phone VARCHAR(15) NULL,
@@ -69,8 +70,8 @@ CREATE TABLE UserProfile (
     City NVARCHAR(255) NULL,
     State NVARCHAR(255) NULL,
     ZipCode NVARCHAR(10) NULL,
-    AccessLevel NVARCHAR(50) NOT NULL,
     DateCreate DATETIME NOT NULL DEFAULT GETDATE(),
     DateEdit DATETIME NULL,
-    FOREIGN KEY (UserId) REFERENCES UserCredentials(Id)
+    FOREIGN KEY (UserId) REFERENCES UserCredentials(Id),
+	FOREIGN KEY (AccessLevelId) REFERENCES AccessLevel(Id)
 );

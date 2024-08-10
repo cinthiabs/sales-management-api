@@ -13,6 +13,7 @@ namespace Application.DI
             services.AddScoped<ICost, CostService>();
             services.AddScoped<IUpload, UploadService>(); 
             services.AddScoped<IClient, ClientService>();
+            services.AddScoped<IUser, UserService>();
         }
     }
 }

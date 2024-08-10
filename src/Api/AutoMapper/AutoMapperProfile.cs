@@ -26,6 +26,9 @@ namespace sales_management_api.AutoMapper
 
             CreateMap<UserProfile, UserProfileDTO>();
             CreateMap<UserProfileDTO, UserProfile>();
+
+            CreateMap<Login, LoginDTO>();
+            CreateMap<LoginDTO, Login>();
         }
     }
 }

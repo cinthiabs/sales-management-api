@@ -119,6 +119,7 @@ namespace Infrastructure.Repositories
             {
                 sale.Name,
                 sale.Price,
+                IdProduct = sale.IdProduct.HasValue ? (object)sale.IdProduct.Value : DBNull.Value,
                 Details = string.IsNullOrEmpty(sale.Details) ? (object)DBNull.Value : sale.Details,
                 sale.Quantity,
                 sale.DateSale

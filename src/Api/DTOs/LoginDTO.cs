@@ -1,0 +1,16 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace Api.DTOs
+{
+    public class LoginDTO
+    {
+        [Required]
+        public string Username {get;set;} = default!;
+        public string Email { get; set; } = default!;
+        public string? Name { get; set; } = default!;
+        [Required]
+        public string Password { get; set; } = default!;
+        public string? ConfirmPassword { get; set; } = default!;
+
+    }
+}

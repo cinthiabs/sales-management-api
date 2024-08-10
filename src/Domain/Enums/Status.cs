@@ -55,9 +55,11 @@ namespace Domain.Enums
         [Description("File imported successfully!")]
         ImportedSuccess = 15,
 
-
         [Description("Data created successfully!")]
         InsertSuccess = 16,
+        
+        [Description("User already exists!!")]
+        ConflitUser = 17,
 
         [Description("Internal error!")]
         InternalError = 500

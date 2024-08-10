@@ -37,18 +37,19 @@
         and Price = @Price  
         and Quantity = @Quantity
         and Name = @Name
+        and (@IdProduct IS NULL OR IdProduct = @IdProduct)
 		and (@Details IS NULL OR Details = @Details)";
 
         internal const string GetRelQuantity = @"
-        SELECT [Name], 
-        SUM(Quantity) AS Quantity,
-        SUM(price) as Price,
-        SUM(CASE WHEN Pay = 1 THEN Quantity ELSE 0 END) AS Paid,
-        SUM(CASE WHEN Pay = 0 THEN Quantity ELSE 0 END) AS NotPaid
-        FROM Sale with(nolock)
-        where DateSale  between @dateIni and @dateEnd
-        GROUP BY [Name]
-        ORDER BY Quantity DESC;";
+            SELECT [Name], 
+            SUM(Quantity) AS Quantity,
+            SUM(price) as Price,
+            SUM(CASE WHEN Pay = 1 THEN Quantity ELSE 0 END) AS Paid,
+            SUM(CASE WHEN Pay = 0 THEN Quantity ELSE 0 END) AS NotPaid
+            FROM Sale with(nolock)
+            where DateSale  between @dateIni and @dateEnd
+            GROUP BY [Name]
+            ORDER BY Quantity DESC;";
 
     }
 }
