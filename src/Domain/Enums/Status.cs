@@ -55,6 +55,10 @@ namespace Domain.Enums
         [Description("File imported successfully!")]
         ImportedSuccess = 15,
 
+
+        [Description("Data created successfully!")]
+        InsertSuccess = 16,
+
         [Description("Internal error!")]
         InternalError = 500
     }

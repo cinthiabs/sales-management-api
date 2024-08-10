@@ -15,7 +15,7 @@ namespace Application.Services
         }
         public async Task<bool> CreateCostListAsync(List<Costs> costs)
         {
-            bool result = false;
+            bool result = true;
 
             foreach (var item in costs)
             {
@@ -26,11 +26,15 @@ namespace Application.Services
                     if (costExist.Id == 0)
                     {
                         var data = await _costRepository.CreateCostListAsync(item);
-                        return data.IsSuccess;
+                        
+                        if(data.IsFailure)
+                            return result = false;
+
+                        result = data.IsSuccess;
                     }
                     else
                     {
-                        result = false;
+                        result = true;
                     }
                 }
             }

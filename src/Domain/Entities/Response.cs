@@ -11,21 +11,24 @@ namespace Domain.Entities
         public bool IsFailure => !IsSuccess;
         public T[]? Data { get; set; }
 
-        public static Response<T> Success(T data,Status? status = null)
+        public static Response<T> Success(T data, Status? status = null)
         {
             return new Response<T>
             {
                 IsSuccess = true,
+                Code = status,
                 Message = status.HasValue ? GetEnumDescription(status.Value) : null,
                 Data = [data]
             };
         }
 
-        public static Response<T> Success(T[] data)
+        public static Response<T> Success(T[] data, Status? status = null)
         {
             return new Response<T>
             {
                 IsSuccess = true,
+                Code = status,
+                Message = status.HasValue ? GetEnumDescription(status.Value) : null,
                 Data = data
             };
         }

@@ -37,7 +37,7 @@ namespace Application.Services
                         return Response<bool>.Failure(Status.UnableToImportCost);
 
                     if (cost is true && cost is true)
-                        return Response<bool>.Success(true);
+                        return Response<bool>.Success(true, Status.ImportedSuccess);
                 }
                 return Response<bool>.Failure(Status.Empty);
             }

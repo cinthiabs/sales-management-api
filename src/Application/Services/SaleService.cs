@@ -50,8 +50,7 @@ namespace Application.Services
 
         public async Task<bool> CreateSaleListAsync(List<Sales> sale)
         {
-            bool result = false;
-            
+            bool result = true;
 
             foreach (var item in sale)
             {
@@ -71,10 +70,13 @@ namespace Application.Services
 
 
                         var data = await _saleRepository.CreateSaleListAsync(item);
-                        return data.IsSuccess;
+                        if(data.IsFailure)
+                            return result = false;
+
+                        result = data.IsSuccess;
                     }
                     else
-                        result = false;
+                        result = true;
                 }
             }
             return result;

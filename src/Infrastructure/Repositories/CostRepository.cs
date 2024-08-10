@@ -51,7 +51,7 @@ namespace Infrastructure.Repositories
             if(result is 0)
                 return Response<bool>.Failure(Status.InsertFailure);
             
-            return Response<bool>.Success(true);
+            return Response<bool>.Success(true, Status.InsertSuccess);
         }
 
         public async Task<Response<bool>> DeleteCostAsync(int id)
