@@ -10,5 +10,6 @@ namespace Application.Interfaces
         Task<Response<bool>> DeleteClientsAsync(int id);
         Task<Response<Clients>> GetClientsAsync();
         Task<Response<Clients>> GetByIdClientAsync(int id);
+        Task<Clients> GetClientByNameAsync(string name);
     }
 }

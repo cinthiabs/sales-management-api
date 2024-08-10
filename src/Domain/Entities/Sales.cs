@@ -5,7 +5,7 @@ namespace Domain.Entities
     public class Sales
     {
         public int Id { get; set; }
-        public int IdProduct { get; set; }
+        public int? IdProduct { get; set; }
         public int? IdClient { get; set; }
         public DateTime DateSale { get; set; } 
         public string Name { get; set; } = default!;

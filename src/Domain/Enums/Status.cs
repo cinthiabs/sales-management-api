@@ -43,6 +43,18 @@ namespace Domain.Enums
         [Description("Data is empty!")]
         Empty = 11,
 
+        [Description("Unable to import sales!")]
+        UnableToImportSales = 12,
+
+        [Description("Unable to import costs!")]
+        UnableToImportCost = 13,
+
+        [Description("Unable to import file!")]
+        UnableToImportFile = 14,
+
+        [Description("File imported successfully!")]
+        ImportedSuccess = 15,
+
         [Description("Internal error!")]
         InternalError = 500
     }

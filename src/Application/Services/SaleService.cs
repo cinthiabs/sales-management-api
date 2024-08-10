@@ -5,10 +5,11 @@ using Infrastructure.Interfaces;
 
 namespace Application.Services
 {
-    public class SaleService(ISaleRepository saleRepository, IProductRepository productRepository) : ISale
+    public class SaleService(ISaleRepository saleRepository, IProductRepository productRepository, IClientRepository clientRepository) : ISale
     {
         private readonly ISaleRepository _saleRepository = saleRepository;
         private readonly IProductRepository _productRepository = productRepository;
+        private readonly IClientRepository _clientRepository = clientRepository;
 
         public async Task<Response<Sales>> CreateSaleAsync(Sales sale)
         {
@@ -62,18 +63,19 @@ namespace Application.Services
                     {
                         var product = await _productRepository.GetByNameProductAsync(item.Name);
                         if(product is not null)
-                        {
                            item.IdProduct = product.Id;
-                        }
+                        
+                        var client = await _clientRepository.GetClientByNameAsync(item.Details);
+                        if(client is not null) 
+                            item.IdClient = client.Id;
+
+
                         var data = await _saleRepository.CreateSaleListAsync(item);
                         return data.IsSuccess;
                     }
                     else
-                    {
                         result = false;
-                    }
                 }
-                
             }
             return result;
         }

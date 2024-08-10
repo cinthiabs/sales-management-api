@@ -35,11 +35,11 @@ namespace Infrastructure.Repositories
         {
            if (string.IsNullOrEmpty(sale.Name))
               return Response<bool>.Failure(Status.Empty);
-
-
+          
            var parameters = new
            {
-               sale.IdProduct,
+               IdProduct = sale.IdProduct.HasValue ? (int?)sale.IdProduct : null,
+               IdClient = sale.IdClient.HasValue ? (int?)sale.IdClient : null,
                sale.Name,
                sale.Price,
                sale.Details,

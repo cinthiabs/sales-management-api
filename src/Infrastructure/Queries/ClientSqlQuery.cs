@@ -28,5 +28,9 @@ namespace Infrastructure.Queries
         internal const string QueryGetByIdClient = @"
         SELECT * FROM Client
         WHERE Id = @Id";
-    }
+
+        internal const string QueryGetClientByName = @"
+        SELECT * FROM Client
+        WHERE Name LIKE '%' + @Name + '%'";
+        }
 }

@@ -34,6 +34,11 @@ namespace Application.Services
             return await _clientRepository.GetByIdClientAsync(id);
         }
 
+        public async Task<Clients> GetClientByNameAsync(string name)
+        {
+            return await _clientRepository.GetClientByNameAsync(name);
+        }
+
         public async Task<Response<Clients>> GetClientsAsync()
         { 
             return await _clientRepository.GetClientsAsync();

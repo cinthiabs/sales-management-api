@@ -70,6 +70,13 @@ namespace Infrastructure.Repositories
             return Response<Clients>.Success(client);  
         }
 
+        public async Task<Clients> GetClientByNameAsync(string name)
+        {
+           var parameters = new {name};
+           var client = await _conn.QueryFirstAsync<Clients>(ClientSqlQuery.QueryGetClientByName, parameters);
+           return client!;
+        }
+
         public async Task<Response<Clients>> GetClientsAsync()
         {
             var clients = await _conn.QueryAsync<Clients>(ClientSqlQuery.QuerySelectClients);

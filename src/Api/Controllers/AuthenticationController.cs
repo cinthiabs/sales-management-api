@@ -2,8 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-    [Route("[controller]")]
-    public class AuthenticationController : Controller
+    [Route("api/v1")]
+    [ApiController]
+    public class AuthenticationController : ControllerBase
     {
         private readonly ILogger<AuthenticationController> _logger;
 
@@ -12,15 +13,5 @@ namespace Api.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
-        }
     }
 }

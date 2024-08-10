@@ -2,25 +2,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-    [Route("[controller]")]
-    public class ProfileController : Controller
+    [Route("api/v1")]
+    [ApiController]
+    public class ProfileController : ControllerBase
     {
         private readonly ILogger<ProfileController> _logger;
 
         public ProfileController(ILogger<ProfileController> logger)
         {
             _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
         }
     }
 }

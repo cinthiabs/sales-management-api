@@ -10,5 +10,6 @@ namespace Infrastructure.Interfaces
         Task<Response<bool>> DeleteClientAsync(int id);
         Task<Response<Clients>> GetClientsAsync();
         Task<Response<Clients>> GetByIdClientAsync(int id);
+        Task<Clients> GetClientByNameAsync(string name);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Domain.Enums;
 using OfficeOpenXml;
 using System.Dynamic;
 
@@ -16,25 +17,35 @@ namespace Application.Services
             _cost = cost;
         }
 
-        public async Task<bool> ReadExcelAsync(Stream stream)
+        public async Task<Response<bool>> ReadExcelAsync(Stream stream)
         {
-            bool saleBool = false;
-
-            var file = await ReadExcelExcelToJsonAsync(stream);
-          
-
-            if (file is not null)
+            try
             {
-                var sales = await TransformJsontoObjSaleAsync(file);
-                var created = await _sale.CreateSaleListAsync(sales);
+                var file = await ReadExcelExcelToJsonAsync(stream);
+
+                if (file is not null)
+                {
+                    var sales = await TransformJsontoObjSaleAsync(file);
+                    var created = await _sale.CreateSaleListAsync(sales);
+                    if (created is false)
+                        return Response<bool>.Failure(Status.UnableToImportSales);
 
 
-                var costs = await TransformJsontoObjCostAsync(file);
-                var cost = await _cost.CreateCostListAsync(costs);
-                if (cost)
-                    return true;
+                    var costs = await TransformJsontoObjCostAsync(file);
+                    var cost = await _cost.CreateCostListAsync(costs);
+                    if (cost is false)
+                        return Response<bool>.Failure(Status.UnableToImportCost);
+
+                    if (cost is true && cost is true)
+                        return Response<bool>.Success(true);
+                }
+                return Response<bool>.Failure(Status.Empty);
             }
-            return saleBool;
+            catch (Exception)
+            {
+                return Response<bool>.Failure(Status.UnableToImportFile);
+            }
+           
         }
 
         private async Task<dynamic> ReadExcelExcelToJsonAsync(Stream stream)
@@ -108,7 +119,10 @@ namespace Application.Services
                     }
                     else if(key == "PAGO")
                     {
-                       sale.Pay = value.Contains("SIM");
+                        if (value.Contains("SIM"))
+                            sale.Pay = Situation.Pago;
+                        else
+                            sale.Pay = Situation.Pendente;
                     }
                 }
 

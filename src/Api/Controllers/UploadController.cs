@@ -24,8 +24,11 @@ namespace sales_management_api.Controllers
 
             using var stream = new MemoryStream();
             await file.CopyToAsync(stream);
-            var resultado = await _upload.ReadExcelAsync(stream);
-            return resultado ? Ok(resultado) : Conflict(resultado);
+            var imported = await _upload.ReadExcelAsync(stream);
+            if (imported.IsFailure)
+                return NotFound(imported);
+
+            return Ok(imported);
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿namespace Application.Interfaces
+﻿using Domain.Entities;
+
+namespace Application.Interfaces
 {
     public interface IUpload
     {
-        Task<bool> ReadExcelAsync(Stream stream);
+        Task<Response<bool>> ReadExcelAsync(Stream stream);
     }
 }
