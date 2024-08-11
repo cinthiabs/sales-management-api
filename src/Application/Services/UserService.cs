@@ -2,32 +2,32 @@
 using Domain.Entities;
 using Domain.Enums;
 using Infrastructure.Interfaces;
-using Infrastructure.Repositories;
 using System.Security.Cryptography;
 
 namespace Application.Services
 {
-    public class UserService(UserRepository userRepository) : IUser
+    public class UserService(IUserRepository userRepository) : IUser
     {
         private readonly IUserRepository _userRepository = userRepository;
-        public void CreatePassword(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        public void CreatePassword(string password, out string passwordHash, out string passwordSalt)
         {
             using var hmac = new HMACSHA512();
-            passwordSalt = hmac.Key;
-            passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            passwordSalt = Convert.ToBase64String(hmac.Key);
+            passwordHash = Convert.ToBase64String(hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password))); // Converte o hash para Base64
         }
 
         public async Task<Response<bool>> CreateUserAsync(Login login)
         {
-            var userExist = await _userRepository.GetUserAsync(login.Username);
+            var userExist = await _userRepository.GetUserAsync(login.Username, login.Email);
             if (userExist.IsSuccess)
                 return Response<bool>.Failure(Status.ConflitUser);
 
-            CreatePassword(login.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            CreatePassword(login.Password, out string passwordHash, out string passwordSalt);
 
             var createUser = new UserCredentials()
             {
                 Username = login.Username,
+                Name = login.Name!,
                 Email = login.Email,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
@@ -39,7 +39,7 @@ namespace Application.Services
 
         public async Task<Response<bool>> DeleteUserAsync(Login login)
         {
-            var user = await _userRepository.GetUserAsync(login.Username);
+            var user = await _userRepository.GetUserAsync(login.Username, login.Email);
             if (user.IsFailure)
                 return Response<bool>.Failure(Status.noDatafound);
 
@@ -48,7 +48,8 @@ namespace Application.Services
 
         public async Task<Response<UserCredentials>> GetUserAsync(string username, string password)
         {
-            return await _userRepository.GetUserAsync(username);
+            //return await _userRepository.GetUserAsync(username, );
+            throw new NotImplementedException();
         }
 
         public Task<Response<bool>> UpdateUserAsync(Login login)

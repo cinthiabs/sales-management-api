@@ -4,7 +4,6 @@ using Domain.Enums;
 using Infrastructure.Connection;
 using Infrastructure.Interfaces;
 using Infrastructure.Queries;
-
 using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Repositories
@@ -23,8 +22,8 @@ namespace Infrastructure.Repositories
                 @DateCreate = DateTime.Now
             };
 
-            var Id = await _conn.ExecuteScalarAsync(SaleSqlQuery.QueryCreateSale, parameters);
-            var created = await _conn.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryGetByIdSale, new { Id });
+            var Id = await Connection.ExecuteScalarAsync(SaleSqlQuery.QueryCreateSale, parameters);
+            var created = await Connection.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryGetByIdSale, new { Id });
             if (created is null)
                 return Response<Sales>.Failure(Status.noDatafound);
             
@@ -48,7 +47,7 @@ namespace Infrastructure.Repositories
                sale.Pay,
                DateCreate = DateTime.Now
            };
-           int result = await _conn.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
+           int result = await Connection.ExecuteAsync(SaleSqlQuery.QueryCreateSale, parameters);
            if(result is 0)
                 return Response<bool>.Failure(Status.InsertFailure);
             
@@ -58,7 +57,7 @@ namespace Infrastructure.Repositories
         public async Task<Response<bool>> DeleteSaleAsync(int id)
         {
             var parameters = new { id };
-            var  delete = await _conn.ExecuteAsync(SaleSqlQuery.QueryDeleteSale, parameters);
+            var  delete = await Connection.ExecuteAsync(SaleSqlQuery.QueryDeleteSale, parameters);
              if(delete is 0)
                 return Response<bool>.Failure(Status.DeleteFailure);
             
@@ -73,7 +72,7 @@ namespace Infrastructure.Repositories
         public async Task<Response<Sales>> GetByIdSaleAsync(int id)
         {
             var parameters = new { id };
-            var sale = await _conn.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryGetByIdSale, parameters);
+            var sale = await Connection.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryGetByIdSale, parameters);
             if(sale is null)
                 return Response<Sales>.Failure(Status.noDatafound);
             
@@ -82,7 +81,7 @@ namespace Infrastructure.Repositories
 
         public async Task<Response<Sales>> GetSalesAsync()
         {
-            var sale = await _conn.QueryAsync<Sales>(SaleSqlQuery.QuerySelectSale);
+            var sale = await Connection.QueryAsync<Sales>(SaleSqlQuery.QuerySelectSale);
             if(!sale.Any())
                 return Response<Sales>.Failure(Status.noDatafound);
 
@@ -104,11 +103,11 @@ namespace Infrastructure.Repositories
                 
             };
 
-            var update = await _conn.ExecuteAsync(SaleSqlQuery.QueryUpdateSale, parameters);
+            var update = await Connection.ExecuteAsync(SaleSqlQuery.QueryUpdateSale, parameters);
             if(update is 0)
                 return Response<Sales>.Failure(Status.UpdateFailure);
             
-            var updated = await _conn.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryGetByIdSale, new { sale.Id });
+            var updated = await Connection.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryGetByIdSale, new { sale.Id });
             return Response<Sales>.Success(updated!, Status.UpdatedSuccess);
 
         }
@@ -124,7 +123,7 @@ namespace Infrastructure.Repositories
                 sale.Quantity,
                 sale.DateSale
             };
-            var result = await _conn.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryBySaleParameters, parameters);
+            var result = await Connection.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryBySaleParameters, parameters);
             return result ?? new Sales { Name = "" };
         }
 
@@ -135,7 +134,7 @@ namespace Infrastructure.Repositories
                 dateIni,
                 dateEnd
             };
-            var rel = await _conn.QueryAsync<RelQuantity>(SaleSqlQuery.GetRelQuantity, parameters);
+            var rel = await Connection.QueryAsync<RelQuantity>(SaleSqlQuery.GetRelQuantity, parameters);
             return rel!;
         }
     }

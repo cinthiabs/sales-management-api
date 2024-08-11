@@ -37,9 +37,6 @@ namespace Domain.Enums
         [Description("Failure to delete data!")]
         DeleteFailure = 10,
 
-        [Description("Failure to insert data!")]
-        InsertFailure = 10,
-
         [Description("Data is empty!")]
         Empty = 11,
 
@@ -60,6 +57,9 @@ namespace Domain.Enums
         
         [Description("User already exists!!")]
         ConflitUser = 17,
+
+        [Description("Failure to insert data!")]
+        InsertFailure = 18,
 
         [Description("Internal error!")]
         InternalError = 500

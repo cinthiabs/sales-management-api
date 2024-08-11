@@ -21,8 +21,8 @@ namespace Infrastructure.Repositories
                 DateCreate = DateTime.Now
             };
 
-            var Id = await _conn.ExecuteScalarAsync(ClientSqlQuery.QueryCreateClient, parameters);
-            var created = await _conn.QueryFirstOrDefaultAsync<Clients>(ClientSqlQuery.QueryGetByIdClient, new { Id });
+            var Id = await Connection.ExecuteScalarAsync(ClientSqlQuery.QueryCreateClient, parameters);
+            var created = await Connection.QueryFirstOrDefaultAsync<Clients>(ClientSqlQuery.QueryGetByIdClient, new { Id });
             if (created is null)
                 return Response<Clients>.Failure(Status.noDatafound);
 
@@ -43,7 +43,7 @@ namespace Infrastructure.Repositories
                 DateCreate = DateTime.Now
             };
 
-            int result = await _conn.ExecuteAsync(ClientSqlQuery.QueryCreateClient, parameters);
+            int result = await Connection.ExecuteAsync(ClientSqlQuery.QueryCreateClient, parameters);
             if(result is 0)
                 return Response<bool>.Failure(Status.InsertFailure);
             
@@ -53,7 +53,7 @@ namespace Infrastructure.Repositories
         public async Task<Response<bool>> DeleteClientAsync(int id)
         {
             var parameters = new { id };
-            var delete = await _conn.ExecuteAsync(ClientSqlQuery.QueryDeleteClient, parameters);
+            var delete = await Connection.ExecuteAsync(ClientSqlQuery.QueryDeleteClient, parameters);
             if(delete is 0)
                 return Response<bool>.Failure(Status.DeleteFailure);
             
@@ -63,7 +63,7 @@ namespace Infrastructure.Repositories
         public async Task<Response<Clients>> GetByIdClientAsync(int id)
         {
             var parameters = new { id };
-            var client = await _conn.QueryFirstOrDefaultAsync<Clients>(ClientSqlQuery.QueryGetByIdClient, parameters);
+            var client = await Connection.QueryFirstOrDefaultAsync<Clients>(ClientSqlQuery.QueryGetByIdClient, parameters);
             if(client is null)
                 return Response<Clients>.Failure(Status.noDatafound);
 
@@ -73,13 +73,13 @@ namespace Infrastructure.Repositories
         public async Task<Clients> GetClientByNameAsync(string name)
         {
            var parameters = new {name};
-           var client = await _conn.QueryFirstOrDefaultAsync<Clients>(ClientSqlQuery.QueryGetClientByName, parameters);
+           var client = await Connection.QueryFirstOrDefaultAsync<Clients>(ClientSqlQuery.QueryGetClientByName, parameters);
             return client!;
         }
 
         public async Task<Response<Clients>> GetClientsAsync()
         {
-            var clients = await _conn.QueryAsync<Clients>(ClientSqlQuery.QuerySelectClients);
+            var clients = await Connection.QueryAsync<Clients>(ClientSqlQuery.QuerySelectClients);
             if (!clients.Any())
                 return Response<Clients>.Failure(Status.noDatafound);
 
@@ -98,11 +98,11 @@ namespace Infrastructure.Repositories
                 DateEdit = DateTime.Now
             };
 
-            var update = await _conn.ExecuteAsync(ClientSqlQuery.QueryUpdateClient, parameters);
+            var update = await Connection.ExecuteAsync(ClientSqlQuery.QueryUpdateClient, parameters);
             if(update is 0)
                 return Response<Clients>.Failure(Status.UpdateFailure);
 
-            var updated = await _conn.QueryFirstOrDefaultAsync<Clients>(ClientSqlQuery.QueryGetByIdClient, new { client.Id });
+            var updated = await Connection.QueryFirstOrDefaultAsync<Clients>(ClientSqlQuery.QueryGetByIdClient, new { client.Id });
             return Response<Clients>.Success(updated!, Status.UpdatedSuccess);
         }
     }

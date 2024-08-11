@@ -5,11 +5,13 @@
         internal const string QuerySelectUser = @"
         SELECT * FROM UserCredentials 
         WHERE Username = @Username
+        AND Email = @Email
         AND Active = 1";
 
         internal const string QueryCreateUserCredentials = @"
-        INSERT INTO UserCredentials (Username, PasswordHash, PasswordSalt, Email, Name)
-        VALUES (@Username, @PasswordHash, @PasswordSalt, @Email, @Name);";
+        INSERT INTO UserCredentials (Username, Name, PasswordHash, PasswordSalt, Email)
+        VALUES (@Username, @Name, @PasswordHash, @PasswordSalt, @Email)
+        SELECT SCOPE_IDENTITY()";
 
         internal const string QueryInactiveUserCredentials = @"
         UPDATE UserCredentials
@@ -17,5 +19,6 @@
             DateEdit = @DateEdit
         WHERE Username = @Username
         AND Id = @Id";
+
     }
 }

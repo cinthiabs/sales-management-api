@@ -7,7 +7,7 @@ namespace Application.Interfaces
         Task<Response<bool>> CreateUserAsync(Login login);
         Task<Response<bool>> UpdateUserAsync(Login login);
         Task<Response<bool>> DeleteUserAsync(Login login);
-        void CreatePassword(string password, out byte[] passwordHash, out byte[] passwordSalt);
+        void CreatePassword(string password, out string passwordHash, out string passwordSalt);
         Task<Response<UserCredentials>> GetUserAsync(string username, string password);
     }
 }

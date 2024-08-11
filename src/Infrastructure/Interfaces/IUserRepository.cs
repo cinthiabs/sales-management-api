@@ -7,6 +7,6 @@ namespace Infrastructure.Interfaces
         Task<Response<bool>> CreateUserAsync(UserCredentials user);
         Task<Response<bool>> UpdateUserAsync(Login login);
         Task<Response<bool>> DeleteUserAsync(int Id);
-        Task<Response<UserCredentials>> GetUserAsync(string Username);
+        Task<Response<UserCredentials>> GetUserAsync(string Username, string Email);
     }
 }

@@ -14,7 +14,7 @@ namespace Api.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpPost("CreateUser")]
-        [ProducesResponseType(typeof(LoginDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateUserAsync([FromBody] LoginDTO loginDto)
@@ -24,8 +24,7 @@ namespace Api.Controllers
             if (userCreated.IsFailure)
                 return BadRequest(userCreated);
 
-            var userCreatedDto = _mapper.Map<LoginDTO>(userCreated.Data);
-            return Ok(userCreatedDto);
+            return Ok(userCreated);
         }
     }
 }

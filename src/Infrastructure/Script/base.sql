@@ -2,8 +2,8 @@ CREATE TABLE Product (
     Id INT PRIMARY KEY IDENTITY,
     Name NVARCHAR(255) NOT NULL,
     Details NVARCHAR(MAX),
-    Active BIT NOT NULL DEFAULT 1,                 
     Price DECIMAL(18,2) NOT NULL,
+	Active BIT NOT NULL DEFAULT 1,                 
 	DateCreate DATETIME NOT NULL DEFAULT GETDATE(),
 	DateEdit DATETIME 
 );
@@ -38,26 +38,31 @@ CREATE TABLE Sale (
     Details NVARCHAR(MAX),
     Quantity INT NOT NULL,
     Price DECIMAL(18,2) NOT NULL,
-	DateCreate DATETIME NOT NULL DEFAULT GETDATE(),
 	Pay BIT,
+	DateCreate DATETIME NOT NULL DEFAULT GETDATE(),
 	DateEdit DATETIME ,
     CONSTRAINT FK_Sale_Client FOREIGN KEY (IdClient) REFERENCES Client(Id),
     CONSTRAINT FK_Sale_Product FOREIGN KEY (IdProduct) REFERENCES Product(Id)
 );
 
+CREATE TABLE AccessLevel(
+    Id INT PRIMARY KEY,
+	Name  NVARCHAR(25) NOT NULL
+);
+
 CREATE TABLE UserCredentials (
-    Id INT PRIMARY KEY IDENTITY,                
-    Username NVARCHAR(255) NOT NULL UNIQUE,        
+    Id INT PRIMARY KEY IDENTITY, 
+    Username NVARCHAR(255) NOT NULL UNIQUE, 
+	Name VARCHAR(50) NULL,
+    Email NVARCHAR(255) NOT NULL UNIQUE, 
     PasswordHash NVARCHAR(255) NOT NULL,           
     PasswordSalt NVARCHAR(255) NOT NULL,           
-    Email NVARCHAR(255) NOT NULL UNIQUE, 
-	Name VARCHAR(50) NULL,
-    Active BIT NOT NULL DEFAULT 1,                 
+    Token NVARCHAR(255) NULL,
+    TokenExpiration DATETIME NULL,
+	LastLogin DATETIME NULL,
+	Active BIT NOT NULL DEFAULT 1,                 
     DateCreate DATETIME NOT NULL DEFAULT GETDATE(), 
     DateEdit DATETIME NULL,
-	LastLogin DATETIME NULL,
-    Token NVARCHAR(255) NULL,
-    TokenExpiration DATETIME NULL 
 );
 CREATE TABLE UserProfile (
     Id INT PRIMARY KEY IDENTITY,
@@ -74,4 +79,22 @@ CREATE TABLE UserProfile (
     DateEdit DATETIME NULL,
     FOREIGN KEY (UserId) REFERENCES UserCredentials(Id),
 	FOREIGN KEY (AccessLevelId) REFERENCES AccessLevel(Id)
+);
+
+CREATE TABLE Employee (
+    Id INT PRIMARY KEY IDENTITY,
+    FirstName NVARCHAR(255) NOT NULL,
+	LastName NVARCHAR(255) NOT NULL,
+	Email NVARCHAR(255) NULL UNIQUE,
+	JobTitle NVARCHAR(255) NOT NULL,
+	BirthDate DATETIME NULL,
+    Phone VARCHAR(15) NULL,
+    Address NVARCHAR(255) NULL,
+    City NVARCHAR(255) NULL,
+    State NVARCHAR(255) NULL,
+    ZipCode NVARCHAR(10) NULL,
+	Salary DECIMAL(18,2)  NULL,
+	Active BIT NOT NULL DEFAULT 1,
+    DateCreate DATETIME NOT NULL DEFAULT GETDATE(),
+    DateEdit DATETIME NULL
 );

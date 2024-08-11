@@ -21,8 +21,8 @@ namespace Infrastructure.Repositories
                 DateCreate = DateTime.Now
             };
 
-            var Id = await _conn.ExecuteScalarAsync(ProductSqlQuery.QueryCreateProduct, parameters);
-            var created = await _conn.QueryFirstOrDefaultAsync<Products>(ProductSqlQuery.QueryGetByIdProduct, new { Id });
+            var Id = await Connection.ExecuteScalarAsync(ProductSqlQuery.QueryCreateProduct, parameters);
+            var created = await Connection.QueryFirstOrDefaultAsync<Products>(ProductSqlQuery.QueryGetByIdProduct, new { Id });
             if(created is null)
                 return Response<Products>.Failure(Status.noDatafound);
             
@@ -42,7 +42,7 @@ namespace Infrastructure.Repositories
                 prod.Price,
                 DateCreate = DateTime.Now
             };
-            int result = await _conn.ExecuteAsync(ProductSqlQuery.QueryCreateProduct, parameters);
+            int result = await Connection.ExecuteAsync(ProductSqlQuery.QueryCreateProduct, parameters);
             if(result is 0)
                 return Response<bool>.Failure(Status.InsertFailure);
             
@@ -52,7 +52,7 @@ namespace Infrastructure.Repositories
         public async Task<Response<bool>> DeleteProductAsync(int id)
         {
             var parameters = new { id };
-            var delete = await _conn.ExecuteAsync(ProductSqlQuery.QueryDeleteProduct, parameters);
+            var delete = await Connection.ExecuteAsync(ProductSqlQuery.QueryDeleteProduct, parameters);
             if(delete is 0)
                 return Response<bool>.Failure(Status.DeleteFailure);
             
@@ -62,7 +62,7 @@ namespace Infrastructure.Repositories
         public async Task<Response<Products>> GetByIdProductAsync(int id)
         {
             var parameters = new { id };
-            var product = await _conn.QueryFirstOrDefaultAsync<Products>(ProductSqlQuery.QueryGetByIdProduct, parameters);
+            var product = await Connection.QueryFirstOrDefaultAsync<Products>(ProductSqlQuery.QueryGetByIdProduct, parameters);
             if(product is null)
                 return Response<Products>.Failure(Status.noDatafound);
 
@@ -72,7 +72,7 @@ namespace Infrastructure.Repositories
         public async Task<Products> GetByNameProductAsync(string name)
         {
             var parameters = new { name };
-            var product = await _conn.QueryFirstOrDefaultAsync<Products>(ProductSqlQuery.QueryGetByNameProduct, parameters);
+            var product = await Connection.QueryFirstOrDefaultAsync<Products>(ProductSqlQuery.QueryGetByNameProduct, parameters);
             return product!;
         }
 
@@ -83,7 +83,7 @@ namespace Infrastructure.Repositories
 
         public async Task<Response<Products>> GetProductsAsync()
         {
-            var products = await _conn.QueryAsync<Products>(ProductSqlQuery.QuerySelectProduct);
+            var products = await Connection.QueryAsync<Products>(ProductSqlQuery.QuerySelectProduct);
             if (!products.Any())
                 return Response<Products>.Failure(Status.noDatafound);
 
@@ -102,11 +102,11 @@ namespace Infrastructure.Repositories
                 DateEdit = DateTime.Now
             };
 
-            var update = await _conn.ExecuteAsync(ProductSqlQuery.QueryUpdateProduct, parameters);
+            var update = await Connection.ExecuteAsync(ProductSqlQuery.QueryUpdateProduct, parameters);
              if(update is 0)
                 return Response<Products>.Failure(Status.UpdateFailure);
 
-            var updated = await _conn.QueryFirstOrDefaultAsync<Products>(ProductSqlQuery.QueryGetByIdProduct, new { prod.Id });
+            var updated = await Connection.QueryFirstOrDefaultAsync<Products>(ProductSqlQuery.QueryGetByIdProduct, new { prod.Id });
             return Response<Products>.Success(updated!, Status.UpdatedSuccess);
         }
     }

@@ -22,8 +22,8 @@ namespace Infrastructure.Repositories
                 DateCreate = DateTime.Now
             };
 
-            var Id = await _conn.ExecuteScalarAsync(CostSqlQuery.QueryCreateCost, parameters);
-            var created = await _conn.QueryFirstOrDefaultAsync<Costs>(CostSqlQuery.QueryGetByIdCost, new { Id } );
+            var Id = await Connection.ExecuteScalarAsync(CostSqlQuery.QueryCreateCost, parameters);
+            var created = await Connection.QueryFirstOrDefaultAsync<Costs>(CostSqlQuery.QueryGetByIdCost, new { Id } );
             if(created is null)
                 return Response<Costs>.Failure(Status.noDatafound);
             
@@ -47,7 +47,7 @@ namespace Infrastructure.Repositories
                 DateCreate = DateTime.Now
             };
 
-            int result = await _conn.ExecuteAsync(CostSqlQuery.QueryCreateCost, parameters);
+            int result = await Connection.ExecuteAsync(CostSqlQuery.QueryCreateCost, parameters);
             if(result is 0)
                 return Response<bool>.Failure(Status.InsertFailure);
             
@@ -57,7 +57,7 @@ namespace Infrastructure.Repositories
         public async Task<Response<bool>> DeleteCostAsync(int id)
         {
             var parameters = new { id };
-            var delete = await _conn.ExecuteAsync(CostSqlQuery.QueryDeleteCost, parameters);
+            var delete = await Connection.ExecuteAsync(CostSqlQuery.QueryDeleteCost, parameters);
             if(delete is 0)
                 return Response<bool>.Failure(Status.DeleteFailure);
 
@@ -67,7 +67,7 @@ namespace Infrastructure.Repositories
         public async Task<Response<Costs>> GetByIdCostAsync(int id)
         {
             var parameters = new { id };
-            var cost = await _conn.QueryFirstOrDefaultAsync<Costs>(CostSqlQuery.QueryGetByIdCost, parameters);
+            var cost = await Connection.QueryFirstOrDefaultAsync<Costs>(CostSqlQuery.QueryGetByIdCost, parameters);
             if(cost is null)
                 return Response<Costs>.Failure(Status.noDatafound);
             
@@ -76,7 +76,7 @@ namespace Infrastructure.Repositories
 
         public async Task<Response<Costs>> GetCostsAsync()
         {
-            var costs = await _conn.QueryAsync<Costs>(CostSqlQuery.QuerySelectCost);
+            var costs = await Connection.QueryAsync<Costs>(CostSqlQuery.QuerySelectCost);
             if(!costs.Any())
                 return Response<Costs>.Failure(Status.noDatafound);
 
@@ -96,11 +96,11 @@ namespace Infrastructure.Repositories
                 DateEdit = DateTime.Now
             };
 
-            var update = await _conn.ExecuteAsync(CostSqlQuery.QueryUpdateCost, parameters);
+            var update = await Connection.ExecuteAsync(CostSqlQuery.QueryUpdateCost, parameters);
             if(update is 0)
                 return Response<Costs>.Failure(Status.UpdateFailure);
             
-            var updated = await _conn.QueryFirstOrDefaultAsync<Costs>(CostSqlQuery.QueryGetByIdCost, new { cost.Id });
+            var updated = await Connection.QueryFirstOrDefaultAsync<Costs>(CostSqlQuery.QueryGetByIdCost, new { cost.Id });
             return Response<Costs>.Success(updated!, Status.UpdatedSuccess);
         }
         public async Task<Costs> GetByCostsParametersAsync(Costs cost)
@@ -113,7 +113,7 @@ namespace Infrastructure.Repositories
                 cost.UnitPrice
             };
 
-            var result = await _conn.QueryFirstOrDefaultAsync<Costs>(CostSqlQuery.QueryByCostParameters, parameters);
+            var result = await Connection.QueryFirstOrDefaultAsync<Costs>(CostSqlQuery.QueryByCostParameters, parameters);
             return result ?? new Costs { Name = "" };
         }
         public async Task<IEnumerable<RelPriceCost>> GetRelCostPriceAsync(DateTime dateIni, DateTime dateEnd)
@@ -123,7 +123,7 @@ namespace Infrastructure.Repositories
                 dateIni,
                 dateEnd
             };
-            var rel = await _conn.QueryAsync<RelPriceCost>(CostSqlQuery.GetRelCostPrice, parameters);
+            var rel = await Connection.QueryAsync<RelPriceCost>(CostSqlQuery.GetRelCostPrice, parameters);
             return rel!;
         }
     }
