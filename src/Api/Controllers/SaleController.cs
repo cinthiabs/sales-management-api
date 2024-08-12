@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using sales_management_api.DTOs;
 
@@ -21,7 +22,7 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> GetAllSalesAsync()
         {
             var sales = await _sale.GetSalesAsync();
-            if(sales.IsFailure)
+            if(sales.Code == Status.noDatafound)
                 return BadRequest(sales);
             
             var salesDto = _mapper.Map<IEnumerable<SalesDTO>>(sales);

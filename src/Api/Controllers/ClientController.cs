@@ -2,6 +2,7 @@ using Api.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace sales_management_api.Controllers
@@ -20,8 +21,8 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> GetAllClientsAsync()
         {
             var clients = await _client.GetClientsAsync();
-            if (clients.IsFailure)
-                return BadRequest(clients);
+            if (clients.Code == Status.noDatafound)
+                return NotFound(clients);
 
             var clientsDto = _mapper.Map<IEnumerable<ClientDTO>>(clients.Data);
             return Ok(clientsDto);

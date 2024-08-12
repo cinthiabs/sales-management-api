@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace sales_management_api.Controllers
@@ -20,6 +21,9 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> GetAllCostsAsync()
         {
             var costs = await _cost.GetCostsAsync();
+            if(costs.Code == Status.noDatafound)
+                return NotFound(costs);
+            
             var costsDto = _mapper.Map<IEnumerable<CostsDTO>>(costs);
             return Ok(costsDto);
         }

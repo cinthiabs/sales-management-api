@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace sales_management_api.Controllers
@@ -20,8 +21,8 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> GetAllProducts()
         {
             var products = await _product.GetProductsAsync();
-            if(products.IsFailure)
-                return BadRequest(products);
+            if(products.Code == Status.noDatafound)
+                return NotFound(products);
 
             var productsDto = _mapper.Map<IEnumerable<ProductsDTO>>(products.Data);
             return Ok(productsDto);
