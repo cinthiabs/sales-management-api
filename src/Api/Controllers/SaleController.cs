@@ -16,7 +16,7 @@ namespace sales_management_api.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet("GetAllSales")]
-        [ProducesResponseType(typeof(IEnumerable<SalesDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<SalesDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllSalesAsync()
@@ -30,7 +30,7 @@ namespace sales_management_api.Controllers
         }
         
         [HttpGet("GetByIdSale/{id}")]
-        [ProducesResponseType(typeof(SalesDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<SalesDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdSaleAsync(int id)
@@ -44,7 +44,7 @@ namespace sales_management_api.Controllers
         }
 
         [HttpPost("CreateSale")]
-        [ProducesResponseType(typeof(SalesDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<SalesDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateSaleAsync([FromBody] SalesDTO saleDto)
@@ -59,7 +59,7 @@ namespace sales_management_api.Controllers
         }
 
         [HttpPut("UpdateSale/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<SalesDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateSaleAsync([FromBody] SalesDTO saleDto, int id)
@@ -71,11 +71,12 @@ namespace sales_management_api.Controllers
             if(saleUpdate.IsFailure)
                 return BadRequest(saleUpdate);
 
-            return Ok(saleUpdate);
+            var saleDTO = _mapper.Map<UserCredentialsDTO>(saleUpdate.Data.FirstOrDefault());
+            return Ok(Response<UserCredentialsDTO>.Success(saleDTO));
         }
 
         [HttpDelete("DeleteSale/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteSaleAsync(int id)

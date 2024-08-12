@@ -15,7 +15,7 @@ namespace sales_management_api.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet("GetAllClients")]
-        [ProducesResponseType(typeof(IEnumerable<ClientDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<ClientDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllClientsAsync()
@@ -29,7 +29,7 @@ namespace sales_management_api.Controllers
         }
 
         [HttpGet("GetByIdClient/{id}")]
-        [ProducesResponseType(typeof(ClientDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<ClientDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdClientAsync(int id)
@@ -43,7 +43,7 @@ namespace sales_management_api.Controllers
         }
         
         [HttpPost("CreateClient")]
-        [ProducesResponseType(typeof(ClientDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<ClientDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateClientAsync([FromBody] ClientDTO clientDto)
@@ -58,7 +58,7 @@ namespace sales_management_api.Controllers
         }
 
         [HttpPut("UpdateClient/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<ClientDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateClientAsync([FromBody] ClientDTO clientDto, int id)
@@ -71,11 +71,12 @@ namespace sales_management_api.Controllers
             if(clientUpdated.IsFailure)
                 return BadRequest(clientUpdated);
 
-            return Ok(clientUpdated);
+            var clientDTO = _mapper.Map<ClientDTO>(clientUpdated.Data.FirstOrDefault());
+            return Ok(Response<ClientDTO>.Success(clientDTO));
         }
 
         [HttpDelete("DeleteClient/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteClientAsync(int id)

@@ -14,6 +14,7 @@ namespace Application.DI
             services.AddScoped<IUpload, UploadService>(); 
             services.AddScoped<IClient, ClientService>();
             services.AddScoped<IUser, UserService>();
+            services.AddScoped<IAuthentication, Authentication>();
         }
     }
 }

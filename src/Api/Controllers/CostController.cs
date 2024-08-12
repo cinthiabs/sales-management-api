@@ -15,7 +15,7 @@ namespace sales_management_api.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet("GetAllCosts")]
-        [ProducesResponseType(typeof(IEnumerable<CostsDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<CostsDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllCostsAsync()
@@ -29,7 +29,7 @@ namespace sales_management_api.Controllers
         }
 
         [HttpGet("GetByIdCost/{id}")]
-        [ProducesResponseType(typeof(CostsDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<CostsDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdCostAsync(int id)
@@ -43,7 +43,7 @@ namespace sales_management_api.Controllers
         }
 
         [HttpPost("CreateCost")]
-        [ProducesResponseType(typeof(CostsDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<CostsDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateCostAsync([FromBody] CostsDTO costDto)
@@ -58,7 +58,7 @@ namespace sales_management_api.Controllers
         }
 
         [HttpPut("UpdateCost/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<CostsDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateCostAsync([FromBody] CostsDTO costDto, int id)
@@ -69,11 +69,12 @@ namespace sales_management_api.Controllers
             if(costUpdated.IsFailure)
                 return BadRequest(costUpdated);
 
-            return Ok(costUpdated);
+            var costDTO = _mapper.Map<CostsDTO>(costUpdated.Data.FirstOrDefault());
+            return Ok(Response<CostsDTO>.Success(costDTO));
         }
 
         [HttpDelete("DeleteCost/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteCostAsync(int id)

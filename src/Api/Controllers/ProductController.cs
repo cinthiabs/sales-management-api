@@ -15,7 +15,7 @@ namespace sales_management_api.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet("GetAllProducts")]
-        [ProducesResponseType(typeof(IEnumerable<ProductsDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<ProductsDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllProducts()
@@ -29,7 +29,7 @@ namespace sales_management_api.Controllers
         }
 
         [HttpGet("GetByIdProduct/{id}")]
-        [ProducesResponseType(typeof(ProductsDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<ProductsDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdProductAsync(int id)
@@ -42,7 +42,7 @@ namespace sales_management_api.Controllers
             return Ok(productDto);
         }
         [HttpPost("CreateProduct")]
-        [ProducesResponseType(typeof(ProductsDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<ProductsDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateProductAsync([FromBody] ProductsDTO productDto)
@@ -57,7 +57,7 @@ namespace sales_management_api.Controllers
         }
 
         [HttpPut("UpdateProduct/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<ProductsDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateCostAsync([FromBody] ProductsDTO productoDto, int id)
@@ -68,11 +68,12 @@ namespace sales_management_api.Controllers
             var productUpdated = await _product.UpdateProductAsync(product);
             if(productUpdated.IsFailure)
                 return BadRequest(productUpdated);
-            
-            return Ok(productUpdated);
+
+            var productDTO = _mapper.Map<ProductsDTO>(productUpdated.Data.FirstOrDefault());
+            return Ok(Response<ProductsDTO>.Success(productDTO));
         }
         [HttpDelete("DeleteProduct/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteProductAsync(int id)

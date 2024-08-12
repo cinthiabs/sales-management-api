@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddPresentationDI();
-builder.Services.AddSwaggerDocumentation();
+builder.Services.AddSwaggerDocumentation(builder.Configuration);
 builder.Services.AddCorsProject();
 builder.Services.AddAutoMapper(typeof(Program));
 
