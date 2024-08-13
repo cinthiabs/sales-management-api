@@ -20,11 +20,11 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllClientsAsync()
         {
-            var clients = await _client.GetClientsAsync();
-            if (clients.Code == Status.noDatafound)
-                return NotFound(clients);
+            var getClients = await _client.GetClientsAsync();
+            if (getClients.Code == Status.noDatafound)
+                return NotFound(getClients);
 
-            var clientsDto = _mapper.Map<IEnumerable<ClientDTO>>(clients.Data);
+            var clientsDto = _mapper.Map<IEnumerable<ClientDTO>>(getClients.Data);
             return Ok(clientsDto);
         }
 
@@ -34,12 +34,12 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdClientAsync(int id)
         {
-            var client = await _client.GetByIdClientAsync(id);
-            if (client.IsFailure)
-                return NotFound(client);
+            var getClientById = await _client.GetByIdClientAsync(id);
+            if (getClientById.IsFailure)
+                return NotFound(getClientById);
                 
-            var clientsDto = _mapper.Map<ClientDTO>(client.Data.FirstOrDefault());
-            return Ok(clientsDto);
+            var clientDto = _mapper.Map<ClientDTO>(getClientById.Data.FirstOrDefault());
+            return Ok(clientDto);
         }
         
         [HttpPost("CreateClient")]
@@ -48,8 +48,8 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateClientAsync([FromBody] ClientDTO clientDto)
         {
-            var client = _mapper.Map<Clients>(clientDto);
-            var clientCreated = await _client.CreateClientAsync(client);
+            var mapClient = _mapper.Map<Clients>(clientDto);
+            var clientCreated = await _client.CreateClientAsync(mapClient);
             if(clientCreated.IsFailure)
                 return BadRequest(clientCreated);
 
@@ -63,10 +63,10 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateClientAsync([FromBody] ClientDTO clientDto, int id)
         {
-            var client = _mapper.Map<Clients>(clientDto);
-            client.Id = id;
+            var mapClient = _mapper.Map<Clients>(clientDto);
+            mapClient.Id = id;
 
-            var clientUpdated = await _client.UpdateClientAsync(client);
+            var clientUpdated = await _client.UpdateClientAsync(mapClient);
 
             if(clientUpdated.IsFailure)
                 return BadRequest(clientUpdated);
