@@ -20,11 +20,11 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllCostsAsync()
         {
-            var costs = await _cost.GetCostsAsync();
-            if(costs.Code == Status.noDatafound)
-                return NotFound(costs);
+            var getCosts = await _cost.GetCostsAsync();
+            if(getCosts.Code == Status.noDatafound)
+                return NotFound(getCosts);
             
-            var costsDto = _mapper.Map<IEnumerable<CostsDTO>>(costs);
+            var costsDto = _mapper.Map<IEnumerable<CostsDTO>>(getCosts);
             return Ok(costsDto);
         }
 
@@ -34,11 +34,11 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdCostAsync(int id)
         {
-            var cost = await _cost.GetByIdCostAsync(id);
-            if (cost.IsFailure)
+            var getCostId = await _cost.GetByIdCostAsync(id);
+            if (getCostId.IsFailure)
                 return NotFound(cost);
 
-            var costDto = _mapper.Map<CostsDTO>(cost.Data.FirstOrDefault());
+            var costDto = _mapper.Map<CostsDTO>(getCostId.Data.FirstOrDefault());
             return Ok(costDto);
         }
 
@@ -48,8 +48,8 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateCostAsync([FromBody] CostsDTO costDto)
         {
-            var cost = _mapper.Map<Costs>(costDto);
-            var costCreated = await _cost.CreateCostAsync(cost);
+            var mapCost = _mapper.Map<Costs>(costDto);
+            var costCreated = await _cost.CreateCostAsync(mapCost);
             if(costCreated.IsFailure)
                 return BadRequest(costCreated);
 
@@ -63,9 +63,9 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateCostAsync([FromBody] CostsDTO costDto, int id)
         {
-            var cost = _mapper.Map<Costs>(costDto);
-            cost.Id = id;
-            var costUpdated = await _cost.UpdateCostAsync(cost);
+            var mapCost = _mapper.Map<Costs>(costDto);
+            mapCost.Id = id;
+            var costUpdated = await _cost.UpdateCostAsync(mapCost);
             if(costUpdated.IsFailure)
                 return BadRequest(costUpdated);
 

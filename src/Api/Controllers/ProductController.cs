@@ -20,11 +20,11 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllProducts()
         {
-            var products = await _product.GetProductsAsync();
-            if(products.Code == Status.noDatafound)
-                return NotFound(products);
+            var getProducts = await _product.GetProductsAsync();
+            if(getProducts.Code == Status.noDatafound)
+                return NotFound(getProducts);
 
-            var productsDto = _mapper.Map<IEnumerable<ProductsDTO>>(products.Data);
+            var productsDto = _mapper.Map<IEnumerable<ProductsDTO>>(getProducts.Data);
             return Ok(productsDto);
         }
 
@@ -34,11 +34,11 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdProductAsync(int id)
         {
-            var product = await _product.GetByIdProductAsync(id);
-            if (product.IsFailure)
+            var productId = await _product.GetByIdProductAsync(id);
+            if (productId.IsFailure)
                 return NotFound(product);
 
-            var productDto = _mapper.Map<ProductsDTO>(product.Data.FirstOrDefault());
+            var productDto = _mapper.Map<ProductsDTO>(productId.Data.FirstOrDefault());
             return Ok(productDto);
         }
         [HttpPost("CreateProduct")]
@@ -47,8 +47,8 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateProductAsync([FromBody] ProductsDTO productDto)
         {
-            var product = _mapper.Map<Products>(productDto);
-            var productCreated = await _product.CreateProductAsync(product);
+            var mapProduct = _mapper.Map<Products>(productDto);
+            var productCreated = await _product.CreateProductAsync(mapProduct);
             if(productCreated.IsFailure)
                 return BadRequest(productCreated);
 
@@ -62,10 +62,10 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateCostAsync([FromBody] ProductsDTO productoDto, int id)
         {
-            var product  = _mapper.Map<Products>(productoDto);
-            product.Id = id;
+            var mapProduct  = _mapper.Map<Products>(productoDto);
+            mapProduct.Id = id;
 
-            var productUpdated = await _product.UpdateProductAsync(product);
+            var productUpdated = await _product.UpdateProductAsync(mapProduct);
             if(productUpdated.IsFailure)
                 return BadRequest(productUpdated);
 

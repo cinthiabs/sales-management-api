@@ -21,11 +21,11 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllSalesAsync()
         {
-            var sales = await _sale.GetSalesAsync();
-            if(sales.Code == Status.noDatafound)
-                return BadRequest(sales);
+            var getSales = await _sale.GetSalesAsync();
+            if(getSales.Code == Status.noDatafound)
+                return BadRequest(getSales);
             
-            var salesDto = _mapper.Map<IEnumerable<SalesDTO>>(sales);
+            var salesDto = _mapper.Map<IEnumerable<SalesDTO>>(getSales);
             return Ok(salesDto);
         }
         
@@ -35,11 +35,11 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdSaleAsync(int id)
         {
-            var sale = await _sale.GetByIdSaleAsync(id);
-            if (sale.IsFailure)
-                return NotFound(sale);
+            var saleId = await _sale.GetByIdSaleAsync(id);
+            if (saleId.IsFailure)
+                return NotFound(saleId);
 
-            var saleDto = _mapper.Map<SalesDTO>(sale.Data.FirstOrDefault());
+            var saleDto = _mapper.Map<SalesDTO>(saleId.Data.FirstOrDefault());
             return Ok(saleDto);
         }
 
@@ -49,8 +49,8 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateSaleAsync([FromBody] SalesDTO saleDto)
         {
-            var sales = _mapper.Map<Sales>(saleDto);
-            var saleCreated = await _sale.CreateSaleAsync(sales);
+            var mapSales = _mapper.Map<Sales>(saleDto);
+            var saleCreated = await _sale.CreateSaleAsync(mapSales);
             if(saleCreated.IsFailure)
                 return BadRequest(saleCreated);
             
@@ -64,10 +64,10 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateSaleAsync([FromBody] SalesDTO saleDto, int id)
         {
-            var sale = _mapper.Map<Sales>(saleDto);
-            sale.Id = id;
+            var mapSale = _mapper.Map<Sales>(saleDto);
+            mapSale.Id = id;
 
-            var saleUpdate = await _sale.UpdateSaleAsync(sale);
+            var saleUpdate = await _sale.UpdateSaleAsync(mapSale);
             if(saleUpdate.IsFailure)
                 return BadRequest(saleUpdate);
 
@@ -94,8 +94,8 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetRelQuantityAsync(DateTime dateIni, DateTime dateEnd)
         {
-            var saleCreated = await _sale.GetRelQuantityAsync(dateIni, dateEnd);
-            return Ok(saleCreated);
+            var saleRel = await _sale.GetRelQuantityAsync(dateIni, dateEnd);
+            return Ok(saleRel);
         }
     }
 }

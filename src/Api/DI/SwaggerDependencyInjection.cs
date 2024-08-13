@@ -10,6 +10,7 @@ namespace Api.DI
     {
         public static void AddSwaggerDocumentation(this IServiceCollection services, IConfiguration configuration)
         {
+            const string Bearer = "Bearer";
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -25,7 +26,7 @@ namespace Api.DI
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
+                    Scheme = Bearer
                 });
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement()
@@ -36,10 +37,10 @@ namespace Api.DI
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
+                                Id = Bearer
                             },
                             Scheme = "oauth2",
-                            Name = "Bearer",
+                            Name = Bearer,
                             In = ParameterLocation.Header,
                         },
                         new List<string>()
@@ -67,7 +68,7 @@ namespace Api.DI
 
             services.AddAuthorization(auth =>
             {
-                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                auth.AddPolicy(Bearer, new AuthorizationPolicyBuilder()
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
                     .RequireAuthenticatedUser().Build());
             });

@@ -5,9 +5,9 @@ namespace sales_management_api.DTOs
 {
     public class SalesDTO
     {
-        public int Id { get; set; }
-        public int IdProduct { get; set; }
-        public int IdClient { get; set; }
+        public int? Id { get; set; }
+        public int? IdProduct { get; set; }
+        public int? IdClient { get; set; }
         [Required]
         public DateTime DateSale { get; set; }
         [Required]
@@ -18,7 +18,7 @@ namespace sales_management_api.DTOs
         [Required]
         public decimal Price { get; set; }
         public Situation Pay { get; set; }
-        public DateTime DateCreate { get; set; }
+        public DateTime DateCreate { get; set; } = DateTime.Now;
         public DateTime? DateEdit { get; set; }
     }
 }

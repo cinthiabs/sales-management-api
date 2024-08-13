@@ -4,7 +4,7 @@ namespace Api.DTOs
 {
     public class CostsDTO
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [Required]
         public string Quantity { get; set; } = default!;
         [Required]

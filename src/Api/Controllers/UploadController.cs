@@ -19,7 +19,7 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UploadExcelAsync(IFormFile file)
         {
-            if (file is null && file?.Length == 0)
+            if (file is null)
                 return BadRequest("File invalid!");
 
             using var stream = new MemoryStream();

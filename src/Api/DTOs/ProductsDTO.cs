@@ -4,7 +4,7 @@ namespace Api.DTOs
 {
     public class ProductsDTO
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [Required]
         public string Name { get; set; } = default!;
         public string Details { get; set; } = default!;
@@ -12,7 +12,7 @@ namespace Api.DTOs
         public bool Active { get; set; } = true;
         [Required]
         public decimal Price { get; set; }
-        public DateTime DateCreate { get; set; }
+        public DateTime DateCreate { get; set; } = DateTime.Now;
         public DateTime? DateEdit { get; set; }
     }
 }
