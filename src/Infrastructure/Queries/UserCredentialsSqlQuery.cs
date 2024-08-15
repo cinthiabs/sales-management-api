@@ -20,5 +20,16 @@
         WHERE Username = @Username
         AND Id = @Id";
 
+        internal const string QueryUpdateUserCredentials = @"
+        UPDATE UserCredentials
+        SET Token = @Token,
+            TokenExpiration = @TokenExpiration,
+            LastLogin = @LastLogin,
+            DateEdit = @DateEdit
+        WHERE 
+        Id = @Id
+        AND Active = 1";
+
+
     }
 }

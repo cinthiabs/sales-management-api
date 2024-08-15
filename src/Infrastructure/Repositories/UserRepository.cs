@@ -77,9 +77,30 @@ namespace Infrastructure.Repositories
             return Response<UserCredentials>.Success(user);
         }
 
-        public Task<Response<bool>> UpdateUserAsync(Login login)
+        public async Task<Response<bool>> UpdateUserAsync(UserCredentials user, int Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var parameters = new
+                {
+                    Id,
+                    user.Token,
+                    user.TokenExpiration,
+                    user.LastLogin,
+                    DateEdit = DateTime.Now
+                };
+
+                var update = await Connection.ExecuteAsync(UserCredentialsSqlQuery.QueryUpdateUserCredentials, parameters);
+                if (update is 0)
+                    return Response<bool>.Failure(Status.UpdateFailure);
+
+                return Response<bool>.Success(true, Status.UpdatedSuccess);
+            }
+            catch (Exception ex)
+            {
+                return Response<bool>.Failure(Status.InternalError);
+            }
+
         }
     }
 }

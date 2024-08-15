@@ -13,7 +13,7 @@ namespace Application.Services
         {
             using var hmac = new HMACSHA512();
             passwordSalt = Convert.ToBase64String(hmac.Key);
-            passwordHash = Convert.ToBase64String(hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password))); // Converte o hash para Base64
+            passwordHash = Convert.ToBase64String(hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password)));  
         }
 
         public async Task<Response<bool>> CreateUserAsync(Login login)
@@ -46,9 +46,9 @@ namespace Application.Services
             return await _userRepository.DeleteUserAsync(user.Data![0].Id);
         }
 
-        public async Task<Response<UserCredentials>> GetUserAsync(string username, string password)
+        public async Task<Response<UserCredentials>> GetUserAsync(string username, string email)
         {
-            //return await _userRepository.GetUserAsync(username, );
+            return await _userRepository.GetUserAsync(username, email);
             throw new NotImplementedException();
         }
 
