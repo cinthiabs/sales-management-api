@@ -2,12 +2,14 @@ using Api.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize("Bearer")]
     public class UserCredentialsController(IUser user, IMapper mapper) : ControllerBase
     {
         private readonly IUser _user = user;

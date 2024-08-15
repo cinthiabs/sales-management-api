@@ -3,12 +3,14 @@ using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace sales_management_api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize("Bearer")]
     public class ProductController(IProduct product, IMapper mapper) : ControllerBase
     {
         private readonly IProduct _product = product;

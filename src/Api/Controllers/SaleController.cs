@@ -3,6 +3,7 @@ using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using sales_management_api.DTOs;
 
@@ -10,6 +11,7 @@ namespace sales_management_api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize("Bearer")]
     public class SaleController(ISale sale, IMapper mapper) : ControllerBase
     {
         private readonly ISale _sale = sale;
