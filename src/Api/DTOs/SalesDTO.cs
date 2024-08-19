@@ -1,9 +1,9 @@
 ﻿using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace sales_management_api.DTOs
+namespace Api.Dtos
 {
-    public class SalesDTO
+    public class SalesDto
     {
         public int? Id { get; set; }
         public int? IdProduct { get; set; }

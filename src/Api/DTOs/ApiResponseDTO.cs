@@ -1,8 +1,8 @@
-﻿namespace Api.DTOs
+﻿namespace Api.Dtos
 {
-    public class ApiResponseDTO
+    public class ApiResponseDto
     {
-        public ApiResponseDTO(string statusCode, string message, string details) 
+        public ApiResponseDto(string statusCode, string message, string details) 
         {
             StatusCode = statusCode;
             Message = message;

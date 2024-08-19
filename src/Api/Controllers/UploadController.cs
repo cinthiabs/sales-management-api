@@ -7,13 +7,10 @@ namespace sales_management_api.Controllers
     [Route("api/v1")]
     [ApiController]
     [Authorize("Bearer")]
-    public class UploadController : ControllerBase
+    public class UploadController(IUpload upload) : ControllerBase
     {
-        private readonly IUpload _upload;
-        public UploadController(IUpload upload)
-        {
-            _upload = upload;
-        }
+        private readonly IUpload _upload = upload;
+
         [HttpPost("UploadExcel")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -1,4 +1,4 @@
-using Api.DTOs;
+using Api.Dtos;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -14,18 +14,18 @@ namespace Api.Controllers
         private readonly IAuthentication _authentication = authentication;
 
         [HttpPost("Authentication")]
-        [ProducesResponseType(typeof(Response<UserCredentialsDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<UserCredentialsDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> AuthenticationAsync([FromBody] LoginDTO loginDto)
+        public async Task<IActionResult> AuthenticationAsync([FromBody] LoginDto loginDto)
         {
             var login = _mapper.Map<Login>(loginDto);
             var user = await _authentication.AuthenticationAsync(login);
             if (user.IsFailure)
                 return BadRequest(user);
 
-            var userAuth = _mapper.Map<UserCredentialsDTO>(user.Data.FirstOrDefault());
-            return Ok(Response<UserCredentialsDTO>.Success(userAuth));
+            var userAuth = _mapper.Map<UserCredentialsDto>(user.Data.FirstOrDefault());
+            return Ok(Response<UserCredentialsDto>.Success(userAuth));
         }
     }
 }

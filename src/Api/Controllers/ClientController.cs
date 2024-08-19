@@ -1,4 +1,4 @@
-using Api.DTOs;
+using Api.Dtos;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -17,7 +17,7 @@ namespace sales_management_api.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet("GetAllClients")]
-        [ProducesResponseType(typeof(Response<ClientDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<ClientDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllClientsAsync()
@@ -26,12 +26,12 @@ namespace sales_management_api.Controllers
             if (getClients.Code == Status.noDatafound)
                 return NotFound(getClients);
 
-            var clientsDto = _mapper.Map<IEnumerable<ClientDTO>>(getClients.Data);
+            var clientsDto = _mapper.Map<IEnumerable<ClientDto>>(getClients.Data);
             return Ok(clientsDto);
         }
 
         [HttpGet("GetByIdClient/{id}")]
-        [ProducesResponseType(typeof(Response<ClientDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<ClientDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdClientAsync(int id)
@@ -40,32 +40,32 @@ namespace sales_management_api.Controllers
             if (getClientById.IsFailure)
                 return NotFound(getClientById);
                 
-            var clientDto = _mapper.Map<ClientDTO>(getClientById.Data.FirstOrDefault());
+            var clientDto = _mapper.Map<ClientDto>(getClientById.Data.FirstOrDefault());
             return Ok(clientDto);
         }
         
         [HttpPost("CreateClient")]
-        [ProducesResponseType(typeof(Response<ClientDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<ClientDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateClientAsync([FromBody] ClientDTO clientDto)
+        public async Task<IActionResult> CreateClientAsync([FromBody] ClientDto clientDto)
         {
             var mapClient = _mapper.Map<Clients>(clientDto);
             var clientCreated = await _client.CreateClientAsync(mapClient);
             if(clientCreated.IsFailure)
                 return BadRequest(clientCreated);
 
-            var clientCreatedDto = _mapper.Map<ClientDTO>(clientCreated.Data);
+            var clientCreatedDto = _mapper.Map<ClientDto>(clientCreated.Data);
             return Ok(clientCreatedDto);
         }
 
         [HttpPut("UpdateClient/{id}")]
-        [ProducesResponseType(typeof(Response<ClientDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<ClientDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateClientAsync([FromBody] ClientDTO clientDto, int id)
+        public async Task<IActionResult> UpdateClientAsync([FromBody] ClientDto client, int id)
         {
-            var mapClient = _mapper.Map<Clients>(clientDto);
+            var mapClient = _mapper.Map<Clients>(client);
             mapClient.Id = id;
 
             var clientUpdated = await _client.UpdateClientAsync(mapClient);
@@ -73,8 +73,8 @@ namespace sales_management_api.Controllers
             if(clientUpdated.IsFailure)
                 return BadRequest(clientUpdated);
 
-            var clientDTO = _mapper.Map<ClientDTO>(clientUpdated.Data.FirstOrDefault());
-            return Ok(Response<ClientDTO>.Success(clientDTO));
+            var clientDto = _mapper.Map<ClientDto>(clientUpdated.Data.FirstOrDefault());
+            return Ok(Response<ClientDto>.Success(clientDto));
         }
 
         [HttpDelete("DeleteClient/{id}")]

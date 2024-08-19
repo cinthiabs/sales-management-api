@@ -1,11 +1,10 @@
-﻿using Api.DTOs;
+﻿using Api.Dtos;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using sales_management_api.DTOs;
 
 namespace sales_management_api.Controllers
 {
@@ -18,7 +17,7 @@ namespace sales_management_api.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet("GetAllSales")]
-        [ProducesResponseType(typeof(Response<SalesDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<SalesDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllSalesAsync()
@@ -27,12 +26,12 @@ namespace sales_management_api.Controllers
             if(getSales.Code == Status.noDatafound)
                 return BadRequest(getSales);
             
-            var salesDto = _mapper.Map<IEnumerable<SalesDTO>>(getSales);
+            var salesDto = _mapper.Map<IEnumerable<SalesDto>>(getSales);
             return Ok(salesDto);
         }
         
         [HttpGet("GetByIdSale/{id}")]
-        [ProducesResponseType(typeof(Response<SalesDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<SalesDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdSaleAsync(int id)
@@ -41,40 +40,40 @@ namespace sales_management_api.Controllers
             if (saleId.IsFailure)
                 return NotFound(saleId);
 
-            var saleDto = _mapper.Map<SalesDTO>(saleId?.Data?.FirstOrDefault());
+            var saleDto = _mapper.Map<SalesDto>(saleId?.Data?.FirstOrDefault());
             return Ok(saleDto);
         }
 
         [HttpPost("CreateSale")]
-        [ProducesResponseType(typeof(Response<SalesDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<SalesDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateSaleAsync([FromBody] SalesDTO saleDto)
+        public async Task<IActionResult> CreateSaleAsync([FromBody] SalesDto saleDto)
         {
             var mapSales = _mapper.Map<Sales>(saleDto);
             var saleCreated = await _sale.CreateSaleAsync(mapSales);
             if(saleCreated.IsFailure)
                 return BadRequest(saleCreated);
             
-            var saleCreatedDto = _mapper.Map<CostsDTO>(saleCreated);
+            var saleCreatedDto = _mapper.Map<CostsDto>(saleCreated);
             return Ok(saleCreatedDto);
         }
 
         [HttpPut("UpdateSale/{id}")]
-        [ProducesResponseType(typeof(Response<SalesDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<SalesDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateSaleAsync([FromBody] SalesDTO saleDto, int id)
+        public async Task<IActionResult> UpdateSaleAsync([FromBody] SalesDto sale, int id)
         {
-            var mapSale = _mapper.Map<Sales>(saleDto);
+            var mapSale = _mapper.Map<Sales>(sale);
             mapSale.Id = id;
 
             var saleUpdate = await _sale.UpdateSaleAsync(mapSale);
             if(saleUpdate.IsFailure)
                 return BadRequest(saleUpdate);
 
-            var saleDTO = _mapper.Map<UserCredentialsDTO>(saleUpdate?.Data?.FirstOrDefault());
-            return Ok(Response<UserCredentialsDTO>.Success(saleDTO));
+            var saleDto = _mapper.Map<UserCredentialsDto>(saleUpdate?.Data?.FirstOrDefault());
+            return Ok(Response<UserCredentialsDto>.Success(saleDto));
         }
 
         [HttpDelete("DeleteSale/{id}")]

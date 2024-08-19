@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Api.DTOs
+namespace Api.Dtos
 {
-    public class CostsDTO
+    public class CostsDto
     {
         public int? Id { get; set; }
         [Required]
