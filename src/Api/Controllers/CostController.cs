@@ -26,7 +26,7 @@ namespace sales_management_api.Controllers
             if(getCosts.Code == Status.noDatafound)
                 return NotFound(getCosts);
             
-            var costsDto = _mapper.Map<IEnumerable<CostsDto>>(getCosts);
+            var costsDto = _mapper.Map<IEnumerable<CostsDto>>(getCosts.Data);
             return Ok(costsDto);
         }
 

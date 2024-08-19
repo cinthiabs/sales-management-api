@@ -26,7 +26,7 @@ namespace sales_management_api.Controllers
             if(getSales.Code == Status.noDatafound)
                 return BadRequest(getSales);
             
-            var salesDto = _mapper.Map<IEnumerable<SalesDto>>(getSales);
+            var salesDto = _mapper.Map<IEnumerable<SalesDto>>(getSales.Data);
             return Ok(salesDto);
         }
         

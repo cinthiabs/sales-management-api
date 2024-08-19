@@ -12,9 +12,9 @@ namespace Api.Dtos
         [Required]
         public DateTime DateCost { get; set; }
         [Required]
-        public decimal UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; } = 0.00m;
         [Required]
-        public decimal TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; } = 0.00m;
         public DateTime DateCreate { get; set; }
         public DateTime? DateEdit { get; set; }
     }

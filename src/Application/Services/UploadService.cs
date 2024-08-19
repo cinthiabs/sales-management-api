@@ -6,16 +6,10 @@ using System.Dynamic;
 
 namespace Application.Services
 {
-    public class UploadService : IUpload
+    public class UploadService(ISale sale, ICost cost) : IUpload
     {
-        private readonly ISale _sale;
-        private readonly ICost _cost;
-
-        public UploadService(ISale sale, ICost cost)
-        {
-            _sale = sale;
-            _cost = cost;
-        }
+        private readonly ISale _sale = sale;
+        private readonly ICost _cost = cost;
 
         public async Task<Response<bool>> ReadExcelAsync(Stream stream)
         {
@@ -23,32 +17,27 @@ namespace Application.Services
             {
                 var file = await ReadExcelExcelToJsonAsync(stream);
 
-                if (file is not null)
-                {
-                    var sales = await TransformJsontoObjSaleAsync(file);
-                    var created = await _sale.CreateSaleListAsync(sales);
-                    if (created is false)
-                        return Response<bool>.Failure(Status.UnableToImportSales);
+                if (file is null)
+                    return Response<bool>.Failure(Status.Empty);
 
+                var sales = await TransformJsontoObjSaleAsync(file);
+                var salesCreated = await _sale.CreateSaleListAsync(sales);
+                if (!salesCreated)
+                    return Response<bool>.Failure(Status.UnableToImportSales);
 
-                    var costs = await TransformJsontoObjCostAsync(file);
-                    var cost = await _cost.CreateCostListAsync(costs);
-                    if (cost is false)
-                        return Response<bool>.Failure(Status.UnableToImportCost);
+                var costs = await TransformJsontoObjCostAsync(file);
+                var costsCreated = await _cost.CreateCostListAsync(costs);
+                if (!costsCreated)
+                    return Response<bool>.Failure(Status.UnableToImportCost);
 
-                    if (cost is true && cost is true)
-                        return Response<bool>.Success(true, Status.ImportedSuccess);
-                }
-                return Response<bool>.Failure(Status.Empty);
+                return Response<bool>.Success(true, Status.ImportedSuccess);
             }
             catch (Exception)
             {
                 return Response<bool>.Failure(Status.UnableToImportFile);
             }
-           
         }
-
-        private async Task<dynamic> ReadExcelExcelToJsonAsync(Stream stream)
+        private static async Task<dynamic> ReadExcelExcelToJsonAsync(Stream stream)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var rows = new List<Dictionary<string, Object>>();
@@ -79,7 +68,7 @@ namespace Application.Services
             return await Task.FromResult((dynamic)rows);
 
         }
-        private async Task<List<Sales>> TransformJsontoObjSaleAsync(dynamic obj)
+        private static async Task<List<Sales>> TransformJsontoObjSaleAsync(dynamic obj)
         {
             var sales = new List<Sales>();
 
@@ -132,7 +121,7 @@ namespace Application.Services
             return await Task.FromResult(sales);
         }
 
-        private async Task<List<Costs>> TransformJsontoObjCostAsync(dynamic obj)
+        private static async Task<List<Costs>> TransformJsontoObjCostAsync(dynamic obj)
         {
             var costs = new List<Costs>();
 

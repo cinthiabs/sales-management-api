@@ -16,7 +16,7 @@ namespace Api.Dtos
         [Required]
         public int Quantity { get; set; }
         [Required]
-        public decimal Price { get; set; }
+        public decimal Price { get; set; } = 0.00m;
         public Situation Pay { get; set; }
         public DateTime DateCreate { get; set; } = DateTime.Now;
         public DateTime? DateEdit { get; set; }
