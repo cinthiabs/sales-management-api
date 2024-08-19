@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Api.DTOs
+namespace Api.Dtos
 {
-    public class CostsDTO
+    public class CostsDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [Required]
         public string Quantity { get; set; } = default!;
         [Required]
@@ -12,9 +12,9 @@ namespace Api.DTOs
         [Required]
         public DateTime DateCost { get; set; }
         [Required]
-        public decimal UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; } = 0.00m;
         [Required]
-        public decimal TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; } = 0.00m;
         public DateTime DateCreate { get; set; }
         public DateTime? DateEdit { get; set; }
     }

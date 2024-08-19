@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Infrastructure.Connection
 {
-    public abstract class RepositoryBase : IDisposable
+    public class RepositoryBase : IDisposable
     {
         private readonly IDbConnection _conn;
 

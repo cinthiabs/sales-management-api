@@ -1,4 +1,4 @@
-﻿using Api.DTOs;
+﻿using Api.Dtos;
 using System.Net;
 using System.Text.Json;
 
@@ -7,10 +7,10 @@ namespace Api.Middleware
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _requestDelegate;
-        private readonly ILogger<ApiResponseDTO> _logger;
+        private readonly ILogger<ApiResponseDto> _logger;
         private readonly IHostEnvironment _environment;
 
-        public ExceptionMiddleware(RequestDelegate requestDelegate, ILogger<ApiResponseDTO> logger, IHostEnvironment environment)
+        public ExceptionMiddleware(RequestDelegate requestDelegate, ILogger<ApiResponseDto> logger, IHostEnvironment environment)
         {
             _requestDelegate = requestDelegate;
             _logger = logger;
@@ -29,8 +29,8 @@ namespace Api.Middleware
                 context.Response.StatusCode =(int)HttpStatusCode.InternalServerError;
 
                 var response = _environment.IsDevelopment() ?
-                    new ApiResponseDTO(context.Response.StatusCode.ToString(), ex.Message, ex.StackTrace.ToString()) :
-                    new ApiResponseDTO(context.Response.StatusCode.ToString(), ex.Message, "Internal Server Error");
+                    new ApiResponseDto(context.Response.StatusCode.ToString(), ex.Message, ex.StackTrace.ToString()) :
+                    new ApiResponseDto(context.Response.StatusCode.ToString(), ex.Message, "Internal Server Error");
 
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
                 var json = JsonSerializer.Serialize(response);

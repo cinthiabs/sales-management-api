@@ -1,17 +1,19 @@
 using Api.DI;
 using Api.Middleware;
+using Application.Settings;
 using Datadog.Trace;
 using Datadog.Trace.Configuration;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddPresentationDI();
-builder.Services.AddSwaggerDocumentation();
+builder.Services.AddSwaggerDocumentation(builder.Configuration);
 builder.Services.AddCorsProject();
 builder.Services.AddAutoMapper(typeof(Program));
-
 
 var tracerSettings = TracerSettings.FromDefaultSources();
 tracerSettings.ServiceName = "sales-management-api";

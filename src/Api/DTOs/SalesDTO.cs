@@ -1,13 +1,13 @@
 ﻿using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace sales_management_api.DTOs
+namespace Api.Dtos
 {
-    public class SalesDTO
+    public class SalesDto
     {
-        public int Id { get; set; }
-        public int IdProduct { get; set; }
-        public int IdClient { get; set; }
+        public int? Id { get; set; }
+        public int? IdProduct { get; set; }
+        public int? IdClient { get; set; }
         [Required]
         public DateTime DateSale { get; set; }
         [Required]
@@ -16,9 +16,9 @@ namespace sales_management_api.DTOs
         [Required]
         public int Quantity { get; set; }
         [Required]
-        public decimal Price { get; set; }
+        public decimal Price { get; set; } = 0.00m;
         public Situation Pay { get; set; }
-        public DateTime DateCreate { get; set; }
+        public DateTime DateCreate { get; set; } = DateTime.Now;
         public DateTime? DateEdit { get; set; }
     }
 }

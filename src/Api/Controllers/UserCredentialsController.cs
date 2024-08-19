@@ -1,4 +1,4 @@
-using Api.DTOs;
+using Api.Dtos;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -17,7 +17,7 @@ namespace Api.Controllers
         [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateUserAsync([FromBody] LoginDTO loginDto)
+        public async Task<IActionResult> CreateUserAsync([FromBody] LoginDto loginDto)
         {
             var login = _mapper.Map<Login>(loginDto);
             var userCreated = await _user.CreateUserAsync(login);

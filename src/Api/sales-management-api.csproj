@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Datadog.Trace" Version="2.56.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.7" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
     <PackageReference Include="Serilog.Sinks.Datadog.Logs" Version="0.5.2" />
     <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />

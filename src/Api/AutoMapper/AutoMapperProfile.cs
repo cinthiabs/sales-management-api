@@ -1,34 +1,33 @@
-﻿using Api.DTOs;
+﻿using Api.Dtos;
 using AutoMapper;
 using Domain.Entities;
-using sales_management_api.DTOs;
 
-namespace sales_management_api.AutoMapper
+namespace Api.AutoMapper
 {
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {
-            CreateMap<Costs, CostsDTO>();
-            CreateMap<CostsDTO, Costs>();
+            CreateMap<Costs, CostsDto>();
+            CreateMap<CostsDto, Costs>();
 
-            CreateMap<Products, ProductsDTO>();
-            CreateMap<ProductsDTO, Products>();
+            CreateMap<Products, ProductsDto>();
+            CreateMap<ProductsDto, Products>();
 
-            CreateMap<Sales, SalesDTO>();
-            CreateMap<SalesDTO, Sales>();
+            CreateMap<Sales, SalesDto>();
+            CreateMap<SalesDto, Sales>();
 
-            CreateMap<Clients, ClientDTO>();
-            CreateMap<ClientDTO, Clients>();
+            CreateMap<Clients, ClientDto>();
+            CreateMap<ClientDto, Clients>();
 
-            CreateMap<UserCredentials, UserCredentialsDTO>();
-            CreateMap<UserCredentialsDTO, UserCredentials>();
+            CreateMap<UserCredentials, UserCredentialsDto>();
+            CreateMap<UserCredentialsDto, UserCredentials>();
 
-            CreateMap<UserProfile, UserProfileDTO>();
-            CreateMap<UserProfileDTO, UserProfile>();
+            CreateMap<UserProfile, UserProfileDto>();
+            CreateMap<UserProfileDto, UserProfile>();
 
-            CreateMap<Login, LoginDTO>();
-            CreateMap<LoginDTO, Login>();
+            CreateMap<Login, LoginDto>();
+            CreateMap<LoginDto, Login>();
         }
     }
 }

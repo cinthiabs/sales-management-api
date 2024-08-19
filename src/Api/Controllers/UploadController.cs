@@ -1,17 +1,16 @@
 ﻿using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace sales_management_api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
-    public class UploadController : ControllerBase
+    [Authorize("Bearer")]
+    public class UploadController(IUpload upload) : ControllerBase
     {
-        private readonly IUpload _upload;
-        public UploadController(IUpload upload)
-        {
-            _upload = upload;
-        }
+        private readonly IUpload _upload = upload;
+
         [HttpPost("UploadExcel")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -19,7 +18,7 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UploadExcelAsync(IFormFile file)
         {
-            if (file is null && file?.Length == 0)
+            if (file is null)
                 return BadRequest("File invalid!");
 
             using var stream = new MemoryStream();

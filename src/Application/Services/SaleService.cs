@@ -15,7 +15,6 @@ namespace Application.Services
         {
             return await _saleRepository.CreateSaleAsync(sale);
         }
-        
         public async Task<Response<bool>> DeleteSaleAsync(int id)
         {
             var existSale = await _saleRepository.GetByIdSaleAsync(id);
@@ -48,38 +47,27 @@ namespace Application.Services
             return existSale;     
         }
 
-        public async Task<bool> CreateSaleListAsync(List<Sales> sale)
+        public async Task<bool> CreateSaleListAsync(List<Sales> sales)
         {
-            bool result = true;
-
-            foreach (var item in sale)
+            foreach (var item in sales.Where(s => s.Name is not null))
             {
-                if( item.Name is not null)
-                {
-                    var saleExist = await _saleRepository.GetBySaleParametersAsync(item);
+                var saleExist = await _saleRepository.GetBySaleParametersAsync(item);
+                if (saleExist.Id != 0)
+                    continue;
 
-                    if (saleExist.Id == 0)
-                    {
-                        var product = await _productRepository.GetByNameProductAsync(item.Name);
-                        if(product is not null)
-                           item.IdProduct = product.Id;
-                        
-                        var client = await _clientRepository.GetClientByNameAsync(item.Details);
-                        if(client is not null) 
-                            item.IdClient = client.Id;
+                var product = await _productRepository.GetByNameProductAsync(item.Name);
+                if (product is not null)
+                    item.IdProduct = product.Id;
 
+                var client = await _clientRepository.GetClientByNameAsync(item.Details);
+                if (client is not null)
+                    item.IdClient = client.Id;
 
-                        var data = await _saleRepository.CreateSaleListAsync(item);
-                        if(data.IsFailure)
-                            return result = false;
-
-                        result = data.IsSuccess;
-                    }
-                    else
-                        result = true;
-                }
+                var data = await _saleRepository.CreateSaleListAsync(item);
+                if (data.IsFailure)
+                    return false;
             }
-            return result;
+            return true;
         }
 
         public async Task<IEnumerable<RelQuantity>> GetRelQuantityAsync(DateTime dateIni, DateTime dateEnd)

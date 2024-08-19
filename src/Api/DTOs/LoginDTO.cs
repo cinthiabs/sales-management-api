@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.DTOs
+namespace Api.Dtos
 {
-    public class LoginDTO
+    public class LoginDto
     {
         [Required]
         public string Username {get;set;} = default!;

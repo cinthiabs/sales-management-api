@@ -1,22 +1,22 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.DTOs
+namespace Api.Dtos
 {
-    public class UserProfileDTO
+    public class UserProfileDto
     {
         public int Id { get; set; }
         [Required]
         public int UserId { get; set; }
         [Required]
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string ZipCode { get; set; }
+        public string FirstName { get; set; } = default!;
+        public string LastName { get; set; } = default!;
+        public string Phone { get; set; } = default!;
+        public string Address { get; set; } = default!;
+        public string City { get; set; } = default!;
+        public string State { get; set; } = default!;
+        public string ZipCode { get; set; } = default!;
         [Required]
-        public string AccessLevel { get; set; }
+        public string AccessLevel { get; set; } = default!;
         [Required]
         public DateTime DateCreate { get; set; }
         public DateTime? DateEdit { get; set; }

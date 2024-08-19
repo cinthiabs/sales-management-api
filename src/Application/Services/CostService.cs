@@ -15,30 +15,19 @@ namespace Application.Services
         }
         public async Task<bool> CreateCostListAsync(List<Costs> costs)
         {
-            bool result = true;
-
-            foreach (var item in costs)
+            foreach (var item in costs.Where(c => c.Name is not null))
             {
-                if (item.Name is not null)
-                {
-                    var costExist = await _costRepository.GetByCostsParametersAsync(item);
+                var costExist = await _costRepository.GetByCostsParametersAsync(item);
 
-                    if (costExist.Id == 0)
-                    {
-                        var data = await _costRepository.CreateCostListAsync(item);
-                        
-                        if(data.IsFailure)
-                            return result = false;
+                if (costExist.Id != 0)
+                    continue;
 
-                        result = data.IsSuccess;
-                    }
-                    else
-                    {
-                        result = true;
-                    }
-                }
+                var data = await _costRepository.CreateCostListAsync(item);
+
+                if (data.IsFailure)
+                    return false;
             }
-            return result;
+            return true;
         }
         public async Task<Response<bool>> DeleteCostAsync(int id)
         {
@@ -54,7 +43,6 @@ namespace Application.Services
         {
             return await _costRepository.GetByIdCostAsync(id);
         }
-
         public async Task<Response<Costs>> GetCostsAsync()
         {
             return await _costRepository.GetCostsAsync();
@@ -64,7 +52,6 @@ namespace Application.Services
         {
             return await _costRepository.GetRelCostPriceAsync(dateIni, dateEnd);
         }
-
         public async Task<Response<Costs>> UpdateCostAsync(Costs cost)
         {
             var existCost = await _costRepository.GetByIdCostAsync(cost.Id);
