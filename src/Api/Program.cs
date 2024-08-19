@@ -1,9 +1,10 @@
 using Api.DI;
 using Api.Middleware;
+using Application.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddPresentationDI();

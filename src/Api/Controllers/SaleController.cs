@@ -41,7 +41,7 @@ namespace sales_management_api.Controllers
             if (saleId.IsFailure)
                 return NotFound(saleId);
 
-            var saleDto = _mapper.Map<SalesDTO>(saleId.Data.FirstOrDefault());
+            var saleDto = _mapper.Map<SalesDTO>(saleId?.Data?.FirstOrDefault());
             return Ok(saleDto);
         }
 
@@ -73,7 +73,7 @@ namespace sales_management_api.Controllers
             if(saleUpdate.IsFailure)
                 return BadRequest(saleUpdate);
 
-            var saleDTO = _mapper.Map<UserCredentialsDTO>(saleUpdate.Data.FirstOrDefault());
+            var saleDTO = _mapper.Map<UserCredentialsDTO>(saleUpdate?.Data?.FirstOrDefault());
             return Ok(Response<UserCredentialsDTO>.Success(saleDTO));
         }
 

@@ -1,24 +1,20 @@
 ﻿using Application.Interfaces;
+using Application.Settings;
 using Domain.Entities;
 using Domain.Enums;
 using Infrastructure.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
 namespace Application.Services
 {
-    public class AuthenticationService : IAuthentication
+    public class AuthenticationService(IUserRepository userRepository, IOptions<JwtSettings> jwtSettings) : IAuthentication
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IConfiguration _config;
-
-        public AuthenticationService(IUserRepository userRepository, IConfiguration configuration)
-        {
-            _userRepository = userRepository;
-            _config = configuration;
-        }
+        private readonly IUserRepository _userRepository = userRepository;
+        private readonly JwtSettings _jwtSettings = jwtSettings.Value;
 
         public async Task<Response<UserCredentials>> AuthenticationAsync(Login login)
         {
@@ -47,9 +43,9 @@ namespace Application.Services
 
         private string GenerateJwtToken()
         {
-            var issuer = _config["Jwt:Issuer"];
-            var audience = _config["Jwt:Audience"];
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var issuer = _jwtSettings.Issuer;
+            var audience = _jwtSettings.Audience;
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(issuer: issuer, audience: audience, expires: DateTime.Now.AddMinutes(GetTokenExpirationInMinutes()), signingCredentials: credentials);
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -58,7 +54,7 @@ namespace Application.Services
 
         private int GetTokenExpirationInMinutes()
         {
-            return int.TryParse(_config["Jwt:ExpirationInMinutes"], out var minutes) ? minutes : 60;
+            return _jwtSettings.ExpirationInMinutes > 0 ? _jwtSettings.ExpirationInMinutes : 60;
         }
 
         private UserCredentials MapToUserCredentials(UserCredentials user)

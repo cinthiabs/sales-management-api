@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Infrastructure.Connection
 {
-    public abstract class RepositoryBase : IDisposable
+    public class RepositoryBase : IDisposable
     {
         private readonly IDbConnection _conn;
 
@@ -18,7 +18,7 @@ namespace Infrastructure.Connection
         {
             get
             {
-                if (_conn.State == ConnectionState.Open)
+                if (_conn.State != ConnectionState.Open)
                 {
                     _conn.Open();
                 }
@@ -29,10 +29,6 @@ namespace Infrastructure.Connection
 
         public void Dispose()
         {
-            if (_conn.State == ConnectionState.Open)
-            {
-                _conn.Close();
-            }
             _conn?.Dispose();
         }
     }

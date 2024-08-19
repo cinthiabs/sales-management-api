@@ -40,7 +40,7 @@ namespace sales_management_api.Controllers
             if (productId.IsFailure)
                 return NotFound(product);
 
-            var productDto = _mapper.Map<ProductsDTO>(productId.Data.FirstOrDefault());
+            var productDto = _mapper.Map<ProductsDTO>(productId?.Data?.FirstOrDefault());
             return Ok(productDto);
         }
         [HttpPost("CreateProduct")]
@@ -71,7 +71,7 @@ namespace sales_management_api.Controllers
             if(productUpdated.IsFailure)
                 return BadRequest(productUpdated);
 
-            var productDTO = _mapper.Map<ProductsDTO>(productUpdated.Data.FirstOrDefault());
+            var productDTO = _mapper.Map<ProductsDTO>(productUpdated?.Data?.FirstOrDefault());
             return Ok(Response<ProductsDTO>.Success(productDTO));
         }
         [HttpDelete("DeleteProduct/{id}")]

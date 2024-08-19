@@ -9,7 +9,6 @@ namespace Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
-    [Authorize("Bearer")]
     public class UserCredentialsController(IUser user, IMapper mapper) : ControllerBase
     {
         private readonly IUser _user = user;

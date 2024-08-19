@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Application.Settings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -47,6 +48,7 @@ namespace Api.DI
                     }
                 });
             });
+            var jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>();
             services.AddControllersWithViews();
             services.AddAuthentication
                 (JwtBearerDefaults.AuthenticationScheme)
@@ -59,10 +61,10 @@ namespace Api.DI
                      ValidateLifetime = true,
                      ValidateIssuerSigningKey = true,
 
-                     ValidIssuer = configuration["Jwt:Issuer"],
-                     ValidAudience = configuration["Jwt:Audience"],
+                     ValidIssuer = jwtSettings.Issuer,
+                     ValidAudience = jwtSettings.Audience,
                      IssuerSigningKey = new SymmetricSecurityKey
-                   (Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+                   (Encoding.UTF8.GetBytes(jwtSettings.Key))
                  };
              });
 
