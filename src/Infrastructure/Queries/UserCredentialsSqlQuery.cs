@@ -4,8 +4,7 @@
     {
         internal const string QuerySelectUser = @"
         SELECT * FROM UserCredentials 
-        WHERE Username = @Username
-        AND Email = @Email
+        WHERE Email = @Email
         AND Active = 1";
 
         internal const string QueryCreateUserCredentials = @"

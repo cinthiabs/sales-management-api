@@ -8,6 +8,6 @@ namespace Application.Interfaces
         Task<Response<bool>> UpdateUserAsync(Login login);
         Task<Response<bool>> DeleteUserAsync(Login login);
         void CreatePassword(string password, out string passwordHash, out string passwordSalt);
-        Task<Response<UserCredentials>> GetUserAsync(string username, string email);
+        Task<Response<UserCredentials>> GetUserAsync(Login login);
     }
 }

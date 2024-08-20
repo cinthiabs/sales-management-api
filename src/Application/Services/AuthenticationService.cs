@@ -3,7 +3,7 @@ using Application.Settings;
 using Domain.Entities;
 using Domain.Enums;
 using Infrastructure.Interfaces;
-using Microsoft.Extensions.Configuration;
+using System.Security.Cryptography;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -18,27 +18,33 @@ namespace Application.Services
 
         public async Task<Response<UserCredentials>> AuthenticationAsync(Login login)
         {
-            var userResult = await _userRepository.GetUserAsync(login.Username, login.Email);
+            var userResult = await _userRepository.GetUserAsync(login.Email);
             if (userResult.IsFailure)
                 return userResult;
 
-            var user = userResult.Data[0];
+            var user = userResult.Data![0];
 
-            if (user.TokenExpiration > DateTime.Now)
+            if (!VerifyPassword(login.Password, user.PasswordHash!, user.PasswordSalt!))
+                return Response<UserCredentials>.Failure(Status.InvalidPassword);
+
+            if (user.TokenExpiration <= DateTime.Now)
             {
-                return Response<UserCredentials>.Success(MapToUserCredentials(user));
+                user.Token = GenerateJwtToken();
+                user.TokenExpiration = DateTime.Now.AddMinutes(GetTokenExpirationInMinutes());
+                user.LastLogin = DateTime.Now;
+
+                var updateResult = await _userRepository.UpdateUserAsync(user, user.Id);
+                if (updateResult.IsFailure)
+                 return Response<UserCredentials>.Failure(Status.UpdateFailure);
             }
-
-            var newToken = GenerateJwtToken();
-            user.Token = newToken;
-            user.TokenExpiration = DateTime.Now.AddMinutes(GetTokenExpirationInMinutes());
-            user.LastLogin = DateTime.Now;
-
-            var updateResult = await _userRepository.UpdateUserAsync(user, user.Id);
-            if (updateResult.IsFailure)
-                return Response<UserCredentials>.Failure(Status.UpdateFailure);
-
             return Response<UserCredentials>.Success(MapToUserCredentials(user));
+        }
+        public bool VerifyPassword(string password, string storedHash, string storedSalt)
+        {
+            var saltBytes = Convert.FromBase64String(storedSalt);
+            using var hmac = new HMACSHA512(saltBytes);
+            var computedHash = Convert.ToBase64String(hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password)));
+            return computedHash == storedHash;
         }
 
         private string GenerateJwtToken()
@@ -57,7 +63,7 @@ namespace Application.Services
             return _jwtSettings.ExpirationInMinutes > 0 ? _jwtSettings.ExpirationInMinutes : 60;
         }
 
-        private UserCredentials MapToUserCredentials(UserCredentials user)
+        private static UserCredentials MapToUserCredentials(UserCredentials user)
         {
             return new UserCredentials
             {
@@ -66,7 +72,9 @@ namespace Application.Services
                 Email = user.Email,
                 Token = user.Token,
                 TokenExpiration = user.TokenExpiration,
-                LastLogin = user.LastLogin
+                LastLogin = user.LastLogin,
+                DateCreate = user.DateCreate,
+                DateEdit = user.DateEdit
             };
         }
     }

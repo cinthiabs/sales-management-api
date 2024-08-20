@@ -60,6 +60,8 @@ namespace Domain.Enums
 
         [Description("Failure to insert data!")]
         InsertFailure = 18,
+        [Description("Invalid Password!")]
+        InvalidPassword = 19,
 
         [Description("Internal error!")]
         InternalError = 500

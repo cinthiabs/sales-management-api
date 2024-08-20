@@ -6,9 +6,10 @@ using System.Security.Cryptography;
 
 namespace Application.Services
 {
-    public class UserService(IUserRepository userRepository) : IUser
+    public class UserService(IUserRepository userRepository, IAuthentication authentication ) : IUser
     {
         private readonly IUserRepository _userRepository = userRepository;
+        private readonly IAuthentication _authentication = authentication;
         public void CreatePassword(string password, out string passwordHash, out string passwordSalt)
         {
             using var hmac = new HMACSHA512();
@@ -18,7 +19,7 @@ namespace Application.Services
 
         public async Task<Response<bool>> CreateUserAsync(Login login)
         {
-            var userExist = await _userRepository.GetUserAsync(login.Username, login.Email);
+            var userExist = await GetUserAsync(login);
             if (userExist.IsSuccess)
                 return Response<bool>.Failure(Status.ConflitUser);
 
@@ -39,22 +40,33 @@ namespace Application.Services
 
         public async Task<Response<bool>> DeleteUserAsync(Login login)
         {
-            var user = await _userRepository.GetUserAsync(login.Username, login.Email);
-            if (user.IsFailure)
+            var userResult = await GetUserAsync(login);
+            if (userResult.IsFailure)
                 return Response<bool>.Failure(Status.noDatafound);
 
-            return await _userRepository.DeleteUserAsync(user.Data![0].Id);
+            return await _userRepository.DeleteUserAsync(userResult.Data![0].Id);
         }
 
-        public async Task<Response<UserCredentials>> GetUserAsync(string username, string email)
+        public async Task<Response<UserCredentials>> GetUserAsync(Login login)
         {
-            return await _userRepository.GetUserAsync(username, email);
-            throw new NotImplementedException();
+            var userResult = await _userRepository.GetUserAsync(login.Email);
+            if (userResult.IsFailure)
+                return Response<UserCredentials>.Failure(Status.noDatafound);
+            
+            var user = userResult.Data![0];
+
+            if (!_authentication.VerifyPassword(login.Password, user.PasswordHash!, user.PasswordSalt!))
+                return Response<UserCredentials>.Failure(Status.InvalidPassword);
+            return userResult;        
         }
 
-        public Task<Response<bool>> UpdateUserAsync(Login login)
+        public async Task<Response<bool>> UpdateUserAsync(Login login)
         {
-            throw new NotImplementedException();
+            var userResult = await GetUserAsync(login);
+            if (userResult.IsFailure)
+                return Response<bool>.Failure(Status.noDatafound);
+
+            return await _userRepository.UpdateUserAsync(userResult.Data![0], userResult.Data![0].Id);
         }
     }
 }

@@ -67,9 +67,9 @@ namespace Infrastructure.Repositories
             return Response<bool>.Success(true, Status.DeletedSuccess);
         }
 
-        public async Task<Response<UserCredentials>> GetUserAsync(string Username, string Email)
+        public async Task<Response<UserCredentials>> GetUserAsync(string Email)
         {
-            var parameters = new { Username, Email };
+            var parameters = new { Email };
             var user = await Connection.QueryFirstOrDefaultAsync<UserCredentials>(UserCredentialsSqlQuery.QuerySelectUser, parameters);
             if (user is null)
                 return Response<UserCredentials>.Failure(Status.noDatafound);
@@ -79,27 +79,20 @@ namespace Infrastructure.Repositories
 
         public async Task<Response<bool>> UpdateUserAsync(UserCredentials user, int Id)
         {
-            try
-            {
-                var parameters = new
-                {
-                    Id,
-                    user.Token,
-                    user.TokenExpiration,
-                    user.LastLogin,
-                    DateEdit = DateTime.Now
-                };
+             var parameters = new
+             {
+                 Id,
+                 user.Token,
+                 user.TokenExpiration,
+                 user.LastLogin,
+                 DateEdit = DateTime.Now
+             };
 
-                var update = await Connection.ExecuteAsync(UserCredentialsSqlQuery.QueryUpdateUserCredentials, parameters);
-                if (update is 0)
-                    return Response<bool>.Failure(Status.UpdateFailure);
+             var update = await Connection.ExecuteAsync(UserCredentialsSqlQuery.QueryUpdateUserCredentials, parameters);
+             if (update is 0)
+                 return Response<bool>.Failure(Status.UpdateFailure);
 
-                return Response<bool>.Success(true, Status.UpdatedSuccess);
-            }
-            catch (Exception ex)
-            {
-                return Response<bool>.Failure(Status.InternalError);
-            }
+             return Response<bool>.Success(true, Status.UpdatedSuccess);
 
         }
     }
