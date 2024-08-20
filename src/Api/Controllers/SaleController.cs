@@ -55,7 +55,7 @@ namespace sales_management_api.Controllers
             if(saleCreated.IsFailure)
                 return BadRequest(saleCreated);
             
-            var saleCreatedDto = _mapper.Map<CostsDto>(saleCreated);
+            var saleCreatedDto = _mapper.Map<CostsDto>(saleCreated.Data.FirstOrDefault());
             return Ok(saleCreatedDto);
         }
 

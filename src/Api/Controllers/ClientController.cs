@@ -55,7 +55,7 @@ namespace sales_management_api.Controllers
             if(clientCreated.IsFailure)
                 return BadRequest(clientCreated);
 
-            var clientCreatedDto = _mapper.Map<ClientDto>(clientCreated.Data);
+            var clientCreatedDto = _mapper.Map<ClientDto>(clientCreated.Data.FirstOrDefault());
             return Ok(clientCreatedDto);
         }
 
