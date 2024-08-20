@@ -17,7 +17,7 @@ namespace sales_management_api.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet("GetAllClients")]
-        [ProducesResponseType(typeof(Response<ClientDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<Clients>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllClientsAsync()
@@ -26,12 +26,11 @@ namespace sales_management_api.Controllers
             if (getClients.Code == Status.noDatafound)
                 return NotFound(getClients);
 
-            var clientsDto = _mapper.Map<IEnumerable<ClientDto>>(getClients.Data);
-            return Ok(clientsDto);
+            return Ok(getClients);
         }
 
         [HttpGet("GetByIdClient/{id}")]
-        [ProducesResponseType(typeof(Response<ClientDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<Clients>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdClientAsync(int id)
@@ -40,12 +39,11 @@ namespace sales_management_api.Controllers
             if (getClientById.IsFailure)
                 return NotFound(getClientById);
                 
-            var clientDto = _mapper.Map<ClientDto>(getClientById.Data.FirstOrDefault());
-            return Ok(clientDto);
+            return Ok(getClientById);
         }
         
         [HttpPost("CreateClient")]
-        [ProducesResponseType(typeof(Response<ClientDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<Clients>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateClientAsync([FromBody] ClientDto clientDto)
@@ -55,12 +53,11 @@ namespace sales_management_api.Controllers
             if(clientCreated.IsFailure)
                 return BadRequest(clientCreated);
 
-            var clientCreatedDto = _mapper.Map<ClientDto>(clientCreated.Data.FirstOrDefault());
-            return Ok(clientCreatedDto);
+            return Ok(clientCreated);
         }
 
         [HttpPut("UpdateClient/{id}")]
-        [ProducesResponseType(typeof(Response<ClientDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<Clients>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateClientAsync([FromBody] ClientDto client, int id)
@@ -73,8 +70,7 @@ namespace sales_management_api.Controllers
             if(clientUpdated.IsFailure)
                 return BadRequest(clientUpdated);
 
-            var clientDto = _mapper.Map<ClientDto>(clientUpdated.Data.FirstOrDefault());
-            return Ok(Response<ClientDto>.Success(clientDto));
+            return Ok(clientUpdated);
         }
 
         [HttpDelete("DeleteClient/{id}")]

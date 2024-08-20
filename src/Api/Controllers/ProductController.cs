@@ -17,7 +17,7 @@ namespace sales_management_api.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet("GetAllProducts")]
-        [ProducesResponseType(typeof(Response<ProductsDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<Products>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllProducts()
@@ -26,12 +26,11 @@ namespace sales_management_api.Controllers
             if(getProducts.Code == Status.noDatafound)
                 return NotFound(getProducts);
 
-            var productsDto = _mapper.Map<IEnumerable<ProductsDto>>(getProducts.Data);
-            return Ok(productsDto);
+            return Ok(getProducts);
         }
 
         [HttpGet("GetByIdProduct/{id}")]
-        [ProducesResponseType(typeof(Response<ProductsDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<Products>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetByIdProductAsync(int id)
@@ -40,11 +39,10 @@ namespace sales_management_api.Controllers
             if (productId.IsFailure)
                 return NotFound(product);
 
-            var productDto = _mapper.Map<ProductsDto>(productId?.Data?.FirstOrDefault());
-            return Ok(productDto);
+            return Ok(productId);
         }
         [HttpPost("CreateProduct")]
-        [ProducesResponseType(typeof(Response<ProductsDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<Products>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateProductAsync([FromBody] ProductsDto productDto)
@@ -54,12 +52,11 @@ namespace sales_management_api.Controllers
             if(productCreated.IsFailure)
                 return BadRequest(productCreated);
 
-            var productCreatedDto = _mapper.Map<ProductsDto>(productCreated.Data.FirstOrDefault());
-            return Ok(productCreatedDto);
+            return Ok(productCreated);
         }
 
         [HttpPut("UpdateProduct/{id}")]
-        [ProducesResponseType(typeof(Response<ProductsDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<Products>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateCostAsync([FromBody] ProductsDto productoDto, int id)
@@ -71,8 +68,7 @@ namespace sales_management_api.Controllers
             if(productUpdated.IsFailure)
                 return BadRequest(productUpdated);
 
-            var productDto = _mapper.Map<ProductsDto>(productUpdated?.Data?.FirstOrDefault());
-            return Ok(Response<ProductsDto>.Success(productDto));
+            return Ok(productUpdated);
         }
         [HttpDelete("DeleteProduct/{id}")]
         [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
