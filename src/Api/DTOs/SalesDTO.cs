@@ -1,13 +1,10 @@
 ﻿using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace Api.Dtos
 {
     public class SalesDto
     {
-        [JsonIgnore]
-        public int? Id { get; set; }
         public int? IdProduct { get; set; }
         public int? IdClient { get; set; }
         [Required]
