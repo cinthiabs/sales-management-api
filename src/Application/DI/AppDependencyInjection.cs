@@ -15,6 +15,7 @@ namespace Application.DI
             services.AddScoped<IClient, ClientService>();
             services.AddScoped<IUser, UserService>();
             services.AddScoped<IAuthentication, AuthenticationService>();
+            services.AddScoped<IUserProfile, UserProfileService>();
         }
     }
 }

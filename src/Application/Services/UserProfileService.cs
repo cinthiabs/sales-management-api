@@ -1,24 +1,32 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Infrastructure.Interfaces;
 
 namespace Application.Services
 {
-    public class UserProfileService : IUserProfile
+    public class UserProfileService(IUserProfileRepository userProfileRepository) : IUserProfile
     {
+        private readonly IUserProfileRepository _userProfileRepository = userProfileRepository;
 
-        public Task<Response<UserProfile>> GetByIdUserProfileAsync(int id)
+        public async Task<Response<UserProfile>> GetByIdUserProfileAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _userProfileRepository.GetByIdUserProfileAsync(id);
         }
 
-        public Task<Response<UserProfile>> GetAllUserProfileAsync()
+        public async Task<Response<UserProfile>> GetAllUserProfileAsync()
         {
-            throw new NotImplementedException();
+            return await _userProfileRepository.GetUserProfileAsync();
         }
 
-        public Task<Response<UserProfile>> UpdateUserProfileAsync(UserProfile profile)
+        public async Task<Response<UserProfile>> UpdateUserProfileAsync(UserProfile profile)
         {
-            throw new NotImplementedException();
+            var existUser = await _userProfileRepository.GetByIdUserProfileAsync(profile.Id);
+            if (existUser.IsSuccess)
+            {
+                var updated = await _userProfileRepository.UpdateUserProfileAsync(profile);
+                return updated;
+            }
+            return existUser;
         }
     }
 }
