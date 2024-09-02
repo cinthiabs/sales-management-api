@@ -47,9 +47,9 @@ namespace Application.Services
             return existSale;     
         }
 
-        public async Task<bool> CreateSaleListAsync(List<Sales> sales)
+        public async Task<bool> CreateSaleListAsync(List<Sales> sale)
         {
-            foreach (var item in sales.Where(s => s.Name is not null))
+            foreach (var item in sale.Where(s => s.Name is not null))
             {
                 var saleExist = await _saleRepository.GetBySaleParametersAsync(item);
                 if (saleExist.Id != 0)

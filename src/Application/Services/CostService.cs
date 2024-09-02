@@ -13,9 +13,9 @@ namespace Application.Services
         {
             return await _costRepository.CreateCostAsync(cost);
         }
-        public async Task<bool> CreateCostListAsync(List<Costs> costs)
+        public async Task<bool> CreateCostListAsync(List<Costs> cost)
         {
-            foreach (var item in costs.Where(c => c.Name is not null))
+            foreach (var item in cost.Where(c => c.Name is not null))
             {
                 var costExist = await _costRepository.GetByCostsParametersAsync(item);
 
