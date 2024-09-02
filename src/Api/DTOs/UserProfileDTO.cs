@@ -16,8 +16,5 @@ namespace Api.Dtos
         public string ZipCode { get; set; } = default!;
         [Required]
         public string AccessLevel { get; set; } = default!;
-        [Required]
-        public DateTime DateCreate { get; set; }
-        public DateTime? DateEdit { get; set; }
     }
 }
