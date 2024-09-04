@@ -27,7 +27,7 @@ namespace Application.Services
             if (!VerifyPassword(login.Password, user.PasswordHash!, user.PasswordSalt!))
                 return Response<UserCredentials>.Failure(Status.InvalidPassword);
 
-            if (user.TokenExpiration <= DateTime.Now)
+            if (user.TokenExpiration <= DateTime.Now || user.TokenExpiration is null)
             {
                 user.Token = GenerateJwtToken();
                 user.TokenExpiration = DateTime.Now.AddMinutes(GetTokenExpirationInMinutes());

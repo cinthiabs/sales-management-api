@@ -3,12 +3,14 @@ using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize("Bearer")]
     public class ProfileController(IMapper mapper, IUserProfile userProfile) : ControllerBase
     {
         private readonly IMapper _mapper = mapper;

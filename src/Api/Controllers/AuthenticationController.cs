@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1")]
     public class AuthenticationController(IMapper mapper, IAuthentication authentication) : ControllerBase
     {
         private readonly IMapper _mapper = mapper;
