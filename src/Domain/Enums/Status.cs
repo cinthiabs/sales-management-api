@@ -5,7 +5,7 @@ namespace Domain.Enums
     public enum Status
     {
         [Description("No data found!")]
-        noDatafound = 0,
+        noDatafound = 404,
 
         [Description("Invalid client code!")]
         InvalidClient = 1,

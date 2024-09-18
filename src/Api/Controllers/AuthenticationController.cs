@@ -2,6 +2,7 @@ using Api.Dtos;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -21,10 +22,13 @@ namespace Api.Controllers
         {
             var login = _mapper.Map<Login>(loginDto);
             var user = await _authentication.AuthenticationAsync(login);
+            if (user.IsFailure && user.Code == Status.noDatafound )
+                return NotFound(user);
+
             if (user.IsFailure)
                 return BadRequest(user);
 
-            var userAuth = _mapper.Map<UserCredentialsDto>(user.Data.FirstOrDefault());
+                var userAuth = _mapper.Map<UserCredentialsDto>(user.Data.FirstOrDefault());
             return Ok(Response<UserCredentialsDto>.Success(userAuth));
         }
     }

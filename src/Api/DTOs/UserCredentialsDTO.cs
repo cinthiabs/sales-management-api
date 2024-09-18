@@ -5,7 +5,7 @@ namespace Api.Dtos
     public class UserCredentialsDto
     {
         [Required]
-        public string Username { get; set; }
+        public string Username { get; set; } 
         [Required]
         [EmailAddress]
         public string Email { get; set; }
