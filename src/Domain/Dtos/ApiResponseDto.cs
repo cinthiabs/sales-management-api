@@ -1,4 +1,4 @@
-﻿namespace Api.Dtos
+﻿namespace Domain.Dtos
 {
     public class ApiResponseDto
     {

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.Dtos
+namespace Domain.Dtos
 {
     public class LoginDto
     {
@@ -11,6 +11,5 @@ namespace Api.Dtos
         [Required]
         public string Password { get; set; } = default!;
         public string? ConfirmPassword { get; set; } = default!;
-
     }
 }

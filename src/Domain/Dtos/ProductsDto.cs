@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Api.Dtos
+namespace Domain.Dtos
 {
     public class ProductsDto
     {
@@ -11,7 +11,5 @@ namespace Api.Dtos
         public bool Active { get; set; } = true;
         [Required]
         public decimal Price { get; set; } = 0.00m;
-        public DateTime DateCreate { get; set; } = DateTime.Now;
-        public DateTime? DateEdit { get; set; }
     }
 }

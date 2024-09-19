@@ -1,6 +1,5 @@
-﻿using Api.Dtos;
-using Application.Interfaces;
-using AutoMapper;
+﻿using Application.Interfaces;
+using Domain.Dtos;
 using Domain.Entities;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -11,10 +10,9 @@ namespace sales_management_api.Controllers
     [Route("api/v1")]
     [ApiController]
     [Authorize("Bearer")]
-    public class CostController(ICost cost, IMapper mapper) : ControllerBase
+    public class CostController(ICost cost) : ControllerBase
     {
         private readonly ICost _cost = cost;
-        private readonly IMapper _mapper = mapper;
 
         [HttpGet("GetAllCosts")]
         [ProducesResponseType(typeof(Response<Costs>), StatusCodes.Status200OK)]
@@ -48,8 +46,7 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateCostAsync([FromBody] CostsDto costDto)
         {
-            var mapCost = _mapper.Map<Costs>(costDto);
-            var costCreated = await _cost.CreateCostAsync(mapCost);
+            var costCreated = await _cost.CreateCostAsync(costDto);
             if(costCreated.IsFailure)
                 return BadRequest(costCreated);
 
@@ -60,11 +57,9 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(typeof(Response<Costs>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateCostAsync([FromBody] CostsDto costs, int id)
+        public async Task<IActionResult> UpdateCostAsync([FromBody] CostsDto costDto, int id)
         {
-            var mapCost = _mapper.Map<Costs>(costs);
-            mapCost.Id = id;
-            var costUpdated = await _cost.UpdateCostAsync(mapCost);
+            var costUpdated = await _cost.UpdateCostAsync(costDto, id);
             if(costUpdated.IsFailure)
                 return BadRequest(costUpdated);
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Api.Dtos
+namespace Domain.Dtos
 {
     public class CostsDto
     {
@@ -14,7 +14,5 @@ namespace Api.Dtos
         public decimal UnitPrice { get; set; } = 0.00m;
         [Required]
         public decimal TotalPrice { get; set; } = 0.00m;
-        public DateTime DateCreate { get; set; }
-        public DateTime? DateEdit { get; set; }
     }
 }

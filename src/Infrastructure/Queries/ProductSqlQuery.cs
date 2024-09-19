@@ -4,6 +4,7 @@
     {
         internal const string QueryCreateProduct = @"
         INSERT INTO Product (Name, Details, Active, Price, DateCreate)
+        OUTPUT inserted.Id
         VALUES (@Name, @Details, @Active, @Price, @DateCreate);";
 
         internal const string QueryUpdateProduct = @"

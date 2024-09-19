@@ -1,12 +1,13 @@
-﻿using Domain.Entities;
+﻿using Domain.Dtos;
+using Domain.Entities;
 
 namespace Application.Interfaces
 {
     public interface ICost
     {
-        Task<Response<Costs>> CreateCostAsync(Costs cost);
-        Task<bool> CreateCostListAsync(List<Costs> cost);
-        Task<Response<Costs>> UpdateCostAsync(Costs cost);
+        Task<Response<Costs>> CreateCostAsync(CostsDto costDto);
+        Task<bool> CreateCostListAsync(List<CostsDto> costDto);
+        Task<Response<Costs>> UpdateCostAsync(CostsDto costDto, int id);
         Task<Response<bool>> DeleteCostAsync(int id);
         Task<Response<Costs>> GetCostsAsync();
         Task<Response<Costs>> GetByIdCostAsync(int id);

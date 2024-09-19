@@ -1,7 +1,7 @@
 ﻿using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.Dtos
+namespace Domain.Dtos
 {
     public class SalesDto
     {
@@ -17,7 +17,5 @@ namespace Api.Dtos
         [Required]
         public decimal Price { get; set; } = 0.00m;
         public Situation Pay { get; set; }
-        public DateTime DateCreate { get; set; } = DateTime.Now;
-        public DateTime? DateEdit { get; set; }
     }
 }

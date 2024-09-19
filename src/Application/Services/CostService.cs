@@ -1,21 +1,27 @@
 ﻿using Application.Interfaces;
+using AutoMapper;
+using Domain.Dtos;
 using Domain.Entities;
 using Domain.Enums;
 using Infrastructure.Interfaces;
 
 namespace Application.Services
 {
-    public class CostService(ICostRepository costRepository) : ICost
+    public class CostService(ICostRepository costRepository, IMapper mapper) : ICost
     {
         private readonly ICostRepository _costRepository = costRepository;
+        private readonly IMapper _mapper = mapper;
 
-        public async Task<Response<Costs>> CreateCostAsync(Costs cost)
+        public async Task<Response<Costs>> CreateCostAsync(CostsDto costDto)
         {
-            return await _costRepository.CreateCostAsync(cost);
+            var mapCost = _mapper.Map<Costs>(costDto);
+            return await _costRepository.CreateCostAsync(mapCost);
         }
-        public async Task<bool> CreateCostListAsync(List<Costs> cost)
+        public async Task<bool> CreateCostListAsync(List<CostsDto> costDto)
         {
-            foreach (var item in cost.Where(c => c.Name is not null))
+            var mapCost = _mapper.Map<List<Costs>>(costDto);
+
+            foreach (var item in mapCost.Where(c => c.Name is not null))
             {
                 var costExist = await _costRepository.GetByCostsParametersAsync(item);
 
@@ -52,12 +58,15 @@ namespace Application.Services
         {
             return await _costRepository.GetRelCostPriceAsync(dateIni, dateEnd);
         }
-        public async Task<Response<Costs>> UpdateCostAsync(Costs cost)
+        public async Task<Response<Costs>> UpdateCostAsync(CostsDto costDto, int id)
         {
-            var existCost = await _costRepository.GetByIdCostAsync(cost.Id);
+            var mapCost = _mapper.Map<Costs>(costDto);
+            mapCost.Id = id;
+
+            var existCost = await _costRepository.GetByIdCostAsync(mapCost.Id);
             if (existCost.IsSuccess)
             {
-                var updated = await _costRepository.UpdateCostAsync(cost);
+                var updated = await _costRepository.UpdateCostAsync(mapCost);
                 return updated;
             }
              return existCost;

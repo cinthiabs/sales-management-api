@@ -1,19 +1,24 @@
 using Application.Interfaces;
+using AutoMapper;
+using Domain.Dtos;
 using Domain.Entities;
 using Domain.Enums;
 using Infrastructure.Interfaces;
 
 namespace Application.Services
 {
-    public class ClientService(IClientRepository clientRepository) : IClient
+    public class ClientService(IClientRepository clientRepository, IMapper mapper) : IClient
     {
         private readonly IClientRepository _clientRepository = clientRepository;
-        public async Task<Response<Clients>> CreateClientAsync(Clients client)
+        private readonly IMapper _mapper = mapper;
+
+        public async Task<Response<Clients>> CreateClientAsync(ClientDto clientDto)
         {
-            return  await _clientRepository.CreateClientAsync(client);
+            var mapClient = _mapper.Map<Clients>(clientDto);
+            return await _clientRepository.CreateClientAsync(mapClient);
         }
 
-        public async Task<Response<bool>> CreateClientListAsync(List<Clients> client)
+        public async Task<Response<bool>> CreateClientListAsync(List<ClientDto> client)
         {
             throw new NotImplementedException();
         }
@@ -44,12 +49,15 @@ namespace Application.Services
             return await _clientRepository.GetClientsAsync();
         }
 
-        public async Task<Response<Clients>> UpdateClientAsync(Clients client)
+        public async Task<Response<Clients>> UpdateClientAsync(ClientDto clientDto, int id)
         {
-             var existClient = await _clientRepository.GetByIdClientAsync(client.Id);
+            var mapClient = _mapper.Map<Clients>(clientDto);
+            mapClient.Id = id;
+
+            var existClient = await _clientRepository.GetByIdClientAsync(mapClient.Id);
              if (existClient.IsSuccess)
              {
-                 var updated = await _clientRepository.UpdateClientAsync(client);
+                 var updated = await _clientRepository.UpdateClientAsync(mapClient);
                  return updated;
              }
             return existClient;

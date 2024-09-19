@@ -1,7 +1,7 @@
 ﻿using Api.Controllers;
-using Api.Dtos;
 using Application.Interfaces;
 using AutoMapper;
+using Domain.Dtos;
 using Domain.Entities;
 using Domain.Enums;
 using Microsoft.AspNetCore.Http;

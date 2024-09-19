@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.Dtos
+namespace Domain.Dtos
 {
     public class UserCredentialsDto
     {
@@ -13,8 +13,6 @@ namespace Api.Dtos
         public string Name { get; set; }
         public bool? Active { get; set; } 
         [Required]
-        public DateTime DateCreate { get; set; }
-        public DateTime? DateEdit { get; set; }
         public DateTime? LastLogin { get; set; }
         public string? Token { get; set; }
         public DateTime? TokenExpiration { get; set; }
