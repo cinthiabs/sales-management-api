@@ -11,9 +11,8 @@ namespace Api.Controllers
     [Route("api/v1")]
     [ApiController]
     [Authorize("Bearer")]
-    public class ProfileController(IMapper mapper, IUserProfile userProfile) : ControllerBase
+    public class ProfileController(IUserProfile userProfile) : ControllerBase
     {
-        private readonly IMapper _mapper = mapper;
         private readonly IUserProfile _userProfile = userProfile;
 
         [HttpGet("GetAllUserProfile")]
@@ -48,10 +47,8 @@ namespace Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateUserProfileAsync([FromBody] UserProfileDto userDto, int id)
         {
-            var mapUser = _mapper.Map<UserProfile>(userDto);
-            mapUser.Id = id;
 
-            var userUpdated = await _userProfile.UpdateUserProfileAsync(mapUser);
+            var userUpdated = await _userProfile.UpdateUserProfileAsync(userDto, id);
             if (userUpdated.IsFailure)
                 return BadRequest(userUpdated);
 

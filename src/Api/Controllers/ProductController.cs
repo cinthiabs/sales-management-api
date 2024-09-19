@@ -11,10 +11,9 @@ namespace sales_management_api.Controllers
     [Route("api/v1")]
     [ApiController]
     [Authorize("Bearer")]
-    public class ProductController(IProduct product, IMapper mapper) : ControllerBase
+    public class ProductController(IProduct product) : ControllerBase
     {
         private readonly IProduct _product = product;
-        private readonly IMapper _mapper = mapper;
 
         [HttpGet("GetAllProducts")]
         [ProducesResponseType(typeof(Response<Products>), StatusCodes.Status200OK)]
@@ -47,8 +46,7 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateProductAsync([FromBody] ProductsDto productDto)
         {
-            var mapProduct = _mapper.Map<Products>(productDto);
-            var productCreated = await _product.CreateProductAsync(mapProduct);
+            var productCreated = await _product.CreateProductAsync(productDto);
             if(productCreated.IsFailure)
                 return BadRequest(productCreated);
 
@@ -61,10 +59,7 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateCostAsync([FromBody] ProductsDto productoDto, int id)
         {
-            var mapProduct  = _mapper.Map<Products>(productoDto);
-            mapProduct.Id = id;
-
-            var productUpdated = await _product.UpdateProductAsync(mapProduct);
+            var productUpdated = await _product.UpdateProductAsync(productoDto, id);
             if(productUpdated.IsFailure)
                 return BadRequest(productUpdated);
 

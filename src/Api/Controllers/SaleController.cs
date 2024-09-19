@@ -11,10 +11,9 @@ namespace sales_management_api.Controllers
     [Route("api/v1")]
     [ApiController]
     [Authorize("Bearer")]
-    public class SaleController(ISale sale, IMapper mapper) : ControllerBase
+    public class SaleController(ISale sale) : ControllerBase
     {
         private readonly ISale _sale = sale;
-        private readonly IMapper _mapper = mapper;
 
         [HttpGet("GetAllSales")]
         [ProducesResponseType(typeof(Response<Sales>), StatusCodes.Status200OK)]
@@ -48,8 +47,7 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateSaleAsync([FromBody] SalesDto saleDto)
         {
-            var mapSales = _mapper.Map<Sales>(saleDto);
-            var saleCreated = await _sale.CreateSaleAsync(mapSales);
+            var saleCreated = await _sale.CreateSaleAsync(saleDto);
             if(saleCreated.IsFailure)
                 return BadRequest(saleCreated);
             
@@ -60,12 +58,9 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(typeof(Response<Sales>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateSaleAsync([FromBody] SalesDto sale, int id)
+        public async Task<IActionResult> UpdateSaleAsync([FromBody] SalesDto saleDto, int id)
         {
-            var mapSale = _mapper.Map<Sales>(sale);
-            mapSale.Id = id;
-
-            var saleUpdate = await _sale.UpdateSaleAsync(mapSale);
+            var saleUpdate = await _sale.UpdateSaleAsync(saleDto, id);
             if(saleUpdate.IsFailure)
                 return BadRequest(saleUpdate);
 
