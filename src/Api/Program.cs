@@ -1,5 +1,6 @@
 using Api.DI;
 using Api.Middleware;
+using Application.AutoMapper;
 using Application.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddPresentationDI();
 builder.Services.AddSwaggerDocumentation(builder.Configuration);
 builder.Services.AddCorsProject();
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 var app = builder.Build();
 

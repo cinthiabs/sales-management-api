@@ -9,9 +9,8 @@ namespace Api.Controllers
 {
     [ApiController]
     [Route("api/v1")]
-    public class AuthenticationController(IMapper mapper, IAuthentication authentication) : ControllerBase
+    public class AuthenticationController(IAuthentication authentication) : ControllerBase
     {
-        private readonly IMapper _mapper = mapper;
         private readonly IAuthentication _authentication = authentication;
 
         [HttpPost("Authentication")]
@@ -20,16 +19,14 @@ namespace Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> AuthenticationAsync([FromBody] LoginDto loginDto)
         {
-            var login = _mapper.Map<Login>(loginDto);
-            var user = await _authentication.AuthenticationAsync(login);
+            var user = await _authentication.AuthenticationAsync(loginDto);
             if (user.IsFailure && user.Code == Status.noDatafound )
                 return NotFound(user);
 
             if (user.IsFailure)
                 return BadRequest(user);
 
-                var userAuth = _mapper.Map<UserCredentialsDto>(user.Data.FirstOrDefault());
-            return Ok(Response<UserCredentialsDto>.Success(userAuth));
+            return Ok(user);
         }
     }
 }

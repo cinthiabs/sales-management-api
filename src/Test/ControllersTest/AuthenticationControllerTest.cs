@@ -18,55 +18,73 @@ namespace Test.ControllersTest
 
         public AuthenticationControllerTests()
         {
-            _mapperMock = new Mock<IMapper>();
             _authenticationMock = new Mock<IAuthentication>();
-            _controller = new AuthenticationController(_mapperMock.Object, _authenticationMock.Object);
+            _controller = new AuthenticationController(_authenticationMock.Object);
         }
 
         [Fact]
-        public async Task AuthenticationAsync_ShouldReturnOk_WhenAuthenticationIsSuccessful()
+        public async Task AuthenticationAsync_ReturnsOkResult_WhenUserIsAuthenticated()
         {
-            var (loginDto, login) = SetupLogin("cinthia1234@email.com", "cinthia1234");
-            var userCredentials = new UserCredentials { Username = "user" };
-            var userResponse = Response<UserCredentials>.Success(userCredentials);
+            // Arrange
+            var loginDto = new LoginDto { Email = "test@test.com", Password = "password" };
+            var userCredentialsDto = ReturnValidResult();
+            var response = Response<UserCredentialsDto>.Success(userCredentialsDto);
 
-            _authenticationMock.Setup(a => a.AuthenticationAsync(login)).ReturnsAsync(userResponse);
-            _mapperMock.Setup(m => m.Map<UserCredentialsDto>(userCredentials)).Returns(new UserCredentialsDto { });
+            _authenticationMock.Setup(auth => auth.AuthenticationAsync(loginDto))
+                .ReturnsAsync(response);
 
-            var result = await _controller.AuthenticationAsync(loginDto) as OkObjectResult;
+            var result = await _controller.AuthenticationAsync(loginDto);
 
-            Assert.NotNull(result);
-            Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
-           // var response = Assert.IsType<Response<UserCredentialsDto>>(result.Value);
-           // Assert.Equal("user", response.Data.ToString());
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var returnValue = Assert.IsType<Response<UserCredentialsDto>>(okResult.Value);
+            Assert.Equal(userCredentialsDto.Username, returnValue.Data![0].Username);
         }
 
         [Fact]
-        public async Task AuthenticationAsync_ShouldReturnBadRequest_WhenAuthenticationFails()
+        public async Task AuthenticationAsync_ReturnsNotFound_WhenUserNotFound()
         {
-            var (loginDto, login) = SetupLogin("user", "wrongpassword");
-            var userResponse = Response<UserCredentials>.Failure(Status.InvalidPassword);
+            // Arrange
+            var loginDto = new LoginDto { Email = "test@test.com", Password = "0000" };
+            var response = Response<UserCredentialsDto>.Failure(Status.noDatafound);
 
-            _authenticationMock.Setup(a => a.AuthenticationAsync(login)).ReturnsAsync(userResponse);
+            _authenticationMock.Setup(auth => auth.AuthenticationAsync(loginDto))
+                .ReturnsAsync(response);
 
-            var result = await _controller.AuthenticationAsync(loginDto) as BadRequestObjectResult;
+            var result = await _controller.AuthenticationAsync(loginDto);
 
-            Assert.NotNull(result);
-            Assert.Equal(StatusCodes.Status400BadRequest, result.StatusCode);
-            var response = Assert.IsType<Response<UserCredentials>>(result.Value);
-            Assert.Equal("Invalid Password!", response.Message);
+            // Assert
+            Assert.IsType<NotFoundObjectResult>(result);
         }
 
-
-        private (LoginDto, Login) SetupLogin(string email, string password)
+        [Fact]
+        public async Task AuthenticationAsync_ReturnsBadRequest_WhenAuthenticationFails()
         {
-            var loginDto = new LoginDto { Email = email, Password = password };
-            var login = new Login { Email = email, Password = password };
+            // Arrange
+            var loginDto = new LoginDto { Email = null, Password = null };
+            var response = Response<UserCredentialsDto>.Failure(Status.InvalidPassword);
 
-            _mapperMock.Setup(m => m.Map<Login>(loginDto)).Returns(login);
+            _authenticationMock.Setup(auth => auth.AuthenticationAsync(loginDto))
+                .ReturnsAsync(response);
 
-            return (loginDto, login);
+            var result = await _controller.AuthenticationAsync(loginDto);
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
         }
-
+        private static UserCredentialsDto ReturnValidResult()
+        {
+            var user = new UserCredentialsDto
+            {
+                Active = true,
+                Name = "Test",
+                Email = "test@test.com",
+                Username = "User001",
+                Token = "VGhpcyBpcyBhIHRlc3Qgc3RyaW5nIGVuY29kZWRpbiBCz",
+                TokenExpiration = DateTime.Now,
+                LastLogin = DateTime.Now
+            };
+            return user;
+        }
     }
 }

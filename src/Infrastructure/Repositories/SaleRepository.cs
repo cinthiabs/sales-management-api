@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 namespace Infrastructure.Repositories
 {
     public class SaleRepository(IConfiguration configuration) : RepositoryBase(configuration), ISaleRepository
-    {
+    {   
         public async Task<Response<Sales>> CreateSaleAsync(Sales sale)
         {
             var parameters = new

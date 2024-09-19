@@ -8,10 +8,9 @@ namespace Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
-    public class UserCredentialsController(IUser user, IMapper mapper) : ControllerBase
+    public class UserCredentialsController(IUser user) : ControllerBase
     {
         private readonly IUser _user = user;
-        private readonly IMapper _mapper = mapper;
 
         [HttpPost("CreateUser")]
         [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
@@ -19,8 +18,7 @@ namespace Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateUserAsync([FromBody] LoginDto loginDto)
         {
-            var login = _mapper.Map<Login>(loginDto);
-            var userCreated = await _user.CreateUserAsync(login);
+            var userCreated = await _user.CreateUserAsync(loginDto);
             if (userCreated.IsFailure)
                 return BadRequest(userCreated);
 
