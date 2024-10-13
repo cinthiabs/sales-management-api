@@ -1,5 +1,4 @@
 using Application.Interfaces;
-using AutoMapper;
 using Domain.Dtos;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;

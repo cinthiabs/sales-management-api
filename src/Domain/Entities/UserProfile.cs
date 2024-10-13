@@ -11,7 +11,7 @@
         public string City { get; set; } = default!;
         public string State { get; set; } = default!;
         public string ZipCode { get; set; } = default!;
-        public string AccessLevel { get; set; } = default!;
+        public int AccessLevelId { get; set; } = default!;
         public DateTime DateCreate { get; set; } = DateTime.Now;
         public DateTime? DateEdit { get; set; }
     }
