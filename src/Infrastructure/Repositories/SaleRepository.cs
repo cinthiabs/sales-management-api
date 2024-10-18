@@ -14,11 +14,14 @@ namespace Infrastructure.Repositories
         {
             var parameters = new
             {
+                IdProduct = sale.IdProduct.HasValue ? (int?)sale.IdProduct : null,
+                IdClient = sale.IdClient.HasValue ? (int?)sale.IdClient : null,
                 sale.Name,
                 sale.Price,
                 sale.Details,
                 sale.Quantity,
                 sale.DateSale,
+                sale.Pay,
                 @DateCreate = DateTime.Now
             };
 

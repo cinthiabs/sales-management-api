@@ -48,7 +48,10 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> CreateSaleAsync([FromBody] SalesDto saleDto)
         {
             var saleCreated = await _sale.CreateSaleAsync(saleDto);
-            if(saleCreated.IsFailure)
+            if(saleCreated.Code == Status.ConflitSale)
+                return Conflict(saleCreated);
+
+            if(saleCreated.IsFailure) 
                 return BadRequest(saleCreated);
             
             return Ok(saleCreated);

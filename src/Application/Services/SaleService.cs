@@ -17,7 +17,12 @@ namespace Application.Services
         public async Task<Response<Sales>> CreateSaleAsync(SalesDto saleDto)
         {
             var mapSale = _mapper.Map<Sales>(saleDto);
-            return await _saleRepository.CreateSaleAsync(mapSale);
+
+            var saleExist = await _saleRepository.GetBySaleParametersAsync(mapSale);
+            if (saleExist.Id == 0)
+                return await _saleRepository.CreateSaleAsync(mapSale);
+
+            return Response<Sales>.Failure(Status.ConflitSale);
         }
         public async Task<Response<bool>> DeleteSaleAsync(int id)
         {

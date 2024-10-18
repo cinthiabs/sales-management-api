@@ -7,7 +7,7 @@
         VALUES (@UserId, @FirstName, @AccessLevelId);";
 
         internal const string QueryGetUserProfileId = @"
-        select pro.UserId,pro.Id, Username, Email,  pro.AccessLevelId, pro.FirstName, pro.LastName, pro.Phone, pro.Address, pro.City, pro.State, 
+        select pro.UserId,pro.Id,Image, Username, Email,  pro.AccessLevelId, pro.FirstName, pro.LastName, pro.Phone, pro.Address, pro.City, pro.State, 
         pro.ZipCode, pro.DateCreate, pro.DateEdit from UserProfile pro
         inner join UserCredentials cre on pro.UserId = cre.Id
         WHERE pro.Id=@Id";
