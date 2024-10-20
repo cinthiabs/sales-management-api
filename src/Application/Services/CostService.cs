@@ -17,7 +17,7 @@ namespace Application.Services
             var mapCost = _mapper.Map<Costs>(costDto);
             return await _costRepository.CreateCostAsync(mapCost);
         }
-        public async Task<bool> CreateCostListAsync(List<CostsDto> costDto)
+        public async Task<bool> CreateCostListAsync(List<Costs> costDto)
         {
             var mapCost = _mapper.Map<List<Costs>>(costDto);
 

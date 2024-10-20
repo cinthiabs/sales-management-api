@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,14 +19,12 @@ namespace sales_management_api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UploadExcelAsync(IFormFile file)
         {
-            if (file is null)
-                return BadRequest("File invalid!");
-
             using var stream = new MemoryStream();
             await file.CopyToAsync(stream);
             var imported = await _upload.ReadExcelAsync(stream);
-            if (imported.IsFailure)
-                return NotFound(imported);
+            
+            if (imported.Code == Status.UnableToImportFile)
+                return BadRequest(imported);
 
             return Ok(imported);
         }
