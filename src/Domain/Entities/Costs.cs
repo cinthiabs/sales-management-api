@@ -9,6 +9,6 @@
         public decimal UnitPrice { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime DateCreate { get; set; } = DateTime.Now;
-        public DateTime DateEdit { get; set; }
+        public DateTime? DateEdit { get; set; }
     }
 }

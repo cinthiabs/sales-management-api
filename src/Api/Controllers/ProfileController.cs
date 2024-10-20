@@ -28,27 +28,27 @@ namespace Api.Controllers
             return Ok(getUserProfile);
         }
 
-        [HttpGet("GetByIdUserProfile/{id}")]
+        [HttpGet("GetByUsernameProfile/{Username}")]
         [ProducesResponseType(typeof(Response<UserProfile>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetByIdUserProfileAsync(int id)
+        public async Task<IActionResult> GetByUsernameProfileAsync(string Username)
         {
-            var profileId = await _userProfile.GetByIdUserProfileAsync(id);
+            var profileId = await _userProfile.GetByUsernameProfileAsync(Username);
             if (profileId.IsFailure)
                 return NotFound(profileId);
 
             return Ok(profileId);
         }
 
-        [HttpPut("UpdateUserProfile/{id}")]
+        [HttpPut("UpdateUserProfile/{Username}")]
         [ProducesResponseType(typeof(Response<UserProfile>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateUserProfileAsync([FromBody] UserProfileDto userDto, int id)
+        public async Task<IActionResult> UpdateUserProfileAsync([FromBody] UserProfileDto userDto, string Username)
         {
 
-            var userUpdated = await _userProfile.UpdateUserProfileAsync(userDto, id);
+            var userUpdated = await _userProfile.UpdateUserProfileAsync(userDto, Username);
             if (userUpdated.IsFailure)
                 return BadRequest(userUpdated);
 

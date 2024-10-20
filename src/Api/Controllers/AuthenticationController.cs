@@ -23,6 +23,9 @@ namespace Api.Controllers
             if (user.IsFailure && user.Code == Status.noDatafound )
                 return NotFound(user);
 
+            if (user.IsFailure && user.Code == Status.InvalidPassword)
+                return Unauthorized(user);
+
             if (user.IsFailure)
                 return BadRequest(user);
 

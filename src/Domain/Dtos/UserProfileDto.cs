@@ -5,8 +5,7 @@ namespace Domain.Dtos
     public class UserProfileDto
     {
         [Required]
-        public int UserId { get; set; }
-        [Required]
+        public string username { get; set; } = default!;
         public string FirstName { get; set; } = default!;
         public string LastName { get; set; } = default!;
         public string Phone { get; set; } = default!;

@@ -11,9 +11,9 @@ namespace Application.Services
         private readonly IUserProfileRepository _userProfileRepository = userProfileRepository;
         private readonly IMapper _mapper = mapper;
 
-        public async Task<Response<UserProfile>> GetByIdUserProfileAsync(int id)
+        public async Task<Response<UserProfile>> GetByUsernameProfileAsync(string username)
         {
-            return await _userProfileRepository.GetByIdUserProfileAsync(id);
+            return await _userProfileRepository.GetByUsernameProfileAsync(username);
         }
 
         public async Task<Response<UserProfile>> GetAllUserProfileAsync()
@@ -21,12 +21,12 @@ namespace Application.Services
             return await _userProfileRepository.GetUserProfileAsync();
         }
 
-        public async Task<Response<UserProfile>> UpdateUserProfileAsync(UserProfileDto profileDto, int Id)
+        public async Task<Response<UserProfile>> UpdateUserProfileAsync(UserProfileDto profileDto, string username)
         {
             var mapUser = _mapper.Map<UserProfile>(profileDto);
-            mapUser.Id = Id;
+            mapUser.Username = username;
 
-            var existUser = await _userProfileRepository.GetByIdUserProfileAsync(mapUser.Id);
+            var existUser = await _userProfileRepository.GetByUsernameProfileAsync(mapUser.Username);
             if (existUser.IsSuccess)
             {
                 var updated = await _userProfileRepository.UpdateUserProfileAsync(mapUser);

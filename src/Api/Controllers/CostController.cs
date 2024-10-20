@@ -23,6 +23,9 @@ namespace sales_management_api.Controllers
             var getCosts = await _cost.GetCostsAsync();
             if(getCosts.Code == Status.noDatafound)
                 return NotFound(getCosts);
+
+            if (getCosts.IsFailure)
+                return BadRequest(getCosts);
             
             return Ok(getCosts);
         }
@@ -34,8 +37,12 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> GetByIdCostAsync(int id)
         {
             var getCostId = await _cost.GetByIdCostAsync(id);
+
+            if (getCostId.Code == Status.noDatafound)
+                return NotFound(getCostId);
+
             if (getCostId.IsFailure)
-                return NotFound(cost);
+                return BadRequest(getCostId);
 
             return Ok(getCostId);
         }
@@ -87,6 +94,7 @@ namespace sales_management_api.Controllers
         {
             var rel = await _cost.GetRelCostPriceAsync(dateIni, dateEnd);
             return Ok(rel);
+
         }
     }
 }
