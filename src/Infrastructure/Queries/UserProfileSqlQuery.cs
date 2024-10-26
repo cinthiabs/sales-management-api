@@ -14,21 +14,5 @@
 
         internal const string QueryGetAllUserProfile = @"
         SELECT * FROM UserProfile(nolock)";
-
-        internal const string QueryUpdateUserProfile = @"
-        UPDATE pro
-        SET
-            pro.FirstName = @FirstName,
-            pro.LastName = @LastName,
-            pro.Phone = @Phone,
-            pro.Address = @Address,
-            pro.City = @City,
-            pro.State = @State,
-            pro.ZipCode = @ZipCode,
-            pro.DateEdit = @DateEdit
-        FROM UserProfile pro
-        INNER JOIN UserCredentials cre ON pro.UserId = cre.Id
-        WHERE cre.Username = @Username";
-
     }
 }

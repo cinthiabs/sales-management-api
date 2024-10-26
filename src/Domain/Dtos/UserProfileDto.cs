@@ -5,15 +5,16 @@ namespace Domain.Dtos
     public class UserProfileDto
     {
         [Required]
-        public string username { get; set; } = default!;
-        public string FirstName { get; set; } = default!;
-        public string LastName { get; set; } = default!;
-        public string Phone { get; set; } = default!;
-        public string Address { get; set; } = default!;
-        public string City { get; set; } = default!;
-        public string State { get; set; } = default!;
-        public string ZipCode { get; set; } = default!;
+        public string Username { get; set; } = default!;
+        public string? Image { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? Phone { get; set; } 
+        public string? Address { get; set; } 
+        public string? City { get; set; } 
+        public string? State { get; set; } 
+        public string? ZipCode { get; set; }
         [Required]
-        public string AccessLevel { get; set; } = default!;
+        public int AccessLevelId { get; set; } = default!;
     }
 }
