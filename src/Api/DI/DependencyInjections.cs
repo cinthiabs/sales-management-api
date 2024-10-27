@@ -7,6 +7,7 @@ namespace Api.DI
     {
         public static IServiceCollection AddPresentationDI(this IServiceCollection services)
         {
+            services.AddHttpClient();
             services.AddConfigurationData();
             services.AddConfigurationApp();
             return services;
