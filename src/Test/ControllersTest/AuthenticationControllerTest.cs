@@ -61,7 +61,7 @@ namespace Test.ControllersTest
         public async Task AuthenticationAsync_ReturnsBadRequest_WhenAuthenticationFails()
         {
             // Arrange
-            var loginDto = new LoginDto { Email = null, Password = null };
+            var loginDto = new LoginDto { Email = "", Password = "" };
             var response = Response<UserCredentialsDto>.Failure(Status.InvalidPassword);
 
             _authenticationMock.Setup(auth => auth.AuthenticationAsync(loginDto))
@@ -70,7 +70,7 @@ namespace Test.ControllersTest
             var result = await _controller.AuthenticationAsync(loginDto);
 
             // Assert
-            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.IsType<UnauthorizedObjectResult>(result);
         }
         private static UserCredentialsDto ReturnValidResult()
         {

@@ -23,7 +23,7 @@ namespace Infrastructure.Repositories
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 var zipCodeData = JsonSerializer.Deserialize<ZipCode>(jsonResponse);
 
-                return zipCodeData != null
+                return zipCodeData is not null
                     ? Response<ZipCode>.Success(zipCodeData)
                     : Response<ZipCode>.Failure(Status.InternalError);
             }

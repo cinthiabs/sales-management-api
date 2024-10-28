@@ -5,7 +5,6 @@ using Infrastructure.Connection;
 using Infrastructure.Interfaces;
 using Infrastructure.Queries;
 using Microsoft.Extensions.Configuration;
-using System.Net.Sockets;
 using System.Text;
 
 namespace Infrastructure.Repositories
@@ -49,6 +48,18 @@ namespace Infrastructure.Repositories
             {
                 sqlBuilder.Append("pro.Image = @Image, ");
                 parameters.Add("Image", profile.Image);
+            }
+
+            if (!string.IsNullOrEmpty(profile.Number))
+            {
+                sqlBuilder.Append("pro.Number = @Number, ");
+                parameters.Add("Number", profile.Number);
+            }
+
+            if (!string.IsNullOrEmpty(profile.Neighborhood))
+            {
+                sqlBuilder.Append("pro.Neighborhood = @Neighborhood, ");
+                parameters.Add("Neighborhood", profile.Neighborhood);
             }
 
             if (!string.IsNullOrEmpty(profile.FirstName))
