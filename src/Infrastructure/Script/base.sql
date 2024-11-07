@@ -102,3 +102,18 @@ CREATE TABLE Employee (
     DateCreate DATETIME NOT NULL DEFAULT GETDATE(),
     DateEdit DATETIME NULL
 );
+
+CREATE TABLE ProductCost (
+    Id INT PRIMARY KEY IDENTITY,
+	IdProduct INT NULL,
+    IdCost INT NULL,
+	TotalProductPrice DECIMAL(18,2) NOT NULL,
+    TotalQuantity int NOT NULL,
+    QuantityRequired INT NOT NULL,
+    IngredientCost DECIMAL(18,2) NOT NULL,
+	TotalProductCost DECIMAL(18,2),
+	DateCreate DATETIME NOT NULL DEFAULT GETDATE(),
+	DateEdit DATETIME NULL,
+    CONSTRAINT FK_ProductCost_Cost FOREIGN KEY (IdCost) REFERENCES Cost(Id),
+    CONSTRAINT FK_ProductCost_Product FOREIGN KEY (IdProduct) REFERENCES Product(Id)
+);
