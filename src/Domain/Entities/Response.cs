@@ -1,5 +1,6 @@
 ﻿using Domain.Enums;
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace Domain.Entities
 {
@@ -8,6 +9,7 @@ namespace Domain.Entities
         public bool IsSuccess { get; set; }
         public Status? Code { get; set; }
         public string? Message { get; set; }
+        [JsonIgnore]
         public bool IsFailure => !IsSuccess;
         public T[]? Data { get; set; }
 

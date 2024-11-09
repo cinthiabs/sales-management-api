@@ -23,7 +23,7 @@ namespace Api.Controllers
 
             return Ok(createdProductCost);
         }
-        [HttpPost("GetProductCostById/{id}")]
+        [HttpGet("GetProductCostById/{id}")]
         [ProducesResponseType(typeof(Response<ProductTotalCosts>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Response<>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -47,7 +47,5 @@ namespace Api.Controllers
 
             return Ok(getProductCost);
         }
-
-
     }
 }

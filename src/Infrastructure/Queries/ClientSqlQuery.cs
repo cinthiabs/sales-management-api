@@ -1,7 +1,7 @@
 namespace Infrastructure.Queries
 {
      internal static class ClientSqlQuery
-    {
+     {
         internal const string QueryCreateClient = @"
         INSERT INTO Client (Name, Phone, Location, Active, DateCreate)
         OUTPUT inserted.Id
@@ -32,5 +32,5 @@ namespace Infrastructure.Queries
         internal const string QueryGetClientByName = @"
         SELECT * FROM Client
         WHERE Name LIKE '%' + @Name + '%'";
-        }
+     }
 }
