@@ -7,5 +7,6 @@ namespace Application.Interfaces
     {
         Task<Response<ProductTotalCosts>> CreateProductCostAsync(ProductTotalCostDto productCostDto);
         Task<Response<ProductTotalCosts>> GetProductCostByIdAsync(int id);
+        Task<Response<ProductTotalCosts>> UpdateProductCostAsync(ProductTotalCostDto productCost, int id);
     }
 }

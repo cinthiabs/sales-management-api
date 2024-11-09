@@ -27,7 +27,7 @@ namespace Api.Controllers
         [ProducesResponseType(typeof(Response<ProductTotalCosts>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Response<>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetProductCostByIdAsync([FromBody] int id)
+        public async Task<IActionResult> GetProductCostByIdAsync([FromRoute] int id)
         {
             var getProductCost = await _productCost.GetProductCostByIdAsync(id);
             if (getProductCost.IsFailure)
@@ -35,6 +35,19 @@ namespace Api.Controllers
 
             return Ok(getProductCost);
         }
+        [HttpPut("UpdateProductCost/{id}")]
+        [ProducesResponseType(typeof(Response<ProductTotalCosts>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response<>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateProductCostAsync([FromBody] ProductTotalCostDto productCost, [FromRoute] int id)
+        {
+            var getProductCost = await _productCost.UpdateProductCostAsync(productCost,id);
+            if (getProductCost.IsFailure)
+                return BadRequest(getProductCost);
+
+            return Ok(getProductCost);
+        }
+
 
     }
 }

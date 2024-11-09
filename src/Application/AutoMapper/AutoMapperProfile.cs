@@ -8,26 +8,23 @@ namespace Application.AutoMapper
     {
         public AutoMapperProfile()
         {
-            CreateMap<Costs, CostsDto>();
-            CreateMap<CostsDto, Costs>();
+            CreateMap<Costs, CostsDto>().ReverseMap();
 
-            CreateMap<Products, ProductsDto>();
-            CreateMap<ProductsDto, Products>();
+            CreateMap<Products, ProductsDto>().ReverseMap();
 
-            CreateMap<Sales, SalesDto>();
-            CreateMap<SalesDto, Sales>();
+            CreateMap<Sales, SalesDto>().ReverseMap();
 
-            CreateMap<Clients, ClientDto>();
-            CreateMap<ClientDto, Clients>();
+            CreateMap<Clients, ClientDto>().ReverseMap();
 
-            CreateMap<UserCredentials, UserCredentialsDto>();
-            CreateMap<UserCredentialsDto, UserCredentials>();
+            CreateMap<UserCredentials, UserCredentialsDto>().ReverseMap();
 
-            CreateMap<UserProfile, UserProfileDto>();
-            CreateMap<UserProfileDto, UserProfile>();
+            CreateMap<UserProfile, UserProfileDto>().ReverseMap();
 
-            CreateMap<Login, LoginDto>();
-            CreateMap<LoginDto, Login>();
+            CreateMap<Login, LoginDto>().ReverseMap();
+
+            CreateMap<ProductTotalCosts, ProductTotalCostDto>().ReverseMap();
+
+            CreateMap<ProductCost, ProductCostDto>().ReverseMap();
 
             CreateMap<ZipCode, AddressDto>()
            .ForMember(dest => dest.ZipCode, opt => opt.MapFrom(src => src.cep))
@@ -41,7 +38,7 @@ namespace Application.AutoMapper
            .ForMember(dest => dest.Region, opt => opt.MapFrom(src => src.regiao))
            .ForMember(dest => dest.IbgeCode, opt => opt.MapFrom(src => src.ibge))
            .ForMember(dest => dest.GiaCode, opt => opt.MapFrom(src => src.gia));
-        
+
         }
     }
 }
