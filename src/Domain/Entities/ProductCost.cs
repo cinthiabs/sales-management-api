@@ -15,12 +15,13 @@ namespace Domain.Entities
         public DateTime DateCreate { get; set; } = DateTime.Now;
         public DateTime? DateEdit { get; set; }
     }
-    public class ProductTotalCostDto
+    public class ProductTotalCosts
     {
         public int Id { get; set; }
         public decimal ProductTotalCost { get; set; }
         public bool Active { get; set; }
         public DateTime DateCreate { get; set; } = DateTime.Now;
         public DateTime? DateEdit { get; set; }
+        public List<ProductCost> ProductCost { get; set; }
     }
 }

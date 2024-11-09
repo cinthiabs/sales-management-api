@@ -4,7 +4,6 @@ namespace Domain.Dtos
 {
     public class ProductCostDto
     {
-        public int Id { get; set; }
         public int? IdCost { get; set; }
         [Required]
         public decimal TotalProductPrice { get; set; }

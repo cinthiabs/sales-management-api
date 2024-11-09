@@ -17,6 +17,7 @@ namespace Application.DI
             services.AddScoped<IAuthentication, AuthenticationService>();
             services.AddScoped<IUserProfile, UserProfileService>();
             services.AddScoped<IZipCode, ZipCodeService>();
+            services.AddScoped<IProductCost,  ProductCostService>();
         }
     }
 }
