@@ -28,7 +28,7 @@ namespace Infrastructure.Repositories
                     {
                         transaction.Commit();
                         var getProductCost = await GetProductCostByIdAsync(idProductTotalCost);
-                        return Response<ProductTotalCosts>.Success(getProductCost.Data, Status.InsertSuccess);
+                        return Response<ProductTotalCosts>.Success(getProductCost.Data!, Status.InsertSuccess);
                     }
                 }
 
@@ -79,7 +79,7 @@ namespace Infrastructure.Repositories
             var productTotalCostDictionary = new Dictionary<int, ProductTotalCosts>();
 
             var productTotalCosts = await Connection.QueryAsync<ProductTotalCosts, ProductCost, ProductTotalCosts>(
-                ProductCostSqlQuery.QuerySelectProductCost,
+                ProductCostSqlQuery.QuerySelectProductCostID,
                 (pt, pc) =>
                 {
                     if (!productTotalCostDictionary.TryGetValue(pt.IdProductTotalCost, out var productTotalCostEntry))
@@ -110,6 +110,15 @@ namespace Infrastructure.Repositories
         public Task<Response<ProductTotalCosts>> UpdateProductCostAsync(ProductTotalCosts productCost, int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Response<ProductTotalCosts>> GetAllProductCostAsync()
+        {
+            var productTotalCost = await Connection.QueryAsync<ProductTotalCosts>(ProductCostSqlQuery.QuerySelectAllProductsCost);
+            if (!productTotalCost.Any())
+                return Response<ProductTotalCosts>.Failure(Status.noDatafound);
+
+            return Response<ProductTotalCosts>.Success(productTotalCost.ToArray());
         }
     }
 }

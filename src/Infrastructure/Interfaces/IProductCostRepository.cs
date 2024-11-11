@@ -6,6 +6,7 @@ namespace Infrastructure.Interfaces
     {
         Task<Response<ProductTotalCosts>> CreateProductTotalCostAsync(ProductTotalCosts productCost, int product);
         Task<Response<ProductTotalCosts>> GetProductCostByIdAsync(int id);
+        Task<Response<ProductTotalCosts>> GetAllProductCostAsync();
         Task<Response<ProductTotalCosts>> UpdateProductCostAsync(ProductTotalCosts productCost, int id);
     }
 }

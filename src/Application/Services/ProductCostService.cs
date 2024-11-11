@@ -21,7 +21,10 @@ namespace Application.Services
         {
             return await _productCostRepository.GetProductCostByIdAsync(id);
         }
-
+        public async Task<Response<ProductTotalCosts>> GetAllProductCostAsync()
+        {
+            return await _productCostRepository.GetAllProductCostAsync();
+        }
         public async Task<Response<ProductTotalCosts>> UpdateProductCostAsync(ProductTotalCostDto productCostDto, int id)
         {
             var mapProductCost = _mapper.Map<ProductTotalCosts>(productCostDto);
