@@ -2,9 +2,16 @@ using Api.DI;
 using Api.Middleware;
 using Application.AutoMapper;
 using Application.Settings;
+using Serilog;
+using Serilog.Formatting.Elasticsearch;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseSerilog((context, services, configuration) => configuration
+    .MinimumLevel.Information()
+    .Enrich.FromLogContext()
+    .WriteTo.Console(new ElasticsearchJsonFormatter())
+); 
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

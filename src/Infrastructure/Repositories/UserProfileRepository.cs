@@ -5,12 +5,14 @@ using Infrastructure.Connection;
 using Infrastructure.Interfaces;
 using Infrastructure.Queries;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System.Text;
 
 namespace Infrastructure.Repositories
 {
-    public class UserProfileRepository(IConfiguration configuration) : RepositoryBase(configuration), IUserProfileRepository
+    public class UserProfileRepository(IConfiguration configuration, ILogger<UserProfileRepository> logger) : RepositoryBase(configuration), IUserProfileRepository
     {
+        private readonly ILogger<UserProfileRepository> _logger = logger;
         public async Task<Response<UserProfile>> GetByUsernameProfileAsync(string username)
         {
             var parameters = new { username };

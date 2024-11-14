@@ -5,14 +5,19 @@ using Infrastructure.Connection;
 using Infrastructure.Interfaces;
 using Infrastructure.Queries;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System.Data;
 
 namespace Infrastructure.Repositories
 {
-    public class ProductCostRepository(IConfiguration configuration) : RepositoryBase(configuration), IProductCostRepository
+    public class ProductCostRepository(IConfiguration configuration, ILogger<UserProfileRepository> logger) : RepositoryBase(configuration), IProductCostRepository
     {
+        private readonly ILogger<UserProfileRepository> _logger = logger;
         public async Task<Response<ProductTotalCosts>> CreateProductTotalCostAsync(ProductTotalCosts productCost, int product)
         {
+            _logger.LogInformation("idProduct recebido: {id} ", product);
+            _logger.LogInformation("Detalhes do objeto productCost: {@productCost}", productCost);
+
             using var transaction = Connection.BeginTransaction();
             try
             {
@@ -76,6 +81,7 @@ namespace Infrastructure.Repositories
 
         public async Task<Response<ProductTotalCosts>> GetProductCostByIdAsync(int id)
         {
+            _logger.LogInformation("idProductTotalCost recebido: {id}", id);
             var productTotalCostDictionary = new Dictionary<int, ProductTotalCosts>();
 
             var productTotalCosts = await Connection.QueryAsync<ProductTotalCosts, ProductCost, ProductTotalCosts>(
