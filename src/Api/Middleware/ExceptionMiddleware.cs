@@ -23,7 +23,7 @@ namespace Api.Middleware
             {
                 context.Request.EnableBuffering(); 
                 var requestBody = await new StreamReader(context.Request.Body).ReadToEndAsync();
-                _logger.LogInformation("Request: {method} {url} {body}", context.Request.Method, context.Request.Path, requestBody);
+                _logger.LogInformation("Request: {method} Url: {url} Body: {body}", context.Request.Method, context.Request.Path, requestBody);
                 context.Request.Body.Position = 0; 
 
                 var originalResponseBodyStream = context.Response.Body;
@@ -34,7 +34,7 @@ namespace Api.Middleware
 
                 context.Response.Body.Seek(0, SeekOrigin.Begin);
                 var responseBody = await new StreamReader(context.Response.Body).ReadToEndAsync();
-                _logger.LogInformation("Response: {statusCode} {body}", context.Response.StatusCode, responseBody);
+                _logger.LogInformation("Response: {statusCode} Body: {body}", context.Response.StatusCode, responseBody);
                 context.Response.Body.Seek(0, SeekOrigin.Begin);
 
                 await responseBodyStream.CopyToAsync(originalResponseBodyStream);
