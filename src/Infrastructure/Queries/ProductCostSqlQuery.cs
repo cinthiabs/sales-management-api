@@ -3,19 +3,19 @@
     internal static class ProductCostSqlQuery
     {
         internal const string QueryCreateProductTotalCost = @"
-        INSERT INTO ProductTotalCost (TotalProductCost, Active)
+        INSERT INTO ProductTotalCost (TotalProductCost, IdProduct, Active)
         OUTPUT inserted.Id        
-        VALUES (@TotalProductCost, 1);";
+        VALUES (@TotalProductCost,@Product, 1);";
         
         internal const string QuerySelectAllProductsCost = @"
             SELECT pt.Id AS IdProductTotalCost,
             pt.TotalProductCost,
+            pt.IdProduct,
             pt.Active,
             pt.DateCreate,
             pt.DateEdit,
             pc.Id AS ProductCostId,
             pc.IdCost,
-            pc.IdProduct,
             pc.TotalProductPrice,
             pc.TotalQuantity,
             pc.QuantityRequired,
@@ -28,19 +28,19 @@
         1=1";
 
         internal const string QueryCreateProductCost = @"
-        INSERT INTO ProductCost (IdProductTotalCost, IdProduct, IdCost, TotalProductPrice, TotalQuantity, QuantityRequired, IngredientCost)
-        VALUES (@IdProductTotalCost, @IdProduct, @IdCost, @TotalProductPrice, @TotalQuantity, @QuantityRequired, @IngredientCost);";
+        INSERT INTO ProductCost (IdProductTotalCost, IdCost, TotalProductPrice, TotalQuantity, QuantityRequired, IngredientCost)
+        VALUES (@IdProductTotalCost, @IdCost, @TotalProductPrice, @TotalQuantity, @QuantityRequired, @IngredientCost);";
 
         internal const string QuerySelectProductCostID = @" 
             SELECT 
             pt.Id AS IdProductTotalCost,
+            pt.IdProduct,
             pt.TotalProductCost,
             pt.Active,
             pt.DateCreate,
             pt.DateEdit,
             pc.Id AS ProductCostId,
             pc.IdCost,
-            pc.IdProduct,
             pc.TotalProductPrice,
             pc.TotalQuantity,
             pc.QuantityRequired,

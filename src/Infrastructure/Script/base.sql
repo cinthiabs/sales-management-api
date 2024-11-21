@@ -106,7 +106,6 @@ CREATE TABLE Employee (
 CREATE TABLE ProductCost (
     Id INT PRIMARY KEY IDENTITY,
 	IdProductTotalCost INT,
-	IdProduct INT NULL,
     IdCost INT NULL,
 	TotalProductPrice DECIMAL(18,2) NOT NULL,
     TotalQuantity INT NOT NULL,
@@ -115,14 +114,15 @@ CREATE TABLE ProductCost (
 	DateCreate DATETIME NOT NULL DEFAULT GETDATE(),
 	DateEdit DATETIME NULL,
 	CONSTRAINT FK_ProductCost_ProductTotalCost FOREIGN KEY (IdProductTotalCost) REFERENCES ProductTotalCost(Id),
-    CONSTRAINT FK_ProductCost_Cost FOREIGN KEY (IdCost) REFERENCES Cost(Id),
-    CONSTRAINT FK_ProductCost_Product FOREIGN KEY (IdProduct) REFERENCES Product(Id)
+    CONSTRAINT FK_ProductCost_Cost FOREIGN KEY (IdCost) REFERENCES Cost(Id)
 );
 
 CREATE TABLE  ProductTotalCost(
     Id INT PRIMARY KEY IDENTITY,
+	IdProduct INT NULL,
 	TotalProductCost DECIMAL(18,2),
     Active BIT NOT NULL DEFAULT 1,
 	DateCreate DATETIME NOT NULL DEFAULT GETDATE(),
-	DateEdit DATETIME NULL
+	DateEdit DATETIME NULL,
+	CONSTRAINT FK_ProductCost_Product FOREIGN KEY (IdProduct) REFERENCES Product(Id)
 )

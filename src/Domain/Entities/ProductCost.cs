@@ -5,7 +5,6 @@ namespace Domain.Entities
     {
         public int ProductCostId { get; set; }
         public int IdProductTotalCost { get; set; }
-        public int? IdProduct { get; set; }
         public int? IdCost { get; set; }
         public decimal TotalProductPrice { get; set; }
         public int TotalQuantity { get; set; }
@@ -17,6 +16,7 @@ namespace Domain.Entities
     public class ProductTotalCosts
     {
         public int IdProductTotalCost { get; set; }
+        public int IdProduct { get; set; }
         public decimal TotalProductCost { get; set; }
         public bool Active { get; set; }
         public DateTime DateCreate { get; set; } = DateTime.Now;

@@ -21,7 +21,7 @@ namespace Infrastructure.Repositories
             using var transaction = Connection.BeginTransaction();
             try
             {
-                var idProductTotalCost = await Connection.ExecuteScalarAsync<int>(ProductCostSqlQuery.QueryCreateProductTotalCost, new { productCost.TotalProductCost },transaction);
+                var idProductTotalCost = await Connection.ExecuteScalarAsync<int>(ProductCostSqlQuery.QueryCreateProductTotalCost, new { productCost.TotalProductCost, product },transaction);
                 if (idProductTotalCost > 0)
                 {
                     var result = await CreateProductCostAsync(productCost.ProductCost, product, idProductTotalCost, transaction);
@@ -53,11 +53,9 @@ namespace Infrastructure.Repositories
             {
                 foreach (var cost in productCosts)
                 {
-                    cost.IdProduct = idProduct;
                     var parameters = new
                     {
                         idProductTotalCost,
-                        cost.IdProduct,
                         cost.IdCost,
                         cost.TotalProductPrice,
                         cost.TotalQuantity,
@@ -76,9 +74,7 @@ namespace Infrastructure.Repositories
             {
                 return Response<ProductCost>.Failure(Status.InsertFailure);
             }
-
         }
-
         public async Task<Response<ProductTotalCosts>> GetProductCostByIdAsync(int id)
         {
             _logger.LogInformation("idProductTotalCost recebido: {id}", id);
