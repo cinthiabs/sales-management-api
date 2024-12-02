@@ -78,7 +78,6 @@ CREATE TABLE UserProfile (
     Neighborhood NVARCHAR (255) NULL,
     City NVARCHAR(255) NULL,
     State NVARCHAR(255) NULL,
-    ZipCode NVARCHAR(10) NULL,
     DateCreate DATETIME NOT NULL DEFAULT GETDATE(),
     DateEdit DATETIME NULL,
     FOREIGN KEY (UserId) REFERENCES UserCredentials(Id),

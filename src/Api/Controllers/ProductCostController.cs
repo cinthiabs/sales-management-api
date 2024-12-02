@@ -1,12 +1,15 @@
 using Application.Interfaces;
 using Domain.Dtos;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [Route("api/v1")]
     [ApiController]
+    [Authorize("Bearer")]
+
     public class ProductCostController(IProductCost productCost) : ControllerBase
     {
         private readonly IProductCost _productCost = productCost;

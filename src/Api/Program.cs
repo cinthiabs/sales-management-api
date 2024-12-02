@@ -21,17 +21,14 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.UseCors("CorsPolicy");
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseAuthorization();
 
 app.MapControllers();
-
 
 app.Run();
