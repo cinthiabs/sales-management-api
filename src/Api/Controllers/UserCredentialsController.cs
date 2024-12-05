@@ -1,6 +1,7 @@
 using Application.Interfaces;
 using Domain.Dtos;
 using Domain.Entities;
+using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -18,6 +19,10 @@ namespace Api.Controllers
         public async Task<IActionResult> CreateUserAsync([FromBody] LoginDto loginDto)
         {
             var userCreated = await _user.CreateUserAsync(loginDto);
+
+            if (userCreated.IsFailure && userCreated.Code == Status.ConflitUser)
+                return Conflict(user);
+
             if (userCreated.IsFailure)
                 return BadRequest(userCreated);
 
