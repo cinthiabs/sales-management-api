@@ -11,5 +11,6 @@ namespace Infrastructure.Interfaces
         Task<Response<Clients>> GetClientsAsync();
         Task<Response<Clients>> GetByIdClientAsync(int id);
         Task<Clients> GetClientByNameAsync(string name);
+        Task<Response<IEnumerable<RelClients>>> GetRelClientsAsync(DateTime dateIni, DateTime dateEnd, int id = 0);
     }
 }

@@ -49,6 +49,11 @@ namespace Application.Services
             return await _clientRepository.GetClientsAsync();
         }
 
+        public async Task<Response<IEnumerable<RelClients>>> GetRelClientsAsync(DateTime dateIni, DateTime dateEnd, int id = 0)
+        {
+            return await _clientRepository.GetRelClientsAsync(dateIni, dateEnd, id);
+        }
+
         public async Task<Response<Clients>> UpdateClientAsync(ClientDto clientDto, int id)
         {
             var mapClient = _mapper.Map<Clients>(clientDto);

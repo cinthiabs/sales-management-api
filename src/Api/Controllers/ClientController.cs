@@ -80,6 +80,18 @@ namespace sales_management_api.Controllers
             
             return  Ok(clientDelete);
         }
-        
+        [HttpGet("GetRelClients")]
+        [ProducesResponseType(typeof(Response<IEnumerable<RelClients>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetRelClientsAsync(DateTime dateIni, DateTime dateEnd, int id = 0)
+        {
+            var clientDelete = await _client.GetRelClientsAsync(dateIni, dateEnd,id);
+            if (clientDelete.IsFailure)
+                return BadRequest(clientDelete);
+
+            return Ok(clientDelete);
+        }
+
     }
 }

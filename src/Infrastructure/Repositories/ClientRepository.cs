@@ -86,6 +86,29 @@ namespace Infrastructure.Repositories
             return Response<Clients>.Success(clients.ToArray());
         }
 
+        public async Task<Response<IEnumerable<RelClients>>> GetRelClientsAsync(DateTime dateIni, DateTime dateEnd, int id = 0)
+        {
+            var query = ClientSqlQuery.QuerySelectRelClients;
+            if (id > 0)
+                query += ClientSqlQuery.QuerySelectRelClientsById;
+
+            if (dateIni != DateTime.MinValue && dateEnd != DateTime.MinValue)
+                query += ClientSqlQuery.QuerySelectRelClientsByDate;
+            
+            var parameters = new
+            {
+                id = id > 0 ? id : (int?)null, 
+                dateIni = dateIni != DateTime.MinValue ? dateIni : (DateTime?)null,
+                dateEnd = dateEnd != DateTime.MinValue ? dateEnd : (DateTime?)null
+            };
+            var clients = await Connection.QueryAsync<RelClients>(query, parameters);
+
+            if (clients == null || !clients.Any())
+                return Response<IEnumerable<RelClients>>.Failure(Status.noDatafound);
+            return Response<IEnumerable<RelClients>>.Success(clients);
+        }
+
+
         public async Task<Response<Clients>> UpdateClientAsync(Clients client)
         {
            var parameters = new

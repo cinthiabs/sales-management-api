@@ -17,6 +17,18 @@ namespace Infrastructure.Queries
             DateEdit = @DateEdit
         WHERE
             Id = @Id;";
+        internal const string QuerySelectRelClients = @"
+        SELECT s.Name [ProductName], c.Name [ClientName], s.Quantity, s.Price, Pay, s.DateSale
+        FROM Sale S
+        INNER JOIN Client C on s.IdClient = c.Id
+        WHERE
+        1 = 1 ";
+
+        internal const string QuerySelectRelClientsById = @"
+        AND C.id =  @Id";
+
+        internal const string QuerySelectRelClientsByDate = @"
+        AND s.DateSale between @dateIni and @dateEnd";
 
         internal const string QuerySelectClients = @"
         SELECT * FROM Client";
