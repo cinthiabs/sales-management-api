@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces;
-using AutoMapper;
 using Domain.Dtos;
 using Domain.Entities;
 using Domain.Enums;
@@ -23,8 +22,11 @@ namespace sales_management_api.Controllers
         {
             var getSales = await _sale.GetSalesAsync();
             if(getSales.Code == Status.noDatafound)
+                return NotFound(getSales);
+
+            if (getSales.IsFailure)
                 return BadRequest(getSales);
-            
+
             return Ok(getSales);
         }
         
@@ -35,8 +37,11 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> GetByIdSaleAsync(int id)
         {
             var saleId = await _sale.GetByIdSaleAsync(id);
-            if (saleId.IsFailure)
+            if (saleId.Code == Status.noDatafound)
                 return NotFound(saleId);
+
+            if (saleId.IsFailure)
+                return BadRequest(saleId);
 
             return Ok(saleId);
         }
@@ -64,7 +69,10 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> UpdateSaleAsync([FromBody] SalesDto saleDto, int id)
         {
             var saleUpdate = await _sale.UpdateSaleAsync(saleDto, id);
-            if(saleUpdate.IsFailure)
+            if (saleUpdate.Code == Status.noDatafound)
+                return NotFound(saleUpdate);
+
+            if (saleUpdate.IsFailure)
                 return BadRequest(saleUpdate);
 
             return Ok(saleUpdate);
@@ -77,7 +85,10 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> DeleteSaleAsync(int id)
         {
             var saleDelete = await _sale.DeleteSaleAsync(id);
-            if(saleDelete.IsFailure)
+            if (saleDelete.Code == Status.noDatafound)
+                return NotFound(saleDelete);
+
+            if (saleDelete.IsFailure)
                 return BadRequest(saleDelete);
             
             return Ok(saleDelete);
