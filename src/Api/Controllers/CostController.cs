@@ -1,16 +1,12 @@
 ﻿using Application.Interfaces;
 using Domain.Dtos;
 using Domain.Entities;
-using Domain.Enums;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace sales_management_api.Controllers
 {
     [Route("api/v1")]
-    [ApiController]
-    [Authorize("Bearer")]
-    public class CostController(ICost cost) : ControllerBase
+    public class CostController(ICost cost) : ApiController
     {
         private readonly ICost _cost = cost;
 
@@ -21,13 +17,7 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> GetAllCostsAsync()
         {
             var getCosts = await _cost.GetCostsAsync();
-            if(getCosts.Code == Status.noDatafound)
-                return NotFound(getCosts);
-
-            if (getCosts.IsFailure)
-                return BadRequest(getCosts);
-            
-            return Ok(getCosts);
+            return Response(getCosts);
         }
 
         [HttpGet("GetByIdCost/{id}")]
@@ -37,14 +27,7 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> GetByIdCostAsync(int id)
         {
             var getCostId = await _cost.GetByIdCostAsync(id);
-
-            if (getCostId.Code == Status.noDatafound)
-                return NotFound(getCostId);
-
-            if (getCostId.IsFailure)
-                return BadRequest(getCostId);
-
-            return Ok(getCostId);
+            return Response(getCostId);
         }
 
         [HttpPost("CreateCost")]
@@ -54,10 +37,8 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> CreateCostAsync([FromBody] CostsDto costDto)
         {
             var costCreated = await _cost.CreateCostAsync(costDto);
-            if(costCreated.IsFailure)
-                return BadRequest(costCreated);
+            return Response(costCreated);
 
-            return Ok(costCreated);
         }
 
         [HttpPut("UpdateCost/{id}")]
@@ -67,10 +48,8 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> UpdateCostAsync([FromBody] CostsDto costDto, int id)
         {
             var costUpdated = await _cost.UpdateCostAsync(costDto, id);
-            if(costUpdated.IsFailure)
-                return BadRequest(costUpdated);
+            return Response(costUpdated);
 
-            return Ok(costUpdated);
         }
 
         [HttpDelete("DeleteCost/{id}")]
@@ -80,10 +59,8 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> DeleteCostAsync(int id)
         {
             var costDelete = await _cost.DeleteCostAsync(id);
-            if(costDelete.IsFailure)
-                return BadRequest(costDelete);
+            return Response(costDelete);
 
-            return Ok(costDelete);
         }
 
         [HttpGet("GetRelCostPrice")]

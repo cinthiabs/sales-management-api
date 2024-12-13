@@ -1,16 +1,12 @@
 ﻿using Application.Interfaces;
 using Domain.Dtos;
 using Domain.Entities;
-using Domain.Enums;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace sales_management_api.Controllers
 {
     [Route("api/v1")]
-    [ApiController]
-    [Authorize("Bearer")]
-    public class SaleController(ISale sale) : ControllerBase
+    public class SaleController(ISale sale) : ApiController
     {
         private readonly ISale _sale = sale;
 
@@ -21,13 +17,7 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> GetAllSalesAsync()
         {
             var getSales = await _sale.GetSalesAsync();
-            if(getSales.Code == Status.noDatafound)
-                return NotFound(getSales);
-
-            if (getSales.IsFailure)
-                return BadRequest(getSales);
-
-            return Ok(getSales);
+            return Response(getSales);   
         }
         
         [HttpGet("GetByIdSale/{id}")]
@@ -37,13 +27,8 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> GetByIdSaleAsync(int id)
         {
             var saleId = await _sale.GetByIdSaleAsync(id);
-            if (saleId.Code == Status.noDatafound)
-                return NotFound(saleId);
+            return Response(saleId);
 
-            if (saleId.IsFailure)
-                return BadRequest(saleId);
-
-            return Ok(saleId);
         }
 
         [HttpPost("CreateSale")]
@@ -53,13 +38,7 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> CreateSaleAsync([FromBody] SalesDto saleDto)
         {
             var saleCreated = await _sale.CreateSaleAsync(saleDto);
-            if(saleCreated.Code == Status.ConflitSale)
-                return Conflict(saleCreated);
-
-            if(saleCreated.IsFailure) 
-                return BadRequest(saleCreated);
-            
-            return Ok(saleCreated);
+            return Response(saleCreated);
         }
 
         [HttpPut("UpdateSale/{id}")]
@@ -69,13 +48,7 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> UpdateSaleAsync([FromBody] SalesDto saleDto, int id)
         {
             var saleUpdate = await _sale.UpdateSaleAsync(saleDto, id);
-            if (saleUpdate.Code == Status.noDatafound)
-                return NotFound(saleUpdate);
-
-            if (saleUpdate.IsFailure)
-                return BadRequest(saleUpdate);
-
-            return Ok(saleUpdate);
+            return Response(saleUpdate);
         }
 
         [HttpDelete("DeleteSale/{id}")]
@@ -85,13 +58,7 @@ namespace sales_management_api.Controllers
         public async Task<IActionResult> DeleteSaleAsync(int id)
         {
             var saleDelete = await _sale.DeleteSaleAsync(id);
-            if (saleDelete.Code == Status.noDatafound)
-                return NotFound(saleDelete);
-
-            if (saleDelete.IsFailure)
-                return BadRequest(saleDelete);
-            
-            return Ok(saleDelete);
+            return Response(saleDelete);
         }
 
         [HttpGet("GetRelQuantity")]

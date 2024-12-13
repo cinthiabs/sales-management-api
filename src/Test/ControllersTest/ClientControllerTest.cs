@@ -12,12 +12,12 @@ namespace Test.ControllersTest
     public class ClientControllerTest
     {
         private readonly Mock<IClient> _mockClient;
-        private readonly ClientController _controller;
+        private readonly BaseController _controller;
 
         public ClientControllerTest()
         {
             _mockClient = new Mock<IClient>();
-            _controller = new ClientController(_mockClient.Object);
+            _controller = new BaseController(_mockClient.Object);
         }
 
         [Fact]
