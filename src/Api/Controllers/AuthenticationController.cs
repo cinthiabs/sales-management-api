@@ -4,12 +4,12 @@ using Domain.Dtos;
 using Domain.Entities;
 using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
+using sales_management_api.Controllers;
 
 namespace Api.Controllers
 {
-    [ApiController]
     [Route("api/v1")]
-    public class AuthenticationController(IAuthentication authentication) : ControllerBase
+    public class AuthenticationController(IAuthentication authentication) : ApiController
     {
         private readonly IAuthentication _authentication = authentication;
 
@@ -20,16 +20,7 @@ namespace Api.Controllers
         public async Task<IActionResult> AuthenticationAsync([FromBody] LoginDto loginDto)
         {
             var user = await _authentication.AuthenticationAsync(loginDto);
-            if (user.IsFailure && user.Code == Status.noDatafound )
-                return NotFound(user);
-
-            if (user.IsFailure && user.Code == Status.InvalidPassword)
-                return Unauthorized(user);
-
-            if (user.IsFailure)
-                return BadRequest(user);
-
-            return Ok(user);
+            return Response(user);
         }
     }
 }

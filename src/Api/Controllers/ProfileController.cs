@@ -1,17 +1,13 @@
 using Application.Interfaces;
-using AutoMapper;
 using Domain.Dtos;
 using Domain.Entities;
-using Domain.Enums;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using sales_management_api.Controllers;
 
 namespace Api.Controllers
 {
     [Route("api/v1")]
-    [ApiController]
-    [Authorize("Bearer")]
-    public class ProfileController(IUserProfile userProfile) : ControllerBase
+    public class ProfileController(IUserProfile userProfile) : ApiController
     {
         private readonly IUserProfile _userProfile = userProfile;
 
@@ -22,10 +18,7 @@ namespace Api.Controllers
         public async Task<IActionResult> GetAllUserProfileAsync()
         {
             var getUserProfile = await _userProfile.GetAllUserProfileAsync();
-            if (getUserProfile.Code == Status.noDatafound)
-                return NotFound(getUserProfile);
-
-            return Ok(getUserProfile);
+            return Response(getUserProfile);
         }
 
         [HttpGet("GetByUsernameProfile/{Username}")]
@@ -35,10 +28,7 @@ namespace Api.Controllers
         public async Task<IActionResult> GetByUsernameProfileAsync(string Username)
         {
             var profileId = await _userProfile.GetByUsernameProfileAsync(Username);
-            if (profileId.IsFailure)
-                return NotFound(profileId);
-
-            return Ok(profileId);
+            return Response(profileId);
         }
 
         [HttpPut("UpdateUserProfile/{Username}")]
@@ -47,12 +37,8 @@ namespace Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateUserProfileAsync([FromBody] UserProfileDto userDto, string Username)
         {
-
             var userUpdated = await _userProfile.UpdateUserProfileAsync(userDto, Username);
-            if (userUpdated.IsFailure)
-                return BadRequest(userUpdated);
-
-            return Ok(userUpdated);
+            return Response(userUpdated);
         }
     }
 }

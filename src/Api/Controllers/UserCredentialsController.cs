@@ -1,14 +1,13 @@
 using Application.Interfaces;
 using Domain.Dtos;
 using Domain.Entities;
-using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
+using sales_management_api.Controllers;
 
 namespace Api.Controllers
 {
     [Route("api/v1")]
-    [ApiController]
-    public class UserCredentialsController(IUser user) : ControllerBase
+    public class UserCredentialsController(IUser user) : ApiController
     {
         private readonly IUser _user = user;
 
@@ -19,14 +18,7 @@ namespace Api.Controllers
         public async Task<IActionResult> CreateUserAsync([FromBody] LoginDto loginDto)
         {
             var userCreated = await _user.CreateUserAsync(loginDto);
-
-            if (userCreated.IsFailure && userCreated.Code == Status.ConflitUser)
-                return Conflict(user);
-
-            if (userCreated.IsFailure)
-                return BadRequest(userCreated);
-
-            return Ok(userCreated);
+            return Response(userCreated);
         }
     }
 }

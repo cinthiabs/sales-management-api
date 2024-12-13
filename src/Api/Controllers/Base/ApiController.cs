@@ -21,6 +21,7 @@ namespace sales_management_api.Controllers
                 Status.ConflitProduct => Conflict(response),
                 Status.ConflitUser => Conflict(response),
                 Status.InvalidPassword => Unauthorized(response),
+                Status.UnableToImportFile => BadRequest(response),
                 _ when response.IsFailure => BadRequest(response),
                 _ => Ok(response)
             };

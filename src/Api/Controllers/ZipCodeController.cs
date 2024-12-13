@@ -1,14 +1,13 @@
 using Application.Interfaces;
 using Domain.Dtos;
 using Domain.Entities;
-using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
+using sales_management_api.Controllers;
 
 namespace Api.Controllers
 {
-    [ApiController]
     [Route("api/v1")]
-    public class ZipCodeController(IZipCode zipcode) : ControllerBase
+    public class ZipCodeController(IZipCode zipcode) : ApiController
     {
         private readonly IZipCode _zipcode = zipcode;
 
@@ -18,14 +17,8 @@ namespace Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetZipCodeAsync([FromRoute] string zipcode)
         {
-            var user = await _zipcode.GetZipCodeAsync(zipcode);
-            if (user.IsFailure && user.Code == Status.noDatafound )
-                return NotFound(user);
-
-            if (user.IsFailure)
-                return BadRequest(user);
-
-            return Ok(user);
+            var zip = await _zipcode.GetZipCodeAsync(zipcode);
+            return Response(zip);
         }
     }
 }

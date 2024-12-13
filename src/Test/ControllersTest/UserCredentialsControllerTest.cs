@@ -46,7 +46,7 @@ namespace Test.ControllersTest
             var result = await _controller.CreateUserAsync(loginDto);
 
             // Assert
-            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            var badRequestResult = Assert.IsType<UnauthorizedObjectResult>(result);
             var returnValue = Assert.IsType<Response<bool>>(badRequestResult.Value);
             Assert.False(returnValue.IsSuccess);
         }
