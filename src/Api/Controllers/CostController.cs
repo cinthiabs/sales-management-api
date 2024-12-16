@@ -1,11 +1,13 @@
 ﻿using Application.Interfaces;
 using Domain.Dtos;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace sales_management_api.Controllers
 {
     [Route("api/v1")]
+    [Authorize("Bearer")]
     public class CostController(ICost cost) : ApiController
     {
         private readonly ICost _cost = cost;

@@ -17,10 +17,11 @@ namespace Domain.Entities
     {
         public int IdProductTotalCost { get; set; }
         public int IdProduct { get; set; }
+        public string? ProductName { get; set; }
         public decimal TotalProductCost { get; set; }
         public bool Active { get; set; }
         public DateTime DateCreate { get; set; } = DateTime.Now;
         public DateTime? DateEdit { get; set; }
-        public List<ProductCost> ProductCost { get; set; }
+        public List<ProductCost> ProductCost { get; set; } = new List<ProductCost>();
     }
 }

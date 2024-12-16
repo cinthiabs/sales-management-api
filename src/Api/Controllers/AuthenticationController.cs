@@ -1,14 +1,15 @@
 using Application.Interfaces;
-using AutoMapper;
 using Domain.Dtos;
 using Domain.Entities;
-using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using sales_management_api.Controllers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
     [Route("api/v1")]
+    [AllowAnonymous]
+    [Authorize("Bearer")]
     public class AuthenticationController(IAuthentication authentication) : ApiController
     {
         private readonly IAuthentication _authentication = authentication;

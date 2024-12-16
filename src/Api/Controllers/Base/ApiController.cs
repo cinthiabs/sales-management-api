@@ -1,12 +1,10 @@
 using Domain.Entities;
 using Domain.Enums;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace sales_management_api.Controllers
 {
     [ApiController]
-    [Authorize("Bearer")]
     public abstract class ApiController : ControllerBase
     {
         protected IActionResult Response<T>(Response<T> response)

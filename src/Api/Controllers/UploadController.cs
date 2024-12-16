@@ -1,9 +1,11 @@
 ﻿using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace sales_management_api.Controllers
 {
     [Route("api/v1")]
+    [Authorize("Bearer")]
     public class UploadController(IUpload upload) : ApiController
     {
         private readonly IUpload _upload = upload;

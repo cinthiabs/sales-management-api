@@ -1,11 +1,13 @@
 ﻿using Application.Interfaces;
 using Domain.Dtos;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace sales_management_api.Controllers
 {
     [Route("api/v1")]
+    [Authorize("Bearer")]
     public class ProductController(IProduct product) : ApiController
     {
         private readonly IProduct _product = product;

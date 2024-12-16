@@ -11,6 +11,7 @@
             SELECT pt.Id AS IdProductTotalCost,
             pt.TotalProductCost,
             pt.IdProduct,
+	        p.Name as ProductName,
             pt.Active,
             pt.DateCreate,
             pt.DateEdit,
@@ -22,6 +23,7 @@
             pc.IngredientCost
         FROM 
             ProductTotalCost pt
+        INNER JOIN Product p on pt.IdProduct = p.Id
         LEFT JOIN 
             ProductCost pc ON pt.Id = pc.id
         WHERE 
@@ -33,24 +35,26 @@
 
         internal const string QuerySelectProductCostID = @" 
             SELECT 
-            pt.Id AS IdProductTotalCost,
-            pt.IdProduct,
-            pt.TotalProductCost,
-            pt.Active,
-            pt.DateCreate,
-            pt.DateEdit,
-            pc.Id AS ProductCostId,
-            pc.IdCost,
-            pc.TotalProductPrice,
-            pc.TotalQuantity,
-            pc.QuantityRequired,
-            pc.IngredientCost
-        FROM 
-            ProductTotalCost pt
-        LEFT JOIN 
-            ProductCost pc ON pt.Id = pc.IdProductTotalCost
-        WHERE 
-        1=1
-        AND pt.Id = @IdProductTotalCost;";
+                pt.Id AS IdProductTotalCost,
+                pt.IdProduct,
+	            p.Name as ProductName,
+                pt.TotalProductCost,
+                pt.Active,
+                pt.DateCreate,
+                pt.DateEdit,
+                pc.Id AS ProductCostId,
+                pc.IdCost,
+                pc.TotalProductPrice,
+                pc.TotalQuantity,
+                pc.QuantityRequired,
+                pc.IngredientCost
+            FROM 
+                ProductTotalCost pt
+            INNER JOIN Product p on pt.IdProduct = p.Id
+            LEFT JOIN 
+                ProductCost pc ON pt.Id = pc.IdProductTotalCost
+            WHERE 
+            1=1
+            AND pt.Id = @IdProductTotalCost;";
     }
 }

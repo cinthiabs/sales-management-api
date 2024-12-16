@@ -1,12 +1,15 @@
 using Application.Interfaces;
 using Domain.Dtos;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using sales_management_api.Controllers;
 
 namespace Api.Controllers
 {
     [Route("api/v1")]
+    [Authorize("Bearer")]
+
     public class ZipCodeController(IZipCode zipcode) : ApiController
     {
         private readonly IZipCode _zipcode = zipcode;
