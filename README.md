@@ -152,7 +152,7 @@ To access the endpoints, you first need to create a user and authenticate.
   ]
 }
 ```
-
+For more information, read my article on how to test authentication with JWT: https://dev.to/cinthiabs/how-to-test-authentication-jwt-on-thunder-client-3mg3
 <h2 id="tables">📊 Tables</h2>
 
 To run, you will need to configure your database connection in the <b>appsettings.json</b> file in the API. After that, run the database script in the Infrastructure/Script/base.sql folder.
