@@ -55,12 +55,12 @@ In this project, you can run dotnet run and navigate to http://localhost:5284.
 dotnet run
 ```
 
-<h2 id="routes">API Endpoints</h2>
+<h2 id="routes">📍API Endpoints</h2>
 
 
 | Route               | Description                                          
 |----------------------|-----------------------------------------------------
-| <kbd>POST /Authentication</kbd>     | authenticate user for API access [request details](#post-auth-detail)
+| <kbd>POST /Authentication</kbd>     | authenticate user for API access 
 | <kbd>GET /GetAllClients</kbd>     | List all registered clients
 | <kbd>GET /GetByIdClient/{id}</kbd>     | List filtered client
 | <kbd>POST /CreateClient</kbd>     | Create client registration 
@@ -152,6 +152,8 @@ To access the endpoints, you first need to create a user and authenticate.
 }
 ```
 
-<h2 id="tables">Tables</h2>
+<h2 id="tables">📊 Tables</h2>
 
-To run, you will need to configure your database connection in the <b>appsettings.json</b> file in the API. After that, run the database script in the Infrastructure/Script/base.sql folder
+To run, you will need to configure your database connection in the <b>appsettings.json</b> file in the API. After that, run the database script in the Infrastructure/Script/base.sql folder.
+
+![Tables](src/Infrastructure/Script/tables.png)
