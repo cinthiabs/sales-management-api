@@ -8,7 +8,6 @@ using sales_management_api.Controllers;
 namespace Api.Controllers
 {
     [Route("api/v1")]
-    [Authorize("Bearer")]
     public class UserCredentialsController(IUser user) : ApiController
     {
         private readonly IUser _user = user;
