@@ -20,9 +20,10 @@ Sales Management Api💻</h1>
 - SQL Server 
 - Unit Test with XUnit
 - Dapper
+- AutoMapper
 - JWT Authentication
 - Dependency Injection
-- Clean Artitetura
+- Clean Architecture
 - Padrão repository
 - Middleware, Serilog
 - Sonar Cloud
@@ -66,13 +67,13 @@ dotnet run
 | <kbd>POST /CreateClient</kbd>     | Create client registration 
 | <kbd>PUT /UpdateClient/{id}</kbd>     | Update client registration 
 | <kbd>DELETE /DeleteClient/{id}</kbd>     | Delete client registration 
-| <kbd>GET /GetRelClients</kbd>     | fazer 
+| <kbd>GET /GetRelClients</kbd>     | Generate a list of sales by client 
 | <kbd>GET /GetAllCosts</kbd>     | List all registered costs
 | <kbd>GET /GetByIdCost/{id}</kbd>     | List filtered cost
 | <kbd>POST /CreateCost</kbd>     | Create cost registration 
 | <kbd>PUT /UpdateCost/{id}</kbd>     | Update cost registration 
 | <kbd>DELETE /DeleteCost/{id}</kbd>     | Delete cost registration 
-| <kbd>GET /GetRelCostPrice</kbd>     | fazer
+| <kbd>GET /GetRelCostPrice</kbd>     | Generate a list of costs
 | <kbd>GET /GetAllProducts</kbd>     | List all registered products
 | <kbd>GET /GetByIdProduct/{id}</kbd>     | List filtered product
 | <kbd>POST /CreateProduct</kbd>     | Create product registration 
@@ -90,7 +91,7 @@ dotnet run
 | <kbd>POST /CreateSale</kbd>     | Create sale registration 
 | <kbd>PUT /UpdateSale/{id}</kbd>     | Update sale registration 
 | <kbd>DELETE /DeleteSale/{id}</kbd>     | Delete sale registration
-| <kbd>GET /GetRelQuantity</kbd>     | fazer
+| <kbd>GET /GetRelQuantity</kbd>     | Generate a list of sales quantities
 | <kbd>POST /UploadExcel</kbd>     | import excel spreadsheet with sales and costs in batch
 | <kbd>POST /CreateUser</kbd>     | Create user registration 
 | <kbd>POST /GetZipCode/{zipcode}</kbd>     | Search zip code from external api
