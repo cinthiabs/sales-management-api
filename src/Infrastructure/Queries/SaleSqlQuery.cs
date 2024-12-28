@@ -16,6 +16,8 @@
             Quantity = @Quantity,
             Price = @Price,
             Pay = @Pay,
+            IdProduct = @IdProduct,
+            IdClient = @IdClient,
             DateEdit = @DateEdit
         WHERE
             Id = @Id;";
@@ -35,11 +37,11 @@
         SELECT * FROM Sale
         WHERE 
         DateSale = @DateSale 
-        and Price = @Price  
-        and Quantity = @Quantity
-        and Name = @Name
-        and (@IdProduct IS NULL OR IdProduct = @IdProduct)
-		and (@Details IS NULL OR Details = @Details)";
+        AND Price = @Price  
+        AND Quantity = @Quantity
+        AND Name = @Name
+        AND (@IdProduct IS NULL OR IdProduct = @IdProduct)";
+
 
         internal const string GetRelQuantity = @"
             SELECT [Name], 

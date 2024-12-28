@@ -101,6 +101,8 @@ namespace Infrastructure.Repositories
                 sale.Details,
                 sale.Quantity,
                 sale.Pay,
+                sale.IdProduct,
+                sale.IdClient,
                 sale.DateSale,
                 @DateEdit = DateTime.Now
                 
@@ -122,11 +124,19 @@ namespace Infrastructure.Repositories
                 sale.Name,
                 sale.Price,
                 IdProduct = sale.IdProduct.HasValue ? (object)sale.IdProduct.Value : DBNull.Value,
-                Details = string.IsNullOrEmpty(sale.Details) ? (object)DBNull.Value : sale.Details,
                 sale.Quantity,
+                sale.Details,
                 sale.DateSale
             };
-            var result = await Connection.QueryFirstOrDefaultAsync<Sales>(SaleSqlQuery.QueryBySaleParameters, parameters);
+
+            string query = SaleSqlQuery.QueryBySaleParameters;
+
+            if (string.IsNullOrEmpty(sale.Details))
+                query += " AND (Details IS NULL)";
+            else
+                query += " AND Details = @Details";
+
+            var result = await Connection.QueryFirstOrDefaultAsync<Sales>(query, parameters);
             return result ?? new Sales { Name = "" };
         }
 
