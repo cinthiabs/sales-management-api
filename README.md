@@ -2,7 +2,7 @@
 Sales Management Api💻</h1>
 
 <p align="center">
- <a href="#tech">Technologies</a> • 
+ <a href="#technologies">Technologies</a> • 
  <a href="#started">Getting Started</a> • 
  <a href="#routes">API Endpoints</a> •
  <a href="#tables">Tables</a>
@@ -24,7 +24,7 @@ Sales Management Api💻</h1>
 - JWT Authentication
 - Dependency Injection
 - Clean Architecture
-- Padrão repository
+- Repository Pattern
 - Middleware, Serilog
 - Sonar Cloud
 - Docker
@@ -152,9 +152,14 @@ To access the endpoints, you first need to create a user and authenticate.
   ]
 }
 ```
-For more information, read my article on how to test authentication with JWT: https://dev.to/cinthiabs/how-to-test-authentication-jwt-on-thunder-client-3mg3
+For more information, read my article on how to test authentication with JWT: [How to Test Authentication JWT - Dev Community](https://dev.to/cinthiabs/how-to-test-authentication-jwt-on-thunder-client-3mg3)
+
 <h2 id="tables">📊 Tables</h2>
 
 To run, you will need to configure your database connection in the <b>appsettings.json</b> file in the API. After that, run the database script in the Infrastructure/Script/base.sql folder.
 
 ![Tables](src/Infrastructure/Script/tables.png)
+
+___
+
+<p align="center">Made with ❤️ by <a href="https://www.linkedin.com/in/cinthiabs" target="_blank">Cinthia Barbosa</a></p>
