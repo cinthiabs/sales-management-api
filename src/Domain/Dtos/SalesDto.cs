@@ -11,7 +11,7 @@ namespace Domain.Dtos
         public DateTime DateSale { get; set; }
         [Required]
         public string Name { get; set; } = default!;
-        public string Details { get; set; } = default!;
+        public string? Details { get; set; }
         [Required]
         public int Quantity { get; set; }
         [Required]

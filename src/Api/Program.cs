@@ -19,6 +19,7 @@ builder.Services.AddSwaggerDocumentation(builder.Configuration);
 builder.Services.AddCorsProject();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
+
 var app = builder.Build();
 
 app.UseSwagger();

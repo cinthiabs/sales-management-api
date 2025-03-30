@@ -15,8 +15,8 @@ namespace Infrastructure.Repositories
         private readonly ILogger<UserProfileRepository> _logger = logger;
         public async Task<Response<ProductTotalCosts>> CreateProductTotalCostAsync(ProductTotalCosts productCost, int product)
         {
-            _logger.LogInformation("idProduct recebido: {id} ", product);
-            _logger.LogInformation("Detalhes do objeto productCost: {@productCost}", productCost);
+            _logger.LogInformation("idProduct recebido: {Id} ", product);
+            _logger.LogInformation("Detalhes do objeto productCost: {@ProductCost}", productCost);
 
             using var transaction = Connection.BeginTransaction();
             try
@@ -77,7 +77,7 @@ namespace Infrastructure.Repositories
         }
         public async Task<Response<ProductTotalCosts>> GetProductCostByIdAsync(int id)
         {
-            _logger.LogInformation("idProductTotalCost recebido: {id}", id);
+            _logger.LogInformation("idProductTotalCost recebido: {Id}", id);
             var productTotalCostDictionary = new Dictionary<int, ProductTotalCosts>();
 
             var productTotalCosts = await Connection.QueryAsync<ProductTotalCosts, ProductCost, ProductTotalCosts>(

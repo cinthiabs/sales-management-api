@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{44AAF6F8-A2C5-41AB-BDC4-28A453BDA66B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{A060CAA1-05BF-442D-B47C-89DE018F2593}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{A060CAA1-05BF-442D-B47C-89DE018F2593}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

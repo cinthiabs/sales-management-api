@@ -3,14 +3,16 @@ using AutoMapper;
 using Domain.Dtos;
 using Domain.Entities;
 using Domain.Enums;
+using Infrastructure.Cache;
 using Infrastructure.Interfaces;
 
 namespace Application.Services
 {
-    public class ClientService(IClientRepository clientRepository, IMapper mapper) : IClient
+    public class ClientService(IClientRepository clientRepository, ICacheService cacheService, IMapper mapper) : IClient
     {
         private readonly IClientRepository _clientRepository = clientRepository;
         private readonly IMapper _mapper = mapper;
+        private readonly ICacheService _cacheService = cacheService;
 
         public async Task<Response<Clients>> CreateClientAsync(ClientDto clientDto)
         {
@@ -36,9 +38,16 @@ namespace Application.Services
 
         public async Task<Response<Clients>> GetByIdClientAsync(int id)
         {
-            return await _clientRepository.GetByIdClientAsync(id);
-        }
+            var getCache = await _cacheService.GetAsync<Response<Clients>>(id.ToString());
+            if (getCache != null)
+            {
+                return getCache;
+            }
+            var getClient = await _clientRepository.GetByIdClientAsync(id);
+            await _cacheService.SetAsync(id.ToString(), getClient);
 
+            return getClient;
+        }
         public async Task<Clients> GetClientByNameAsync(string name)
         {
             return await _clientRepository.GetClientByNameAsync(name);
