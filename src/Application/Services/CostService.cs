@@ -3,14 +3,18 @@ using AutoMapper;
 using Domain.Dtos;
 using Domain.Entities;
 using Domain.Enums;
+using Infrastructure.Cache;
 using Infrastructure.Interfaces;
+using Infrastructure.Repositories;
+using System.Net;
 
 namespace Application.Services
 {
-    public class CostService(ICostRepository costRepository, IMapper mapper) : ICost
+    public class CostService(ICostRepository costRepository, ICacheService cacheService, IMapper mapper) : ICost
     {
         private readonly ICostRepository _costRepository = costRepository;
         private readonly IMapper _mapper = mapper;
+        private readonly ICacheService _cacheService = cacheService;
 
         public async Task<Response<Costs>> CreateCostAsync(CostsDto costDto)
         {
@@ -49,9 +53,19 @@ namespace Application.Services
         {
             return await _costRepository.GetByIdCostAsync(id);
         }
+
         public async Task<Response<Costs>> GetCostsAsync()
         {
-            return await _costRepository.GetCostsAsync();
+            string key = "get_cost";
+            
+            var getCache = await _cacheService.GetAsync<Response<Costs>>(key);
+            if(getCache is not null)
+                return getCache;
+
+            var getCost = await _costRepository.GetCostsAsync();
+            await _cacheService.SetAsync(key, getCost);
+
+            return getCost;
         }
 
         public async Task<IEnumerable<RelPriceCost>> GetRelCostPriceAsync(DateTime dateIni, DateTime dateEnd)

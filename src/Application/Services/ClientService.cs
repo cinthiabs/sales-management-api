@@ -39,10 +39,9 @@ namespace Application.Services
         public async Task<Response<Clients>> GetByIdClientAsync(int id)
         {
             var getCache = await _cacheService.GetAsync<Response<Clients>>(id.ToString());
-            if (getCache != null)
-            {
+            if (getCache is not null)
                 return getCache;
-            }
+ 
             var getClient = await _clientRepository.GetByIdClientAsync(id);
             await _cacheService.SetAsync(id.ToString(), getClient);
 
@@ -54,13 +53,28 @@ namespace Application.Services
         }
 
         public async Task<Response<Clients>> GetClientsAsync()
-        { 
-            return await _clientRepository.GetClientsAsync();
+        {
+            string cacheKey = "clients_list";
+
+            var getCache = await _cacheService.GetAsync<Response<Clients>>(cacheKey);
+            if (getCache is not null)
+                return getCache;
+
+            var getClients = await _clientRepository.GetClientsAsync();
+            await _cacheService.SetAsync(cacheKey, getClients);
+
+            return getClients;
         }
 
         public async Task<Response<IEnumerable<RelClients>>> GetRelClientsAsync(DateTime dateIni, DateTime dateEnd, int id = 0)
         {
-            return await _clientRepository.GetRelClientsAsync(dateIni, dateEnd, id);
+            var getCache = await _cacheService.GetAsync<Response<IEnumerable<RelClients>>>(id.ToString());
+            if (getCache is not null)
+                return getCache; 
+
+            var getRelClients =  await _clientRepository.GetRelClientsAsync(dateIni, dateEnd, id);
+            await _cacheService.SetAsync(id.ToString(), getRelClients);
+            return getRelClients;
         }
 
         public async Task<Response<Clients>> UpdateClientAsync(ClientDto clientDto, int id)
